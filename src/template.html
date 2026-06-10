@@ -24,7 +24,13 @@
   --fam-base:#5c5446;   --on-base:#fdf6e6;
 }
 *{box-sizing:border-box}
-html,body{height:100%;overflow-x:hidden;overscroll-behavior:none}
+/* L'enveloppe applicative occupe exactement la hauteur de la fenêtre
+   (.page = 100dvh) ; le défilement réel se fait dans les panneaux
+   internes (.detail, .sidebar). On verrouille donc le body sur les deux
+   axes : sans cela, un overflow-x:hidden seul ferait calculer overflow-y
+   à « auto », transformant le body en conteneur défilable — d'où, sur
+   iOS, ce léger glissement horizontal ET vertical qui revient en place. */
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 body{
   margin:0;background:var(--paper);color:var(--ink);
   font-family:"Spectral",Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased;
