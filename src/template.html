@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'arbre des sauces — Généalogie des sauces françaises</title>
+<!-- Polices auto-hébergées (SIL OFL), injectées au build en base64 depuis
+     assets/fonts/ -->
+<style id="sauces-fonts">/* @font-face injectés au build */</style>
+<style>
+:root{
+  --paper:#f4ecdb;
+  --paper-2:#efe5d0;
+  --ink:#2c271f;
+  --ink-soft:#6f6555;
+  --card:#fbf6ea;
+  --rule:#b9a87f;
+  --rule-soft:#d8c9ab;
+  --fam-blanc:#cdae74;  --on-blanc:#463413;
+  --fam-blond:#bd8a2e;  --on-blond:#3f2e08;
+  --fam-brun:#6f4421;   --on-brun:#fdf6e6;
+  --fam-holl:#f0ce5b;   --on-holl:#4a3a08;
+  --fam-tom:#b0402a;    --on-tom:#fdf6e6;
+  --fam-base:#5c5446;   --on-base:#fdf6e6;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Spectral",Georgia,serif;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+
+/* ---------- App shell ---------- */
+.page{height:100vh;height:100dvh;display:flex;flex-direction:column}
+.topbar{
+  display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;
+  padding:16px 26px;border-bottom:1px solid var(--rule);
+  background:
+    radial-gradient(80% 180% at 0% 0%, rgba(216,163,22,.10), transparent 60%),
+    var(--paper-2);
+}
+.topbar .brand{display:flex;align-items:baseline;gap:14px}
+.topbar h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:1.95rem;margin:0;line-height:1}
+.topbar h1 em{font-style:italic;color:var(--fam-brun)}
+.topbar .sub{font-size:.86rem;color:var(--ink-soft);font-style:italic;margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:5px 15px;margin:0 0 0 auto;padding:0;list-style:none}
+.legend li{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--ink-soft)}
+.legend .dot{width:11px;height:11px;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+
+.split{flex:1;display:flex;min-height:0}
+
+/* ---------- Sidebar / explorer ---------- */
+.sidebar{
+  width:344px;flex-shrink:0;overflow-y:auto;
+  padding:20px 14px 30px;border-right:1px solid var(--rule);
+  background:linear-gradient(180deg, #f6efe0, #f1e8d6);
+}
+.sec-cap{
+  font-family:"Spectral",serif;text-transform:uppercase;letter-spacing:.13em;
+  font-size:.68rem;font-weight:600;color:var(--rule);
+  margin:18px 8px 8px;
+}
+.sec-cap:first-child{margin-top:2px}
+
+.tree,.tchildren{list-style:none;margin:0;padding:0}
+.tchildren{margin-left:13px;padding-left:11px;border-left:1px solid var(--rule-soft)}
+.tnode.collapsed>.tchildren{display:none}
+.trow{
+  display:flex;align-items:center;gap:7px;
+  padding:4px 8px;border-radius:7px;cursor:pointer;
+  font-size:.93rem;color:var(--ink);user-select:none;
+  transition:background .12s;
+}
+.trow:hover{background:rgba(138,82,38,.08)}
+.trow.sel{background:color-mix(in srgb, var(--c) 18%, transparent);box-shadow:inset 2.5px 0 0 var(--c)}
+.tw{width:13px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-soft)}
+.caret{font-size:.62rem;transition:transform .15s;line-height:1}
+.tnode:not(.collapsed)>.trow .caret{transform:rotate(90deg)}
+.leaf{font-size:.5rem;color:var(--rule)}
+.tdot{width:8px;height:8px;border-radius:50%;background:var(--c);flex-shrink:0;box-shadow:0 0 0 1px rgba(0,0,0,.07)}
+.tname{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trow.sel .tname{font-weight:600}
+
+.fam-blanc{--c:var(--fam-blanc)}
+.fam-blond{--c:var(--fam-blond)}
+.fam-brun{--c:var(--fam-brun)}
+.fam-holl{--c:var(--fam-holl)}
+.fam-tom{--c:var(--fam-tom)}
+.fam-base{--c:var(--fam-base)}
+
+.side-foot{margin:26px 8px 0;font-size:.72rem;font-style:italic;color:var(--ink-soft);line-height:1.5}
+
+/* ---------- Sélecteur de mode + accords ---------- */
+[hidden]{display:none !important}
+.mode-switch{display:flex;gap:4px;margin:0 8px 12px;padding:4px;background:rgba(70,45,15,.06);border-radius:11px}
+.ms-btn{flex:1;border:0;background:none;cursor:pointer;font-family:"Spectral",serif;font-size:.92rem;color:var(--ink-soft);padding:7px 10px;border-radius:8px;transition:background .15s,color .15s}
+.ms-btn:hover{color:var(--ink)}
+.ms-btn.active{background:var(--card);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(60,40,15,.18)}
+
+.tag-cat{font-family:"Spectral",serif;text-transform:uppercase;letter-spacing:.12em;font-size:.66rem;font-weight:600;color:var(--rule);margin:16px 8px 9px}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin:0 6px}
+.tagchip{font-family:"Spectral",serif;font-size:.86rem;cursor:pointer;background:none;border:1px solid var(--rule-soft);color:var(--ink);padding:5px 11px;border-radius:18px;display:inline-flex;align-items:center;gap:7px;transition:background .15s,border-color .15s,color .15s}
+.tagchip:hover{border-color:var(--rule)}
+.tagchip.active{background:var(--fam-base);border-color:var(--fam-base);color:#fdf6e6}
+.tc-n{font-size:.74em;opacity:.55}
+.tagchip.active .tc-n{opacity:.85}
+
+#accord-results{margin:18px 6px 0}
+.res-head{font-family:"Cormorant Garamond",serif;font-size:1.18rem;font-weight:600;color:var(--ink);margin:0 2px 6px;padding-bottom:7px;border-bottom:1px solid var(--rule-soft)}
+.res-item{display:flex;align-items:center;gap:9px;width:100%;text-align:left;border:0;background:none;cursor:pointer;font-family:"Spectral",serif;font-size:.95rem;color:var(--ink);padding:7px 8px;border-radius:7px}
+.res-item:hover{background:rgba(138,82,38,.08)}
+.res-item .tdot{width:9px;height:9px;border-radius:50%;background:var(--c);flex-shrink:0;box-shadow:0 0 0 1px rgba(0,0,0,.07)}
+.res-empty{color:var(--ink-soft);font-style:italic;font-size:.9rem;margin:2px}
+
+/* étiquettes d'accord dans la fiche (style distinct des chips de parenté) */
+.accord{font-family:"Spectral",serif;font-size:.92rem;cursor:pointer;background:none;border:1px dashed var(--rule);color:var(--ink);padding:5px 14px;border-radius:20px;transition:background .15s,color .15s,border-style .15s}
+.accord:hover{background:var(--rule);color:#fdf6e6;border-style:solid}
+
+/* ---------- Detail ---------- */
+.detail{flex:1;overflow-y:auto}
+.d-inner{max-width:720px;margin:0 auto;padding:40px 44px 64px}
+@media(max-width:560px){.d-inner{padding:28px 22px 44px}}
+
+.d-empty{color:var(--ink-soft);font-weight:300;padding:30px 4px}
+.d-empty .big{font-family:"Cormorant Garamond",serif;font-size:2.1rem;color:var(--ink);font-weight:500;margin:0 0 12px}
+.d-empty p{max-width:60ch}
+.d-empty .hint{margin-top:18px;font-style:italic;font-size:.92rem;color:var(--rule)}
+
+.d-badge{
+  display:inline-block;font-family:"Spectral",serif;font-style:italic;
+  font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--on,#fdf6e6);background:var(--c);padding:4px 13px;border-radius:20px;margin-bottom:14px;
+}
+.d-name{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:2.7rem;line-height:1;margin:0}
+.d-name::after{content:"";display:block;width:64px;height:3px;background:var(--c);margin-top:16px;border-radius:2px}
+.d-desc{font-size:1.1rem;color:var(--ink);margin:22px 0 6px;font-weight:300}
+
+.d-block{margin-top:30px}
+.d-h{
+  font-family:"Spectral",serif;text-transform:uppercase;letter-spacing:.14em;
+  font-size:.74rem;color:var(--rule);font-weight:600;margin:0 0 14px;
+  padding-bottom:8px;border-bottom:1px solid var(--rule);
+}
+.ings{list-style:none;margin:0;padding:0;columns:2;column-gap:34px}
+@media(max-width:520px){.ings{columns:1}}
+.ings li{padding:6px 0;border-bottom:1px dotted var(--rule-soft);font-size:1rem;display:flex;align-items:baseline;gap:9px;break-inside:avoid}
+.ings li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c);flex-shrink:0;transform:translateY(-2px)}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:2px 0 18px 50px;font-size:1.05rem}
+.steps li::before{
+  content:counter(s);position:absolute;left:0;top:-2px;
+  width:32px;height:32px;border-radius:50%;background:var(--c);color:var(--on,#fff7e9);
+  font-family:"Cormorant Garamond",serif;font-weight:600;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.steps li:last-child{padding-bottom:0}
+
+.rel{margin-top:36px;padding-top:24px;border-top:1px solid var(--rule)}
+.rel .d-h{border:0;padding:0;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{
+  font-family:"Spectral",serif;font-size:.92rem;background:none;cursor:pointer;
+  border:1px solid var(--cc,var(--rule));color:var(--ink);
+  padding:5px 14px;border-radius:20px;transition:background .15s,color .15s;
+}
+.chip:hover{background:var(--cc,var(--rule));color:var(--oncc,#fff7e9)}
+.chip .lab{opacity:.6;font-style:italic;font-size:.82em;margin-right:6px}
+
+/* ---------- Mobile selector bar + drawer (hidden on desktop) ---------- */
+.mobile-bar{display:none}
+.drawer-head{display:none}
+
+/* ---------- Responsive ---------- */
+/* Tablettes / grands écrans étroits : on garde les deux panneaux côte à côte */
+@media(max-width:900px){
+  .sidebar{width:300px}
+}
+
+/* Smartphones : barre compacte + arbre en tiroir plein écran */
+@media(max-width:640px){
+  .legend{display:none}
+  .topbar{padding:13px 18px}
+  .topbar h1{font-size:1.6rem}
+
+  /* barre de sélection sticky */
+  .mobile-bar{
+    display:flex;align-items:center;gap:10px;width:100%;
+    border:0;border-bottom:1px solid var(--rule);cursor:pointer;
+    padding:12px 18px;background:var(--paper-2);
+    font-family:"Spectral",serif;color:var(--ink);text-align:left;
+  }
+  .mobile-bar .mb-label{
+    font-family:"Cormorant Garamond",serif;font-size:1.32rem;font-weight:600;
+    flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .mobile-bar .mb-icon{color:var(--ink-soft);transition:transform .2s;flex-shrink:0}
+  .page.tree-open .mobile-bar .mb-icon{transform:rotate(180deg)}
+
+  /* le détail occupe tout l'espace */
+  .split{flex-direction:column;min-height:0}
+  .detail{flex:1;min-height:0}
+  .d-inner{padding:26px 22px 56px}
+
+  /* l'arbre devient un tiroir plein écran qui glisse par-dessus */
+  .sidebar{
+    position:fixed;left:0;right:0;top:0;bottom:0;z-index:60;width:auto;
+    max-height:none;border:0;overflow-y:auto;
+    transform:translateY(-100%);transition:transform .26s ease;
+    box-shadow:0 12px 40px rgba(40,25,8,.35);
+    padding:0 16px 40px;
+  }
+  .page.tree-open .sidebar{transform:translateY(0)}
+
+  .drawer-head{
+    display:flex;align-items:center;justify-content:space-between;
+    position:sticky;top:0;z-index:1;margin:0 -16px 6px;padding:14px 18px;
+    background:#f1e8d6;border-bottom:1px solid var(--rule);
+  }
+  .drawer-title{font-family:"Cormorant Garamond",serif;font-size:1.4rem;font-weight:600}
+  .drawer-close{
+    background:none;border:1px solid var(--rule);color:var(--ink-soft);cursor:pointer;
+    width:34px;height:34px;border-radius:50%;font-size:1rem;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .drawer-close:hover{background:rgba(138,82,38,.1)}
+
+  /* cibles tactiles un peu plus grandes dans l'arbre */
+  .trow{padding:8px 8px}
+}
+</style>
+</head>
+<body>
+<div class="page" id="page">
+  <header class="topbar">
+    <div class="brand">
+      <h1>L'arbre des <em>sauces</em></h1>
+      <p class="sub">Généalogie de la cuisine classique française</p>
+    </div>
+    <ul class="legend">
+      <li><span class="dot" style="background:var(--fam-blanc)"></span>Roux blanc</li>
+      <li><span class="dot" style="background:var(--fam-blond)"></span>Roux blond</li>
+      <li><span class="dot" style="background:var(--fam-brun)"></span>Roux brun</li>
+      <li><span class="dot" style="background:var(--fam-holl)"></span>Hollandaise</li>
+      <li><span class="dot" style="background:var(--fam-tom)"></span>Tomate</li>
+    </ul>
+  </header>
+  <button class="mobile-bar" id="mobileBar" aria-expanded="false" aria-controls="sidebar">
+    <span class="mb-label" id="mbLabel">Choisir une sauce…</span>
+    <span class="mb-icon" aria-hidden="true">▾</span>
+  </button>
+  <div class="split">
+    <aside class="sidebar" id="sidebar">
+      <div class="drawer-head">
+        <span class="drawer-title">Choisir une sauce</span>
+        <button class="drawer-close" id="drawerClose" aria-label="Fermer l'arborescence">✕</button>
+      </div>
+      <div class="mode-switch" role="tablist" aria-label="Mode de navigation">
+        <button class="ms-btn active" id="tabFiliation" role="tab" aria-selected="true">Filiation</button>
+        <button class="ms-btn" id="tabAccords" role="tab" aria-selected="false">Accords</button>
+      </div>
+      <div id="mode-filiation">
+        <p class="sec-cap">Les sauces au roux</p>
+        <div id="tree-roux"></div>
+        <p class="sec-cap">Les sauces sans roux</p>
+        <div id="tree-noroux"></div>
+      </div>
+      <div id="mode-accords" hidden>
+        <p class="sec-cap">Quel plat accompagnez-vous ?</p>
+        <div id="tag-groups"></div>
+        <div id="accord-results"></div>
+      </div>
+      <p class="side-foot">D'après la classification d'Auguste Escoffier, <em>Le Guide culinaire</em>. Cliquez sur ▸ pour déplier une branche, sur un nom pour voir la recette.</p>
+    </aside>
+    <main class="detail">
+      <div class="d-inner" id="detail-body">
+        <div class="d-empty">
+          <p class="big">Choisissez une sauce</p>
+          <p>La classification d'Escoffier répartit la cuisine en cinq sauces mères — béchamel, velouté, espagnole, hollandaise et tomate — dont découlent des dizaines de sauces filles. Parcourez l'arbre : chaque sauce révèle ici son histoire, ses ingrédients et sa préparation.</p>
+          <p class="hint">Dépliez une branche et choisissez une sauce pour commencer.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<!-- Données injectées au build (npm run build) depuis data/sauces.json. -->
+<script id="sauces-data" type="application/json">{}</script>
+<script>
+// Données injectées au build depuis data/sauces.json (source unique de vérité).
+const DATA = JSON.parse(document.getElementById('sauces-data').textContent);
+const NODES = DATA.nodes;
+/* ============================================================
+   Couleurs de famille + carte des parents
+   ============================================================ */
+const FAM = {blanc:'--fam-blanc',blond:'--fam-blond',brun:'--fam-brun',holl:'--fam-holl',tom:'--fam-tom',base:'--fam-base'};
+const FAMON = {blanc:'--on-blanc',blond:'--on-blond',brun:'--on-brun',holl:'--on-holl',tom:'--on-tom',base:'--on-base'};
+function famColor(f){return getComputedStyle(document.documentElement).getPropertyValue(FAM[f]||'--fam-base').trim();}
+function famOn(f){return getComputedStyle(document.documentElement).getPropertyValue(FAMON[f]||'--on-base').trim();}
+
+const PARENT = {};
+Object.keys(NODES).forEach(id=>(NODES[id].children||[]).forEach(c=>PARENT[c]=id));
+
+/* ============================================================
+   Accords : vocabulaire contrôlé + étiquettes par sauce
+   (donnée pure — un accord n'apparaît dans la fiche que via
+   la section "Accords", jamais dans le texte de description)
+   ============================================================ */
+const TAG_LABEL = DATA.tagLabel;
+const TAG_GROUPS = DATA.tagGroups;
+const ACCORDS = DATA.accords;
+const FAM_ORDER = {blanc:0,blond:1,brun:2,holl:3,tom:4,base:5};
+
+/* ============================================================
+   Construction de l'explorateur (arbre repliable)
+   ============================================================ */
+function buildNode(id){
+  const n = NODES[id];
+  const kids = n.children || [];
+  const hasKids = kids.length > 0;
+
+  const li = document.createElement('li');
+  li.className = 'tnode';
+
+  const row = document.createElement('div');
+  row.className = 'trow fam-' + n.fam;
+  row.dataset.id = id;
+  row.setAttribute('role','treeitem');
+  row.tabIndex = 0;
+  row.innerHTML =
+    '<span class="tw">' + (hasKids ? '<span class="caret">▸</span>' : '<span class="leaf">●</span>') + '</span>' +
+    '<span class="tdot"></span>' +
+    '<span class="tname">' + n.nm + '</span>';
+  li.appendChild(row);
+
+  if(hasKids){
+    const ul = document.createElement('ul');
+    ul.className = 'tchildren';
+    ul.setAttribute('role','group');
+    kids.forEach(k => ul.appendChild(buildNode(k)));
+    li.appendChild(ul);
+    row.querySelector('.caret').addEventListener('click', e=>{
+      e.stopPropagation();
+      li.classList.toggle('collapsed');
+    });
+  }
+
+  row.addEventListener('click', ()=>selectSauce(id));
+  row.addEventListener('keydown', e=>{
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); selectSauce(id); }
+    else if(e.key==='ArrowRight' && hasKids){ li.classList.remove('collapsed'); }
+    else if(e.key==='ArrowLeft' && hasKids){ li.classList.add('collapsed'); }
+  });
+  return li;
+}
+
+function mountTree(roots, elId){
+  const ul = document.createElement('ul');
+  ul.className = 'tree';
+  ul.setAttribute('role','tree');
+  roots.forEach(r => ul.appendChild(buildNode(r)));
+  const host = document.getElementById(elId);
+  host.innerHTML = '';
+  host.appendChild(ul);
+}
+
+/* ============================================================
+   Fiche détaillée
+   ============================================================ */
+function chip(id, lab){
+  const f = NODES[id].fam;
+  return '<button class="chip" style="--cc:'+famColor(f)+';--oncc:'+famOn(f)+'" onclick="selectSauce(\''+id+'\')">'+
+         '<span class="lab">'+lab+'</span>'+NODES[id].nm+'</button>';
+}
+
+function renderDetail(id){
+  const n = NODES[id];
+  const parent = PARENT[id];
+  const kids = n.children || [];
+
+  let rel = '';
+  if(parent || kids.length){
+    let chips = '';
+    if(parent) chips += chip(parent, 'issue de');
+    kids.forEach(c => chips += chip(c, 'donne'));
+    rel = '<div class="rel"><h3 class="d-h">Parenté</h3><div class="chips">'+chips+'</div></div>';
+  }
+
+  let acc = '';
+  const tags = ACCORDS[id] || [];
+  if(tags.length){
+    const chips = tags.map(t=>'<button class="accord" onclick="goToAccord(\''+t+'\')">'+TAG_LABEL[t]+'</button>').join('');
+    acc = '<div class="rel"><h3 class="d-h">Accords</h3><div class="chips">'+chips+'</div></div>';
+  }
+
+  document.getElementById('detail-body').innerHTML =
+    '<span class="d-badge">'+n.role+'</span>'+
+    '<h2 class="d-name">'+n.nm+'</h2>'+
+    '<p class="d-desc">'+n.desc+'</p>'+
+    '<section class="d-block"><h3 class="d-h">Ingrédients</h3>'+
+      '<ul class="ings">'+n.ings.map(i=>'<li>'+i+'</li>').join('')+'</ul></section>'+
+    '<section class="d-block"><h3 class="d-h">Préparation</h3>'+
+      '<ol class="steps">'+n.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol></section>'+
+    acc + rel;
+
+  const body = document.getElementById('detail-body');
+  body.style.setProperty('--c', famColor(n.fam));
+  body.style.setProperty('--on', famOn(n.fam));
+}
+
+function selectSauce(id){
+  const n = NODES[id];
+  if(!n) return;
+
+  document.querySelectorAll('.trow.sel').forEach(e=>e.classList.remove('sel'));
+  const row = document.querySelector('.trow[data-id="'+id+'"]');
+  if(row){
+    row.classList.add('sel');
+    // déplier tous les ancêtres
+    let li = row.closest('.tnode');
+    let parentLi = li && li.parentElement ? li.parentElement.closest('.tnode') : null;
+    while(parentLi){ parentLi.classList.remove('collapsed'); parentLi = parentLi.parentElement.closest('.tnode'); }
+    row.scrollIntoView({block:'nearest'});
+  }
+
+  renderDetail(id);
+  document.querySelector('.detail').scrollTop = 0;
+
+  // barre mobile : afficher la sauce choisie et refermer le tiroir
+  document.getElementById('mbLabel').textContent = n.nm;
+  closeDrawer();
+}
+
+/* ============================================================
+   Tiroir mobile (arborescence en plein écran)
+   ============================================================ */
+const page = document.getElementById('page');
+const mobileBar = document.getElementById('mobileBar');
+function openDrawer(){ page.classList.add('tree-open'); mobileBar.setAttribute('aria-expanded','true'); }
+function closeDrawer(){ page.classList.remove('tree-open'); mobileBar.setAttribute('aria-expanded','false'); }
+mobileBar.addEventListener('click', ()=>{
+  page.classList.contains('tree-open') ? closeDrawer() : openDrawer();
+});
+document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
+
+/* ============================================================
+   Mode « Accords » : chercher une sauce par le plat
+   ============================================================ */
+function setMode(m){
+  const fil = (m === 'filiation');
+  document.getElementById('mode-filiation').hidden = !fil;
+  document.getElementById('mode-accords').hidden = fil;
+  const tf = document.getElementById('tabFiliation'), ta = document.getElementById('tabAccords');
+  tf.classList.toggle('active', fil); tf.setAttribute('aria-selected', fil);
+  ta.classList.toggle('active', !fil); ta.setAttribute('aria-selected', !fil);
+}
+
+function buildTagGroups(){
+  const count = {};
+  Object.values(ACCORDS).forEach(arr => arr.forEach(t => count[t] = (count[t]||0) + 1));
+  let html = '';
+  TAG_GROUPS.forEach(g=>{
+    html += '<div class="tag-cat">'+g.cat+'</div><div class="tag-list">';
+    g.tags.forEach(t=>{
+      html += '<button class="tagchip" data-tag="'+t+'">'+TAG_LABEL[t]+
+              '<span class="tc-n">'+(count[t]||0)+'</span></button>';
+    });
+    html += '</div>';
+  });
+  const host = document.getElementById('tag-groups');
+  host.innerHTML = html;
+  host.querySelectorAll('.tagchip').forEach(b=>b.addEventListener('click', ()=>selectTag(b.dataset.tag)));
+}
+
+function selectTag(tag){
+  document.querySelectorAll('#tag-groups .tagchip').forEach(b=>b.classList.toggle('active', b.dataset.tag===tag));
+  const matches = Object.keys(ACCORDS).filter(id => ACCORDS[id].includes(tag))
+    .sort((a,b)=> (FAM_ORDER[NODES[a].fam]-FAM_ORDER[NODES[b].fam]) || NODES[a].nm.localeCompare(NODES[b].nm,'fr'));
+  let html = '<div class="res-head">'+TAG_LABEL[tag]+' · '+matches.length+' sauce'+(matches.length>1?'s':'')+'</div>';
+  if(!matches.length){
+    html += '<p class="res-empty">Aucune sauce pour cet accord.</p>';
+  } else {
+    matches.forEach(id=>{
+      html += '<button class="res-item fam-'+NODES[id].fam+'" data-id="'+id+'"><span class="tdot"></span>'+NODES[id].nm+'</button>';
+    });
+  }
+  const res = document.getElementById('accord-results');
+  res.innerHTML = html;
+  res.querySelectorAll('.res-item').forEach(b=>b.addEventListener('click', ()=>selectSauce(b.dataset.id)));
+}
+
+/* depuis la section "Accords" d'une fiche : bascule vers le mode Accords sur cette étiquette */
+function goToAccord(tag){
+  setMode('accords');
+  selectTag(tag);
+  if(window.matchMedia('(max-width:640px)').matches) openDrawer();
+  document.getElementById('accord-results').scrollIntoView({block:'nearest'});
+}
+
+document.getElementById('tabFiliation').addEventListener('click', ()=>setMode('filiation'));
+document.getElementById('tabAccords').addEventListener('click', ()=>setMode('accords'));
+
+/* ============================================================
+   Initialisation
+   ============================================================ */
+mountTree(['roux'], 'tree-roux');
+mountTree(['hollandaise','sauce_tomate'], 'tree-noroux');
+buildTagGroups();
+setMode('filiation');
+</script>
+</body>
+</html>

@@ -1,0 +1,1306 @@
+{
+  "nodes": {
+    "roux": {
+      "nm": "Le roux",
+      "fam": "base",
+      "role": "Base technique",
+      "hint": "beurre + farine",
+      "desc": "Mélange de beurre et de farine à parts égales, cuit à différents degrés. La durée de cuisson détermine la couleur, le goût et le pouvoir liant. C'est le fondement de toute la cuisine de sauce classique française.",
+      "ings": [
+        "Beurre",
+        "Farine (même poids que le beurre)"
+      ],
+      "steps": [
+        "Faire fondre le beurre dans une casserole à feu moyen.",
+        "Ajouter la farine d'un seul coup, mélanger aussitôt.",
+        "Cuire en remuant sans cesse jusqu'au degré de coloration voulu."
+      ],
+      "children": [
+        "roux_blanc",
+        "roux_blond",
+        "roux_brun"
+      ]
+    },
+    "roux_blanc": {
+      "nm": "Roux blanc",
+      "fam": "blanc",
+      "role": "Roux — cuit 2 min",
+      "hint": "2 min, neutre",
+      "desc": "Cuit 2 minutes seulement, le roux blanc reste pâle et neutre en goût. Son pouvoir liant est maximal car l'amidon est peu transformé. C'est la base de la béchamel et du velouté blanc.",
+      "ings": [
+        "30 g beurre",
+        "30 g farine"
+      ],
+      "steps": [
+        "Fondre le beurre à feu moyen.",
+        "Ajouter la farine d'un coup, fouetter immédiatement.",
+        "Cuire 2 min en remuant — le mélange blanchit légèrement mais ne colore pas.",
+        "Laisser tiédir avant d'incorporer le liquide chaud."
+      ],
+      "children": [
+        "bechamel",
+        "veloute_blanc"
+      ]
+    },
+    "roux_blond": {
+      "nm": "Roux blond",
+      "fam": "blond",
+      "role": "Roux — cuit 4 à 5 min",
+      "hint": "4–5 min, doré",
+      "desc": "Cuit 4 à 5 minutes, il prend une teinte dorée et dégage un léger parfum de noisette. Son pouvoir liant est un peu inférieur au roux blanc, mais le goût est plus complexe. C'est la base des veloutés blonds.",
+      "ings": [
+        "30 g beurre",
+        "30 g farine"
+      ],
+      "steps": [
+        "Fondre le beurre à feu moyen.",
+        "Ajouter la farine, mélanger.",
+        "Cuire 4 à 5 min en remuant — chercher la couleur sable doré.",
+        "L'odeur de noisette indique le bon moment.",
+        "Tiédir avant d'incorporer le fond chaud."
+      ],
+      "children": [
+        "veloute_blond"
+      ]
+    },
+    "roux_brun": {
+      "nm": "Roux brun",
+      "fam": "brun",
+      "role": "Roux — cuit 8 à 10 min",
+      "hint": "8–10 min, noisette",
+      "desc": "Cuit 8 à 10 minutes jusqu'à une couleur noisette foncée. Son pouvoir liant est réduit (il faut en mettre davantage) mais il apporte une profondeur aromatique incomparable. La chaleur résiduelle continue la cuisson : retirer du feu un peu avant la couleur voulue.",
+      "ings": [
+        "30 g beurre",
+        "30 g farine"
+      ],
+      "steps": [
+        "Fondre le beurre à feu moyen.",
+        "Ajouter la farine, mélanger.",
+        "Cuire 8 à 10 min en remuant constamment.",
+        "Atteindre la couleur noisette foncée, retirer du feu légèrement avant.",
+        "Incorporer aussitôt le fond brun chaud."
+      ],
+      "children": [
+        "espagnole",
+        "sauce_brune"
+      ]
+    },
+    "bechamel": {
+      "nm": "Béchamel",
+      "fam": "blanc",
+      "role": "Sauce mère",
+      "hint": "+ lait",
+      "desc": "L'une des cinq grandes sauces mères d'Escoffier. Roux blanc allongé de lait chaud, assaisonné de muscade. Blanche et onctueuse, elle est la base des gratins, lasagnes et de nombreuses sauces dérivées.",
+      "ings": [
+        "30 g beurre",
+        "30 g farine",
+        "500 ml lait entier chaud",
+        "Noix de muscade",
+        "Sel, poivre blanc"
+      ],
+      "steps": [
+        "Réaliser un roux blanc.",
+        "Verser le lait chaud progressivement en fouettant.",
+        "Porter à frémissement en remuant sans cesse.",
+        "Cuire 8 à 10 min à feu doux jusqu'à consistance nappante.",
+        "Assaisonner de sel, poivre et muscade râpée."
+      ],
+      "children": [
+        "mornay",
+        "soubise",
+        "nantua"
+      ]
+    },
+    "veloute_blanc": {
+      "nm": "Velouté blanc",
+      "fam": "blanc",
+      "role": "Sauce mère",
+      "hint": "+ fond blanc",
+      "desc": "Roux blanc allongé de fond blanc de veau. Plus léger que la béchamel, couleur ivoire, goût délicat. C'est la base des grandes sauces pour viandes blanches et ris de veau.",
+      "ings": [
+        "30 g beurre",
+        "30 g farine",
+        "500 ml fond blanc de veau"
+      ],
+      "steps": [
+        "Réaliser un roux blanc.",
+        "Incorporer le fond blanc chaud progressivement en fouettant.",
+        "Cuire 15 à 20 min à feu doux en remuant.",
+        "Passer au chinois fin et rectifier l'assaisonnement."
+      ],
+      "children": [
+        "supreme",
+        "allemande",
+        "normande",
+        "ravigote"
+      ]
+    },
+    "veloute_blond": {
+      "nm": "Velouté blond",
+      "fam": "blond",
+      "role": "Grande sauce",
+      "hint": "volaille / fumet",
+      "desc": "Roux blond allongé d'un fond de volaille ou d'un fumet de poisson. Couleur dorée, léger goût de noisette. Plus caractérisé que le velouté blanc, c'est la base des grands veloutés de service.",
+      "ings": [
+        "30 g beurre",
+        "30 g farine",
+        "500 ml fond de volaille ou fumet de poisson"
+      ],
+      "steps": [
+        "Réaliser un roux blond.",
+        "Incorporer le fond chaud progressivement en fouettant.",
+        "Cuire 15 à 20 min à feu doux.",
+        "Passer au chinois fin et assaisonner."
+      ],
+      "children": [
+        "bercy",
+        "vin_blanc",
+        "aurore",
+        "regence"
+      ]
+    },
+    "espagnole": {
+      "nm": "Espagnole",
+      "fam": "brun",
+      "role": "Sauce mère",
+      "hint": "+ fond brun",
+      "desc": "Roux brun allongé de fond brun de veau, garniture aromatique et concentré de tomate. Longue à réaliser (1 h 30 à 2 h), c'est la base de la demi-glace et de toutes les grandes sauces brunes classiques.",
+      "ings": [
+        "50 g beurre",
+        "50 g farine",
+        "1 L fond brun de veau",
+        "1 c. à s. concentré de tomate",
+        "1 carotte, 1 oignon",
+        "Bouquet garni"
+      ],
+      "steps": [
+        "Faire revenir la garniture aromatique au beurre.",
+        "Ajouter la farine et cuire jusqu'à obtenir un roux brun.",
+        "Incorporer le fond brun et le concentré de tomate.",
+        "Mijoter 1 h 30 à 2 h à feu très doux en écumant régulièrement.",
+        "Passer au chinois fin."
+      ],
+      "children": [
+        "demi_glace"
+      ]
+    },
+    "sauce_brune": {
+      "nm": "Sauce brune",
+      "fam": "brun",
+      "role": "Grande sauce",
+      "hint": "+ bouillon brun",
+      "desc": "Version simplifiée de l'espagnole : roux brun allongé de bouillon brun de bœuf ou de veau. Plus rapide à préparer, idéale au quotidien pour les viandes grillées, rôties ou mijotées.",
+      "ings": [
+        "30 g beurre",
+        "30 g farine",
+        "500 ml bouillon brun (bœuf ou veau)",
+        "Sel, poivre"
+      ],
+      "steps": [
+        "Réaliser un roux brun.",
+        "Verser le bouillon brun chaud progressivement en fouettant.",
+        "Cuire 10 à 15 min à feu doux en remuant.",
+        "Assaisonner et passer au chinois si souhaité."
+      ],
+      "children": []
+    },
+    "demi_glace": {
+      "nm": "Demi-glace",
+      "fam": "brun",
+      "role": "Sauce de base",
+      "hint": "espagnole réduite",
+      "desc": "L'espagnole réduite de moitié jusqu'à une texture sirupeuse et brillante. Concentration de saveurs intense — quelques cuillerées suffisent à sublimer un jus de viande. C'est la mère des grandes sauces brunes classiques.",
+      "ings": [
+        "1 L sauce Espagnole"
+      ],
+      "steps": [
+        "Verser l'espagnole dans une grande casserole.",
+        "Réduire à feu moyen-doux jusqu'à diviser le volume par deux.",
+        "La sauce doit napper abondamment la cuillère.",
+        "Passer au chinois fin et rectifier l'assaisonnement."
+      ],
+      "children": [
+        "robert",
+        "madere",
+        "chasseur",
+        "bordelaise",
+        "bigarade",
+        "lyonnaise",
+        "diable",
+        "poivrade",
+        "italienne",
+        "matelote"
+      ]
+    },
+    "mornay": {
+      "nm": "Mornay",
+      "fam": "blanc",
+      "role": "Dérivée de béchamel",
+      "desc": "Béchamel enrichie de gruyère râpé et liée aux jaunes d'œufs. Riche et fromagère, idéale pour les gratins, les endives braisées et les poissons pochés.",
+      "ings": [
+        "300 ml béchamel",
+        "50 g gruyère râpé",
+        "2 jaunes d'œufs",
+        "20 g beurre"
+      ],
+      "steps": [
+        "Préparer une béchamel lisse.",
+        "Hors du feu, incorporer les jaunes d'œufs en fouettant.",
+        "Ajouter le gruyère, mélanger jusqu'à fonte complète.",
+        "Monter au beurre. Ne pas faire rebouillir."
+      ],
+      "children": []
+    },
+    "soubise": {
+      "nm": "Soubise",
+      "fam": "blanc",
+      "role": "Dérivée de béchamel",
+      "desc": "Béchamel aux oignons fondus passée au tamis. Les oignons cuisent à feu très doux 30 à 40 min sans coloration. Douce, soyeuse, légèrement sucrée. Accompagne viandes blanches, agneau et asperges.",
+      "ings": [
+        "300 ml béchamel",
+        "300 g oignons",
+        "40 g beurre",
+        "Sel, poivre blanc"
+      ],
+      "steps": [
+        "Émincer les oignons et les suer au beurre à feu très doux 30 à 40 min sans coloration.",
+        "Incorporer la béchamel chaude et compoter 5 min.",
+        "Passer au tamis fin ou mixer puis tamiser.",
+        "Ajuster la consistance avec un peu de crème et assaisonner."
+      ],
+      "children": []
+    },
+    "nantua": {
+      "nm": "Nantua",
+      "fam": "blanc",
+      "role": "Dérivée de béchamel",
+      "desc": "Béchamel enrichie de beurre d'écrevisses. Rose orangée, délicatement iodée, emblème de la cuisine lyonnaise. C'est la sauce des quenelles de brochet.",
+      "ings": [
+        "300 ml béchamel",
+        "80 g beurre d'écrevisses",
+        "100 ml crème",
+        "Queues d'écrevisses (garniture)"
+      ],
+      "steps": [
+        "Préparer une béchamel lisse.",
+        "Incorporer la crème et cuire 5 min.",
+        "Hors du feu, monter au beurre d'écrevisses en fouettant.",
+        "Passer au chinois fin. Garnir de queues d'écrevisses au service."
+      ],
+      "children": []
+    },
+    "supreme": {
+      "nm": "Suprême",
+      "fam": "blanc",
+      "role": "Dérivée de velouté",
+      "desc": "Velouté de volaille enrichi de crème fraîche et monté au beurre. Onctueuse, ivoire, d'une douceur soyeuse. C'est la sauce des suprêmes de volaille pochés et des ris de veau.",
+      "ings": [
+        "400 ml velouté de volaille",
+        "150 ml crème fraîche épaisse",
+        "30 g beurre",
+        "Sel, poivre blanc"
+      ],
+      "steps": [
+        "Chauffer le velouté de volaille.",
+        "Ajouter la crème et réduire jusqu'à consistance nappante.",
+        "Monter au beurre hors du feu en fouettant.",
+        "Passer au chinois fin et assaisonner."
+      ],
+      "children": []
+    },
+    "allemande": {
+      "nm": "Allemande",
+      "fam": "blanc",
+      "role": "Dérivée de velouté",
+      "desc": "Aussi appelée sauce parisienne. Velouté blanc lié aux jaunes d'œufs et à la crème, monté au beurre. Plus riche et complexe que le velouté seul. Accompagne viandes blanches et quenelles.",
+      "ings": [
+        "400 ml velouté blanc",
+        "2 jaunes d'œufs",
+        "100 ml crème",
+        "30 g beurre",
+        "Jus de citron"
+      ],
+      "steps": [
+        "Chauffer le velouté.",
+        "Mélanger jaunes d'œufs et crème (la liaison).",
+        "Incorporer la liaison hors du feu en fouettant.",
+        "Remettre sur feu doux, chauffer sans ébullition.",
+        "Monter au beurre et aciduler d'un filet de citron."
+      ],
+      "children": [
+        "poulette",
+        "villeroi"
+      ]
+    },
+    "normande": {
+      "nm": "Normande",
+      "fam": "blanc",
+      "role": "Dérivée de velouté",
+      "desc": "Velouté de poisson enrichi de crème, de jus de champignons et de moules, lié aux jaunes d'œufs. Généreuse, marine, typiquement normande. C'est la sauce classique de la sole normande.",
+      "ings": [
+        "300 ml velouté de poisson",
+        "100 ml crème",
+        "50 ml jus de champignons",
+        "50 ml jus de moules",
+        "2 jaunes d'œufs",
+        "30 g beurre"
+      ],
+      "steps": [
+        "Réduire ensemble velouté, crème, jus de champignons et de moules.",
+        "Lier aux jaunes d'œufs hors du feu.",
+        "Chauffer sans bouillir jusqu'à texture nappante.",
+        "Monter au beurre et passer au chinois."
+      ],
+      "children": []
+    },
+    "bercy": {
+      "nm": "Bercy",
+      "fam": "blond",
+      "role": "Dérivée de velouté",
+      "desc": "Fumet de poisson au vin blanc et aux échalotes, monté au beurre et persillé. Légère, acidulée, marine. Elle accompagne les poissons pochés ou grillés.",
+      "ings": [
+        "300 ml fumet de poisson",
+        "150 ml vin blanc sec",
+        "2 échalotes",
+        "30 g beurre",
+        "Persil plat haché"
+      ],
+      "steps": [
+        "Suer les échalotes au beurre sans coloration.",
+        "Déglacer au vin blanc et réduire de moitié.",
+        "Incorporer le fumet et réduire encore.",
+        "Monter au beurre froid hors du feu.",
+        "Ajouter le persil haché au dernier moment."
+      ],
+      "children": []
+    },
+    "vin_blanc": {
+      "nm": "Vin blanc",
+      "fam": "blond",
+      "role": "Dérivée de velouté",
+      "desc": "Velouté de poisson réduit avec du vin blanc, lié aux jaunes d'œufs et monté généreusement au beurre. Brillante, légère, élégante. C'est la sauce de référence pour les poissons nobles pochés.",
+      "ings": [
+        "300 ml velouté de poisson",
+        "100 ml vin blanc sec",
+        "2 jaunes d'œufs",
+        "80 g beurre"
+      ],
+      "steps": [
+        "Réduire le vin blanc de moitié.",
+        "Ajouter le velouté et réduire légèrement.",
+        "Lier aux jaunes d'œufs hors du feu.",
+        "Monter généreusement au beurre froid en fouettant.",
+        "Passer au chinois fin et assaisonner."
+      ],
+      "children": []
+    },
+    "aurore": {
+      "nm": "Aurore",
+      "fam": "blond",
+      "role": "Dérivée de velouté",
+      "desc": "Velouté additionné de concentré de tomate, qui lui donne une teinte rosée caractéristique. Douce, légèrement acidulée, très décorative. Accompagne volailles, œufs pochés et quenelles.",
+      "ings": [
+        "400 ml velouté",
+        "2 c. à s. concentré de tomate",
+        "30 g beurre"
+      ],
+      "steps": [
+        "Chauffer le velouté.",
+        "Incorporer le concentré de tomate.",
+        "Cuire 5 min à feu doux.",
+        "Monter au beurre hors du feu.",
+        "Passer au chinois et rectifier l'assaisonnement."
+      ],
+      "children": []
+    },
+    "ravigote": {
+      "nm": "Ravigote",
+      "fam": "blanc",
+      "role": "Dérivée de velouté",
+      "desc": "Velouté réduit au vin blanc et au vinaigre, monté au beurre d'échalote et relevé d'herbes — cerfeuil, estragon, ciboulette. Acidulée et herbacée. (Il existe aussi une ravigote froide, sorte de vinaigrette aux câpres et fines herbes.) Accompagne abats, volailles pochées et poissons.",
+      "ings": [
+        "300 ml velouté",
+        "100 ml vin blanc",
+        "2 c. à s. vinaigre",
+        "2 échalotes",
+        "30 g beurre",
+        "Cerfeuil, estragon, ciboulette"
+      ],
+      "steps": [
+        "Réduire le vin blanc et le vinaigre avec les échalotes.",
+        "Ajouter le velouté et cuire quelques minutes.",
+        "Monter au beurre hors du feu.",
+        "Incorporer les herbes hachées au dernier moment."
+      ],
+      "children": []
+    },
+    "poulette": {
+      "nm": "Poulette",
+      "fam": "blanc",
+      "role": "Dérivée d'allemande",
+      "desc": "Allemande additionnée de jus de cuisson de champignons, relevée de jus de citron et de persil. Douce et citronnée. Classiquement servie avec les champignons, les moules ou les pieds de mouton.",
+      "ings": [
+        "300 ml sauce allemande",
+        "100 ml jus de cuisson de champignons",
+        "Jus de citron",
+        "Persil haché"
+      ],
+      "steps": [
+        "Préparer une allemande.",
+        "Ajouter le jus de champignons et réduire légèrement.",
+        "Hors du feu, incorporer le jus de citron.",
+        "Parsemer de persil haché au moment de servir."
+      ],
+      "children": []
+    },
+    "villeroi": {
+      "nm": "Villeroi",
+      "fam": "blanc",
+      "role": "Dérivée d'allemande",
+      "desc": "Allemande très réduite avec une essence de jambon et de champignon, jusqu'à devenir assez épaisse pour napper et figer. On y trempe ris de veau, volaille ou légumes avant de les paner et frire « à la Villeroi ».",
+      "ings": [
+        "400 ml sauce allemande",
+        "1 tranche de jambon",
+        "50 g parures de champignons"
+      ],
+      "steps": [
+        "Infuser le jambon et les champignons dans l'allemande.",
+        "Réduire à feu doux jusqu'à une consistance très épaisse et nappante.",
+        "Passer au chinois fin.",
+        "Laisser refroidir : la sauce doit figer pour enrober les aliments avant la panure."
+      ],
+      "children": []
+    },
+    "robert": {
+      "nm": "Robert",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "Demi-glace aux oignons, vin blanc et moutarde forte. Piquante et rustique, emblème de la cuisine bourgeoise. La moutarde s'ajoute hors du feu — elle ne doit jamais cuire. Accompagne le porc grillé ou rôti.",
+      "ings": [
+        "300 ml demi-glace",
+        "2 oignons",
+        "100 ml vin blanc",
+        "1 c. à s. moutarde forte",
+        "30 g beurre"
+      ],
+      "steps": [
+        "Suer les oignons au beurre jusqu'à légère coloration.",
+        "Déglacer au vin blanc et réduire presque à sec.",
+        "Ajouter la demi-glace et cuire 10 min.",
+        "Hors du feu, incorporer la moutarde en fouettant.",
+        "Ne pas faire rebouillir."
+      ],
+      "children": [
+        "charcutiere"
+      ]
+    },
+    "madere": {
+      "nm": "Madère",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "Demi-glace parfumée au vin de Madère. Brillante, légèrement sucrée-caramélisée, très élégante. Elle accompagne tournedos, jambon braisé et ris de veau.",
+      "ings": [
+        "300 ml demi-glace",
+        "80 ml vin de Madère",
+        "20 g beurre"
+      ],
+      "steps": [
+        "Chauffer la demi-glace à feu doux.",
+        "Ajouter le vin de Madère.",
+        "Réduire jusqu'à consistance nappante.",
+        "Monter au beurre hors du feu et passer au chinois."
+      ],
+      "children": [
+        "perigueux",
+        "financiere"
+      ]
+    },
+    "chasseur": {
+      "nm": "Chasseur",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "Demi-glace aux champignons, échalotes, tomates et vin blanc, parfumée à l'estragon. Rustique et généreuse, c'est la sauce des plats de chasse, du poulet sauté et des escalopes.",
+      "ings": [
+        "300 ml demi-glace",
+        "150 g champignons de Paris",
+        "2 échalotes",
+        "100 ml vin blanc",
+        "2 tomates concassées",
+        "Estragon, persil"
+      ],
+      "steps": [
+        "Sauter les champignons et les échalotes au beurre.",
+        "Déglacer au vin blanc et réduire de moitié.",
+        "Ajouter les tomates concassées et la demi-glace.",
+        "Cuire 10 à 15 min à feu doux.",
+        "Ajouter les herbes hachées en fin de cuisson."
+      ],
+      "children": []
+    },
+    "bordelaise": {
+      "nm": "Bordelaise",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "Demi-glace au vin rouge de Bordeaux, échalotes et moelle de bœuf pochée. Riche, profonde, légèrement vineuse. C'est la sauce des entrecôtes et côtes de bœuf.",
+      "ings": [
+        "300 ml demi-glace",
+        "200 ml vin rouge de Bordeaux",
+        "3 échalotes",
+        "50 g moelle de bœuf",
+        "Thym, laurier",
+        "30 g beurre"
+      ],
+      "steps": [
+        "Réduire le vin rouge avec les échalotes et les herbes jusqu'à quasi-sec.",
+        "Ajouter la demi-glace et cuire 10 min.",
+        "Pocher la moelle en rondelles dans une eau salée frémissante.",
+        "Passer la sauce au chinois et monter au beurre.",
+        "Disposer les rondelles de moelle au moment de servir."
+      ],
+      "children": []
+    },
+    "bigarade": {
+      "nm": "Bigarade",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "Demi-glace (ou jus de canard) liée à un caramel déglacé au vinaigre, avec jus d'orange amère et de citron, et zestes d'orange en julienne. Aigre-douce et fruitée : c'est la sauce du canard à l'orange.",
+      "ings": [
+        "300 ml demi-glace",
+        "2 oranges (amères de préférence)",
+        "1 citron",
+        "1 c. à s. sucre",
+        "1 c. à s. vinaigre",
+        "Zestes d'orange"
+      ],
+      "steps": [
+        "Faire un caramel et le déglacer au vinaigre (gastrique).",
+        "Ajouter le jus d'orange et de citron.",
+        "Incorporer la demi-glace et réduire jusqu'à consistance nappante.",
+        "Ajouter les zestes d'orange blanchis en julienne."
+      ],
+      "children": []
+    },
+    "lyonnaise": {
+      "nm": "Lyonnaise",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "Demi-glace aux oignons fondus, déglacés au vin blanc et au vinaigre. Douce-acidulée, parfumée à l'oignon. Accompagne viandes blanches, restes de bouilli et abats.",
+      "ings": [
+        "300 ml demi-glace",
+        "2 oignons",
+        "100 ml vin blanc",
+        "1 c. à s. vinaigre",
+        "30 g beurre"
+      ],
+      "steps": [
+        "Suer les oignons émincés au beurre jusqu'à blonds.",
+        "Déglacer au vin blanc et au vinaigre, réduire de moitié.",
+        "Ajouter la demi-glace et cuire 10 min.",
+        "Rectifier l'assaisonnement."
+      ],
+      "children": []
+    },
+    "diable": {
+      "nm": "Diable",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "Réduction corsée de vin blanc et d'échalotes, additionnée de demi-glace et fortement relevée de poivre concassé. Piquante, « endiablée ». Accompagne les volailles grillées, notamment à la crapaudine.",
+      "ings": [
+        "300 ml demi-glace",
+        "150 ml vin blanc sec",
+        "2 échalotes",
+        "Poivre concassé (mignonnette)",
+        "Pointe de cayenne"
+      ],
+      "steps": [
+        "Réduire le vin blanc avec les échalotes et le poivre concassé presque à sec.",
+        "Ajouter la demi-glace et cuire 10 min.",
+        "Relever d'une pointe de cayenne.",
+        "Passer au chinois, ou laisser le poivre selon le goût."
+      ],
+      "children": []
+    },
+    "charcutiere": {
+      "nm": "Charcutière",
+      "fam": "brun",
+      "role": "Dérivée de Robert",
+      "desc": "Une sauce Robert finie d'une julienne de cornichons : c'est sa seule différence avec sa mère, les cornichons étant ajoutés en toute fin. Piquante et acidulée, elle accompagne le porc grillé ou rôti.",
+      "ings": [
+        "300 ml sauce Robert",
+        "50 g cornichons"
+      ],
+      "steps": [
+        "Préparer une sauce Robert.",
+        "Tailler les cornichons en fine julienne.",
+        "Les incorporer hors du feu, à la dernière minute.",
+        "Ne pas faire bouillir, pour préserver leur croquant."
+      ],
+      "children": []
+    },
+    "hollandaise": {
+      "nm": "Hollandaise",
+      "fam": "holl",
+      "role": "Sauce mère (sans roux)",
+      "hint": "beurre + œufs",
+      "desc": "Émulsion chaude de jaunes d'œufs et de beurre clarifié, acidulée au citron ou au vinaigre. L'une des cinq grandes sauces mères — sans roux. Onctueuse, beurrée, légèrement acide. Accompagne asperges, poissons pochés et œufs Bénédicte.",
+      "ings": [
+        "3 jaunes d'œufs",
+        "200 g beurre clarifié",
+        "1 c. à s. vinaigre blanc",
+        "Jus de citron",
+        "Sel, poivre blanc"
+      ],
+      "steps": [
+        "Réduire le vinaigre avec une échalote et du poivre.",
+        "Fouetter les jaunes avec la réduction au bain-marie.",
+        "Monter au beurre clarifié chaud, versé en filet, en fouettant sans cesse.",
+        "Quand la sauce nappe la cuillère, assaisonner de sel et de citron."
+      ],
+      "children": [
+        "bearnaise",
+        "mousseline",
+        "maltaise"
+      ]
+    },
+    "sauce_tomate": {
+      "nm": "Sauce Tomate",
+      "fam": "tom",
+      "role": "Sauce mère (sans roux)",
+      "hint": "tomates + fond",
+      "desc": "L'une des cinq grandes sauces mères selon Escoffier, sans roux. Tomates concassées cuites longuement avec un fond blanc et des aromates. Base universelle de la cuisine française et internationale.",
+      "ings": [
+        "1 kg tomates fraîches",
+        "1 oignon",
+        "2 gousses d'ail",
+        "1 carotte",
+        "100 ml fond blanc",
+        "Huile d'olive",
+        "Bouquet garni"
+      ],
+      "steps": [
+        "Faire revenir l'oignon, l'ail et la carotte dans l'huile d'olive.",
+        "Ajouter les tomates concassées et le fond blanc.",
+        "Cuire 45 à 60 min à feu doux avec le bouquet garni.",
+        "Mixer et passer au chinois fin, puis assaisonner."
+      ],
+      "children": [
+        "portugaise",
+        "provencale"
+      ]
+    },
+    "bearnaise": {
+      "nm": "Béarnaise",
+      "fam": "holl",
+      "role": "Dérivée de hollandaise",
+      "desc": "Hollandaise dont la base acide est une réduction d'estragon et de cerfeuil au vinaigre de vin. Plus aromatique que la hollandaise. Accompagne viandes grillées et poissons.",
+      "ings": [
+        "3 jaunes d'œufs",
+        "200 g beurre clarifié",
+        "50 ml vinaigre de vin",
+        "2 échalotes",
+        "Estragon, cerfeuil"
+      ],
+      "steps": [
+        "Réduire le vinaigre avec échalotes, estragon et poivre.",
+        "Fouetter les jaunes sur la réduction refroidie, au bain-marie.",
+        "Monter au beurre clarifié versé en filet.",
+        "Passer, puis incorporer l'estragon haché et assaisonner."
+      ],
+      "children": [
+        "choron",
+        "foyot",
+        "paloise",
+        "tyrolienne"
+      ]
+    },
+    "mousseline": {
+      "nm": "Mousseline",
+      "fam": "holl",
+      "role": "Dérivée de hollandaise",
+      "desc": "Hollandaise additionnée de crème montée en chantilly, incorporée au dernier moment. Plus légère et mousseuse que la hollandaise — on l'appelle aussi sauce Chantilly. Accompagne asperges et poissons délicats.",
+      "ings": [
+        "300 ml hollandaise",
+        "80 ml crème entière montée en chantilly"
+      ],
+      "steps": [
+        "Préparer une hollandaise.",
+        "Monter la crème froide en chantilly souple.",
+        "Incorporer délicatement la chantilly à la hollandaise au dernier moment.",
+        "Servir immédiatement."
+      ],
+      "children": []
+    },
+    "maltaise": {
+      "nm": "Maltaise",
+      "fam": "holl",
+      "role": "Dérivée de hollandaise",
+      "desc": "Hollandaise aromatisée au jus et au zeste d'orange sanguine. Légèrement sucrée, fruitée, d'une belle couleur dorée. Spécialité du printemps, elle accompagne les asperges et les poissons.",
+      "ings": [
+        "300 ml hollandaise",
+        "Jus de 1 orange sanguine",
+        "Zeste d'orange sanguine"
+      ],
+      "steps": [
+        "Préparer une hollandaise.",
+        "Incorporer le jus d'orange réduit de moitié.",
+        "Ajouter le zeste finement râpé.",
+        "Assaisonner et servir aussitôt."
+      ],
+      "children": []
+    },
+    "choron": {
+      "nm": "Choron",
+      "fam": "holl",
+      "role": "Dérivée de béarnaise",
+      "desc": "Béarnaise additionnée de purée de tomates. Rose orangée, aromatique, élégante. Elle accompagne viandes grillées, tournedos et poissons nobles.",
+      "ings": [
+        "300 ml sauce béarnaise",
+        "2 c. à s. concentré de tomate"
+      ],
+      "steps": [
+        "Préparer une béarnaise.",
+        "Incorporer le concentré de tomate en fouettant.",
+        "Ajuster l'assaisonnement et servir immédiatement."
+      ],
+      "children": []
+    },
+    "foyot": {
+      "nm": "Foyot",
+      "fam": "holl",
+      "role": "Dérivée de béarnaise",
+      "desc": "Béarnaise additionnée de glace de viande, qui lui apporte profondeur et brillance. On l'appelle aussi sauce Valois. Elle accompagne les viandes rouges grillées, les tournedos et les ris de veau.",
+      "ings": [
+        "300 ml sauce béarnaise",
+        "1 à 2 c. à s. de glace de viande"
+      ],
+      "steps": [
+        "Préparer une béarnaise.",
+        "Faire fondre doucement la glace de viande.",
+        "L'incorporer délicatement à la béarnaise sans la faire trancher.",
+        "Rectifier l'assaisonnement et servir aussitôt."
+      ],
+      "children": []
+    },
+    "paloise": {
+      "nm": "Paloise",
+      "fam": "holl",
+      "role": "Dérivée de béarnaise",
+      "desc": "Variante de la béarnaise où la menthe fraîche remplace l'estragon. Fraîche et parfumée, elle accompagne traditionnellement l'agneau et les viandes grillées. Originaire du Béarn, comme sa mère.",
+      "ings": [
+        "3 jaunes d'œufs",
+        "200 g beurre clarifié",
+        "50 ml vinaigre de vin",
+        "2 échalotes",
+        "Menthe fraîche"
+      ],
+      "steps": [
+        "Réduire le vinaigre avec les échalotes et quelques tiges de menthe.",
+        "Fouetter les jaunes sur la réduction refroidie, au bain-marie.",
+        "Monter au beurre clarifié versé en filet.",
+        "Passer, incorporer la menthe fraîche hachée et assaisonner."
+      ],
+      "children": []
+    },
+    "tyrolienne": {
+      "nm": "Tyrolienne",
+      "fam": "holl",
+      "role": "Dérivée de béarnaise",
+      "desc": "Béarnaise montée à l'huile plutôt qu'au beurre, puis additionnée de purée de tomates. Plus légère et fruitée que la béarnaise classique. Se sert chaude ou tiède, avec viandes et poissons grillés.",
+      "ings": [
+        "3 jaunes d'œufs",
+        "200 ml huile (tournesol ou olive douce)",
+        "50 ml vinaigre de vin",
+        "2 échalotes",
+        "Estragon",
+        "2 c. à s. purée de tomates"
+      ],
+      "steps": [
+        "Réduire le vinaigre avec les échalotes et l'estragon.",
+        "Fouetter les jaunes sur la réduction refroidie, au bain-marie.",
+        "Monter à l'huile versée en filet, comme une béarnaise.",
+        "Incorporer la purée de tomates, passer et assaisonner."
+      ],
+      "children": []
+    },
+    "portugaise": {
+      "nm": "Portugaise",
+      "fam": "tom",
+      "role": "Dérivée de sauce tomate",
+      "desc": "Sauce tomate enrichie d'oignons et de poivrons revenus, avec des tomates fraîches concassées. Généreuse, colorée, légèrement rustique. Accompagne œufs, viandes blanches et poissons.",
+      "ings": [
+        "300 ml sauce tomate",
+        "1 oignon",
+        "1 poivron rouge",
+        "2 tomates fraîches",
+        "2 gousses d'ail",
+        "Huile d'olive"
+      ],
+      "steps": [
+        "Faire revenir oignon, poivron et ail dans l'huile.",
+        "Ajouter les tomates fraîches concassées et cuire 10 min.",
+        "Incorporer la sauce tomate et cuire encore 15 min.",
+        "Assaisonner ; servir telle quelle ou mixée."
+      ],
+      "children": []
+    },
+    "provencale": {
+      "nm": "Provençale",
+      "fam": "tom",
+      "role": "Dérivée de sauce tomate",
+      "desc": "Sauce tomate à l'ail, aux herbes de Provence et aux olives. Parfumée, ensoleillée, très versatile. Accompagne légumes, viandes grillées et poissons.",
+      "ings": [
+        "300 ml sauce tomate",
+        "3 gousses d'ail",
+        "Herbes de Provence",
+        "50 g olives noires",
+        "Huile d'olive"
+      ],
+      "steps": [
+        "Faire revenir l'ail dans l'huile d'olive.",
+        "Ajouter la sauce tomate et les herbes.",
+        "Cuire 15 min à feu doux.",
+        "Incorporer les olives en fin de cuisson et assaisonner."
+      ],
+      "children": []
+    },
+    "poivrade": {
+      "nm": "Poivrade",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "Demi-glace montée sur une mirepoix de légumes mouillée au vin blanc et au vinaigre, longuement réduite, puis fortement poivrée et passée. Corsée et acidulée, c'est la sauce de base de toutes les préparations de gibier.",
+      "ings": [
+        "500 ml demi-glace",
+        "1 carotte, 1 oignon",
+        "100 ml vin blanc",
+        "50 ml vinaigre",
+        "Parures de gibier (facultatif)",
+        "Poivre en grains concassé"
+      ],
+      "steps": [
+        "Faire revenir la mirepoix de légumes (et les parures de gibier).",
+        "Déglacer au vin blanc et au vinaigre, réduire presque à sec.",
+        "Ajouter la demi-glace et mijoter 30 min à feu doux.",
+        "Ajouter le poivre concassé en toute fin de cuisson.",
+        "Passer au chinois fin."
+      ],
+      "children": [
+        "chevreuil",
+        "grand_veneur",
+        "diane"
+      ]
+    },
+    "chevreuil": {
+      "nm": "Chevreuil",
+      "fam": "brun",
+      "role": "Dérivée de poivrade",
+      "desc": "Sauce poivrade renforcée de parures de gibier et de vin rouge, relevée d'une pointe de cayenne (et parfois d'un soupçon de gelée de groseille). Puissante, elle nappe les pièces de chevreuil, de sanglier et autres gibiers.",
+      "ings": [
+        "500 ml sauce poivrade",
+        "150 ml vin rouge",
+        "Parures de gibier",
+        "Pointe de cayenne",
+        "1 c. à c. de gelée de groseille (facultatif)"
+      ],
+      "steps": [
+        "Faire réduire le vin rouge avec les parures de gibier.",
+        "Ajouter la sauce poivrade et mijoter pour concentrer.",
+        "Relever d'une pointe de cayenne, et de gelée de groseille si désiré.",
+        "Passer au chinois fin avant de servir."
+      ],
+      "children": []
+    },
+    "perigueux": {
+      "nm": "Périgueux",
+      "fam": "brun",
+      "role": "Dérivée de Madère",
+      "desc": "Sauce Madère enrichie d'essence de truffe et de truffes hachées. Profonde, parfumée, luxueuse. Elle accompagne le tournedos Rossini, les volailles et les œufs. Sa variante aux truffes en lames se nomme Périgourdine.",
+      "ings": [
+        "300 ml sauce Madère",
+        "40 g truffes hachées",
+        "1 c. à s. essence (jus) de truffe",
+        "20 g beurre"
+      ],
+      "steps": [
+        "Préparer une sauce Madère.",
+        "Ajouter l'essence de truffe et réduire légèrement.",
+        "Incorporer les truffes hachées hors du feu.",
+        "Monter au beurre et servir sans faire rebouillir."
+      ],
+      "children": []
+    },
+    "financiere": {
+      "nm": "Financière",
+      "fam": "brun",
+      "role": "Dérivée de Madère",
+      "desc": "Sauce Madère réduite avec une essence de truffe et un trait de Madère. C'est la base de la garniture « financière » — quenelles, crêtes de coq, champignons, olives et truffes — héritée de la grande cuisine du XIXᵉ siècle.",
+      "ings": [
+        "300 ml sauce Madère",
+        "1 c. à s. essence de truffe",
+        "50 ml Madère",
+        "20 g beurre"
+      ],
+      "steps": [
+        "Réduire la sauce Madère avec l'essence de truffe.",
+        "Ajouter le Madère et réduire de nouveau.",
+        "Passer au chinois fin.",
+        "Monter au beurre au moment de servir."
+      ],
+      "children": []
+    },
+    "italienne": {
+      "nm": "Italienne",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "Demi-glace additionnée d'une duxelles de champignons, de jambon maigre haché et de tomate concassée, finie aux fines herbes. Parfumée et rustique, elle accompagne viandes blanches, pâtes et œufs.",
+      "ings": [
+        "400 ml demi-glace",
+        "150 g champignons",
+        "2 échalotes",
+        "50 g jambon maigre",
+        "2 tomates concassées",
+        "Persil, estragon"
+      ],
+      "steps": [
+        "Préparer une duxelles : suer champignons et échalotes hachés jusqu'à évaporation complète.",
+        "Ajouter le jambon haché et les tomates concassées.",
+        "Incorporer la demi-glace et cuire 10 à 15 min.",
+        "Finir aux fines herbes hachées."
+      ],
+      "children": []
+    },
+    "grand_veneur": {
+      "nm": "Grand Veneur",
+      "fam": "brun",
+      "role": "Dérivée de poivrade",
+      "desc": "Sauce poivrade liée à la crème (ou au sang du gibier) et adoucie d'une cuillerée de gelée de groseille. Onctueuse et aigre-douce, c'est la grande sauce des venaisons — chevreuil, biche, sanglier. Son nom évoque la chasse à courre.",
+      "ings": [
+        "500 ml sauce poivrade",
+        "100 ml crème (ou sang de gibier)",
+        "2 c. à s. de gelée de groseille",
+        "Poivre"
+      ],
+      "steps": [
+        "Chauffer la sauce poivrade.",
+        "Incorporer la crème (ou lier au sang hors du feu, sans bouillir).",
+        "Ajouter la gelée de groseille et fouetter.",
+        "Rectifier l'assaisonnement et passer au chinois fin."
+      ],
+      "children": []
+    },
+    "diane": {
+      "nm": "Diane",
+      "fam": "brun",
+      "role": "Dérivée de poivrade",
+      "desc": "Sauce poivrade allégée de crème fouettée, parfois garnie de croissants de truffe et de blanc d'œuf dur. Plus douce et mousseuse que la poivrade, elle accompagne les viandes de gibier rôties.",
+      "ings": [
+        "400 ml sauce poivrade",
+        "100 ml crème fouettée",
+        "Lames de truffe (facultatif)",
+        "Blanc d'œuf dur (facultatif)"
+      ],
+      "steps": [
+        "Réduire légèrement la sauce poivrade.",
+        "Hors du feu, incorporer délicatement la crème fouettée.",
+        "Garnir éventuellement de truffe et de blanc d'œuf dur.",
+        "Servir immédiatement."
+      ],
+      "children": []
+    },
+    "regence": {
+      "nm": "Régence",
+      "fam": "blond",
+      "role": "Dérivée de velouté",
+      "desc": "Velouté (de poisson ou de volaille) enrichi d'une réduction de vin du Rhin, d'essence de truffe et d'essence de champignon. Raffinée et aromatique, c'est une sauce d'apparat de la grande cuisine — pour quenelles, ris de veau, volailles et poissons nobles.",
+      "ings": [
+        "400 ml velouté (poisson ou volaille)",
+        "100 ml vin du Rhin (riesling)",
+        "1 c. à s. essence de truffe",
+        "1 c. à s. essence de champignon"
+      ],
+      "steps": [
+        "Réduire le vin du Rhin de moitié.",
+        "Ajouter le velouté et les essences de truffe et de champignon.",
+        "Réduire jusqu'à consistance nappante.",
+        "Passer au chinois fin."
+      ],
+      "children": []
+    },
+    "matelote": {
+      "nm": "Matelote",
+      "fam": "brun",
+      "role": "Dérivée de demi-glace",
+      "desc": "La sauce au vin rouge des poissons « en matelote » : le court-bouillon vineux de cuisson est réduit, lié d'un peu de demi-glace, monté au beurre et relevé de cayenne. On la garnit traditionnellement de champignons et de petits oignons glacés.",
+      "ings": [
+        "400 ml court-bouillon au vin rouge (cuisson du poisson)",
+        "150 ml demi-glace",
+        "40 g beurre (ou beurre d'écrevisses)",
+        "Pointe de cayenne",
+        "Champignons et petits oignons (garniture)"
+      ],
+      "steps": [
+        "Réduire fortement le court-bouillon au vin rouge.",
+        "Ajouter la demi-glace et réduire de nouveau.",
+        "Monter au beurre hors du feu et relever de cayenne.",
+        "Garnir de champignons et de petits oignons glacés."
+      ],
+      "children": []
+    }
+  },
+  "tagLabel": {
+    "boeuf": "Bœuf",
+    "agneau": "Agneau",
+    "veau": "Veau",
+    "porc": "Porc",
+    "volaille": "Volaille",
+    "canard": "Canard",
+    "gibier": "Gibier",
+    "ris_de_veau": "Ris de veau",
+    "abats": "Abats",
+    "poisson_poche": "Poisson poché",
+    "poisson_grille": "Poisson grillé",
+    "poisson_eau_douce": "Poisson d'eau douce",
+    "fruits_de_mer": "Fruits de mer",
+    "asperges": "Asperges",
+    "champignons": "Champignons",
+    "legumes": "Légumes",
+    "oeufs": "Œufs",
+    "quenelles": "Quenelles",
+    "vol_au_vent": "Vol-au-vent & bouchées",
+    "gratins": "Gratins",
+    "pates": "Pâtes"
+  },
+  "tagGroups": [
+    {
+      "cat": "Viandes",
+      "tags": [
+        "boeuf",
+        "agneau",
+        "veau",
+        "porc"
+      ]
+    },
+    {
+      "cat": "Volaille & gibier",
+      "tags": [
+        "volaille",
+        "canard",
+        "gibier"
+      ]
+    },
+    {
+      "cat": "Abats",
+      "tags": [
+        "ris_de_veau",
+        "abats"
+      ]
+    },
+    {
+      "cat": "Poissons & fruits de mer",
+      "tags": [
+        "poisson_poche",
+        "poisson_grille",
+        "poisson_eau_douce",
+        "fruits_de_mer"
+      ]
+    },
+    {
+      "cat": "Légumes & œufs",
+      "tags": [
+        "asperges",
+        "champignons",
+        "legumes",
+        "oeufs"
+      ]
+    },
+    {
+      "cat": "Garnitures",
+      "tags": [
+        "quenelles",
+        "vol_au_vent",
+        "gratins",
+        "pates"
+      ]
+    }
+  ],
+  "accords": {
+    "bechamel": [
+      "gratins",
+      "pates",
+      "legumes"
+    ],
+    "sauce_brune": [
+      "boeuf",
+      "volaille"
+    ],
+    "mornay": [
+      "gratins",
+      "legumes",
+      "poisson_poche"
+    ],
+    "soubise": [
+      "agneau",
+      "veau",
+      "asperges"
+    ],
+    "nantua": [
+      "quenelles",
+      "poisson_eau_douce",
+      "fruits_de_mer"
+    ],
+    "supreme": [
+      "volaille",
+      "ris_de_veau",
+      "vol_au_vent"
+    ],
+    "allemande": [
+      "veau",
+      "volaille",
+      "quenelles"
+    ],
+    "normande": [
+      "poisson_poche",
+      "fruits_de_mer"
+    ],
+    "bercy": [
+      "poisson_poche",
+      "poisson_grille"
+    ],
+    "vin_blanc": [
+      "poisson_poche"
+    ],
+    "aurore": [
+      "volaille",
+      "oeufs",
+      "quenelles"
+    ],
+    "robert": [
+      "porc"
+    ],
+    "madere": [
+      "boeuf",
+      "porc",
+      "ris_de_veau"
+    ],
+    "chasseur": [
+      "gibier",
+      "volaille",
+      "veau"
+    ],
+    "bordelaise": [
+      "boeuf"
+    ],
+    "bigarade": [
+      "canard"
+    ],
+    "lyonnaise": [
+      "veau",
+      "boeuf",
+      "abats"
+    ],
+    "diable": [
+      "volaille"
+    ],
+    "charcutiere": [
+      "porc"
+    ],
+    "hollandaise": [
+      "asperges",
+      "poisson_poche",
+      "oeufs"
+    ],
+    "sauce_tomate": [
+      "pates",
+      "legumes",
+      "oeufs"
+    ],
+    "bearnaise": [
+      "boeuf",
+      "poisson_grille"
+    ],
+    "mousseline": [
+      "asperges",
+      "poisson_poche"
+    ],
+    "maltaise": [
+      "asperges",
+      "poisson_poche"
+    ],
+    "choron": [
+      "boeuf",
+      "poisson_poche"
+    ],
+    "portugaise": [
+      "oeufs",
+      "veau",
+      "poisson_grille"
+    ],
+    "provencale": [
+      "legumes",
+      "boeuf",
+      "poisson_grille"
+    ],
+    "poivrade": [
+      "gibier"
+    ],
+    "chevreuil": [
+      "gibier"
+    ],
+    "perigueux": [
+      "boeuf",
+      "volaille",
+      "oeufs"
+    ],
+    "financiere": [
+      "vol_au_vent",
+      "ris_de_veau",
+      "quenelles"
+    ],
+    "italienne": [
+      "veau",
+      "pates",
+      "oeufs"
+    ],
+    "grand_veneur": [
+      "gibier"
+    ],
+    "diane": [
+      "gibier"
+    ],
+    "regence": [
+      "quenelles",
+      "ris_de_veau",
+      "volaille",
+      "poisson_poche"
+    ],
+    "matelote": [
+      "poisson_eau_douce"
+    ],
+    "foyot": [
+      "boeuf",
+      "ris_de_veau"
+    ],
+    "paloise": [
+      "agneau",
+      "boeuf"
+    ],
+    "tyrolienne": [
+      "boeuf",
+      "poisson_grille"
+    ],
+    "poulette": [
+      "champignons",
+      "fruits_de_mer",
+      "abats"
+    ],
+    "ravigote": [
+      "abats",
+      "volaille",
+      "poisson_poche"
+    ],
+    "villeroi": [
+      "ris_de_veau",
+      "volaille",
+      "legumes"
+    ]
+  }
+}

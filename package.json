@@ -1,0 +1,11 @@
+{
+  "name": "arbre-des-sauces",
+  "version": "1.0.0",
+  "description": "Généalogie interactive des sauces de la cuisine classique française (Escoffier).",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "node tools/build.js",
+    "check": "node tools/build.js --check"
+  }
+}

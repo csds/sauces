@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Éditeur d'accords — L'arbre des sauces (outil de développement)</title>
+<style>
+/* ------------------------------------------------------------------
+   Outil de DÉVELOPPEMENT — n'est pas livré avec l'application.
+   Édite data/sauces.json (source unique de vérité) : le vocabulaire
+   des plats (tagLabel / tagGroups) et la table des accords (accords),
+   sous forme de grille sauces × plats. Exporte un sauces.json mis à
+   jour ; les sauces (nodes) ne sont jamais modifiées ici.
+   ------------------------------------------------------------------ */
+:root{
+  --paper:#f4ecdb; --paper-2:#efe5d0; --ink:#2c271f; --ink-soft:#6f6555;
+  --card:#fbf6ea; --rule:#b9a87f; --rule-soft:#d8c9ab;
+  --blanc:#cdae74; --blond:#bd8a2e; --brun:#6f4421; --holl:#f0ce5b; --tom:#b0402a; --base:#5c5446;
+  --ok:#3f7d4f; --warn:#a8642a;
+  --cath:32px;   /* hauteur figée de la 1re ligne d'en-tête (catégories) */
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,"Segoe UI",Roboto,sans-serif;font-size:14px;line-height:1.5;display:flex;flex-direction:column;overflow:hidden}
+a{color:var(--brun)}
+header{
+  flex:0 0 auto;z-index:30;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:12px 20px;border-bottom:1px solid var(--rule);background:var(--paper-2);
+}
+header h1{font-family:Georgia,serif;font-size:1.25rem;margin:0;font-weight:600}
+header h1 .dev{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:#fff;background:var(--warn);padding:2px 7px;border-radius:10px;vertical-align:middle;margin-left:8px}
+header .spacer{flex:1}
+.btn{font:inherit;cursor:pointer;border:1px solid var(--rule);background:var(--card);color:var(--ink);padding:7px 13px;border-radius:7px;transition:background .12s,border-color .12s}
+.btn:hover{background:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary{background:var(--brun);border-color:var(--brun);color:#fdf6e6}
+.btn.primary:hover{background:#5a3619}
+.status{font-size:.85rem;color:var(--ink-soft)}
+.status b{color:var(--ink)}
+.status .dirty{color:var(--warn);font-weight:600}
+
+main{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:auto;padding:18px 20px}
+/* en mode éditeur : seule la grille défile, jamais la page (pas de double scrollbar) */
+#editor:not([hidden]){flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+
+/* ---- écran de chargement ---- */
+.loader{max-width:680px;margin:8vh auto;padding:30px 34px;background:var(--card);border:1px solid var(--rule);border-radius:12px}
+.loader h2{font-family:Georgia,serif;margin:0 0 10px}
+.loader p{color:var(--ink-soft)}
+.loader .drop{margin-top:18px;padding:26px;border:2px dashed var(--rule);border-radius:10px;text-align:center;background:var(--paper)}
+.loader .drop.hover{border-color:var(--brun);background:#fff}
+.err{color:#9a2f1f;font-weight:600;margin-top:12px}
+
+/* ---- barre d'outils grille ---- */
+.toolbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.toolbar label{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:.9rem}
+.toolbar input[type=search]{font:inherit;padding:6px 10px;border:1px solid var(--rule);border-radius:7px;background:var(--card);min-width:200px}
+.stats{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-soft)}
+.stats .pill{background:var(--card);border:1px solid var(--rule-soft);border-radius:14px;padding:3px 10px}
+.stats .pill.bad{border-color:var(--warn);color:var(--warn)}
+
+/* ---- grille ---- */
+.grid-wrap{flex:1 1 auto;min-height:0;overflow:auto;border:1px solid var(--rule);border-radius:10px;background:var(--card)}
+table{border-collapse:separate;border-spacing:0;font-size:.86rem}
+th,td{border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft)}
+thead th{position:sticky;top:0;z-index:5;background:var(--paper-2)}
+thead tr.cats th{z-index:6}
+.cat-h{font-weight:600;text-align:center;padding:6px 8px;font-size:.8rem;color:var(--ink);border-bottom:2px solid var(--rule);height:var(--cath);top:0}
+/* la 2e ligne (tags) se fige juste SOUS la ligne des catégories, pas par-dessus */
+.tag-h{height:140px;vertical-align:bottom;padding:0 0 8px;top:var(--cath)}
+.tag-h > div{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;margin:0 auto;font-weight:500;color:var(--ink)}
+.tag-h .tn{font-size:.7rem;color:var(--ink-soft);font-weight:400}
+/* coin figé (haut-gauche) : DEUX cellules empilées imitant une cellule fusionnée.
+   Pas de rowspan — incompatible avec position:sticky (la 2e ligne se tasse). */
+.corner{position:sticky;left:0;background:var(--paper-2);min-width:230px;text-align:left;font-weight:600;padding:0 12px}
+thead th.corner-top{top:0;height:var(--cath);z-index:9;border-bottom:none}
+thead th.corner-bot{top:var(--cath);vertical-align:bottom;padding-bottom:9px;z-index:9}
+.sauce-h{position:sticky;left:0;z-index:4;background:var(--card);text-align:left;padding:5px 12px;min-width:230px;white-space:nowrap}
+.sauce-h .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.sauce-h .id{color:var(--ink-soft);font-size:.74rem;margin-left:6px}
+.sauce-h.empty{opacity:.55;font-style:italic}
+tbody tr:hover .sauce-h{background:#fff}
+tbody tr:hover td{background:rgba(111,68,33,.05)}
+td.cell{text-align:center;padding:0;cursor:pointer;width:30px;min-width:30px}
+td.cell:hover{background:rgba(111,68,33,.12)!important}
+td.cell input{cursor:pointer;width:15px;height:15px;accent-color:var(--brun);margin:6px auto;display:block}
+/* séparateur de catégorie */
+.catsep{border-right:2px solid var(--rule)}
+tbody tr.famsep td,tbody tr.famsep th{border-top:2px solid var(--rule)}
+
+.hint{font-size:.82rem;color:var(--ink-soft);margin:10px 2px}
+dialog{border:1px solid var(--rule);border-radius:12px;max-width:760px;width:92%;padding:0;background:var(--card)}
+dialog::backdrop{background:rgba(40,25,8,.45)}
+.dlg-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--rule)}
+.dlg-head h3{margin:0;font-family:Georgia,serif}
+.dlg-body{padding:16px 18px}
+textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;border:1px solid var(--rule);border-radius:8px;padding:10px;background:#fff;color:var(--ink);white-space:pre;overflow:auto}
+.dlg-foot{display:flex;gap:10px;justify-content:flex-end;padding:12px 18px;border-top:1px solid var(--rule)}
+#manageDlg{max-width:640px}
+#manageDlg .dlg-body{max-height:68vh;overflow:auto}
+.mcat{border:1px solid var(--rule-soft);border-radius:9px;margin:10px 0;background:var(--paper)}
+.mcat-head{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--rule-soft);background:var(--paper-2);border-radius:9px 9px 0 0}
+.mcat-head input.cat{flex:1;font:inherit;font-weight:600;border:1px solid transparent;background:transparent;padding:4px 6px;border-radius:6px}
+.mcat-head input.cat:hover,.mcat-head input.cat:focus{border-color:var(--rule);background:#fff;outline:none}
+.mtags{padding:6px 10px}
+.mtag{display:flex;align-items:center;gap:6px;padding:3px 0}
+.mtag input.lbl{flex:1;font:inherit;border:1px solid transparent;background:transparent;padding:4px 6px;border-radius:6px}
+.mtag input.lbl:hover,.mtag input.lbl:focus{border-color:var(--rule);background:#fff;outline:none}
+.mtag .tid{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.7rem;color:var(--ink-soft);min-width:96px}
+.mtag select{font:inherit;font-size:.8rem;border:1px solid var(--rule-soft);border-radius:6px;background:var(--card);padding:2px 4px}
+.mtag .use{font-size:.72rem;color:var(--ink-soft);min-width:48px;text-align:right}
+.ibtn{font:inherit;cursor:pointer;border:1px solid var(--rule-soft);background:var(--card);color:var(--ink-soft);width:24px;height:24px;line-height:1;border-radius:6px;padding:0}
+.ibtn:hover{background:#fff;color:var(--ink)}
+.ibtn:disabled{opacity:.3;cursor:not-allowed}
+.ibtn.del:hover{color:#9a2f1f;border-color:#c98}
+.mcat-foot{padding:4px 10px 10px}
+.addtag{font:inherit;cursor:pointer;border:1px dashed var(--rule);background:transparent;color:var(--ink-soft);padding:4px 10px;border-radius:6px}
+.addtag:hover{background:#fff;color:var(--ink)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Éditeur d'accords<span class="dev">dev</span></h1>
+  <span id="src-name" class="status"></span>
+  <span class="spacer"></span>
+  <span id="dirty" class="status"></span>
+  <button class="btn" id="btnReload" disabled>Recharger…</button>
+  <button class="btn" id="btnCopy" disabled>Copier le JSON</button>
+  <button class="btn primary" id="btnSave" disabled>Télécharger sauces.json</button>
+</header>
+
+<main>
+  <!-- écran de chargement -->
+  <section class="loader" id="loader">
+    <h2>Charger <code>data/sauces.json</code></h2>
+    <p>Cet outil édite <code>data/sauces.json</code>, la <strong>source unique de vérité</strong> : il en
+      lit les sauces (<code>nodes</code>), le vocabulaire des plats (<code>tagLabel</code>,
+      <code>tagGroups</code>) et la table <code>accords</code>. Vous retravaillez la grille,
+      puis l'outil exporte un <code>sauces.json</code> mis à jour (les <code>nodes</code> sont
+      laissés intacts). Reconstruisez ensuite la page avec <code>node tools/build.js</code>.</p>
+    <p>Aucune donnée n'est dupliquée ici : la grille reflète toujours l'état réel du fichier chargé.</p>
+    <div class="drop" id="drop">
+      <p><strong>Glissez-déposez</strong> <code>sauces.json</code> ici, ou
+        <label class="btn" style="display:inline-block">
+          choisir un fichier<input type="file" id="file" accept=".json,application/json" hidden>
+        </label>
+      </p>
+      <p class="status">Astuce : servez le dossier (<code>python3 -m http.server</code>) et le fichier
+        se charge tout seul.</p>
+    </div>
+    <p class="err" id="loadErr" hidden></p>
+  </section>
+
+  <!-- éditeur -->
+  <section id="editor" hidden>
+    <div class="toolbar">
+      <input type="search" id="filter" placeholder="Filtrer une sauce…">
+      <label><input type="checkbox" id="hideEmpty"> Masquer les sauces sans accord</label>
+      <button class="btn" id="btnManage">Gérer les plats &amp; catégories…</button>
+      <div class="spacer"></div>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="grid-wrap"><table id="grid"></table></div>
+    <p class="hint">Cliquez une case pour basculer un accord. Les lignes regroupent les sauces par
+      famille (couleur), les colonnes regroupent les plats par catégorie. Utilisez
+      <em>Gérer les plats &amp; catégories</em> pour ajouter, renommer, supprimer ou réordonner les
+      colonnes. Les blocs régénérés sont triés de façon déterministe pour des diffs propres.</p>
+  </section>
+</main>
+
+<!-- dialogue « copier le bloc » -->
+<dialog id="copyDlg">
+  <div class="dlg-head"><h3>sauces.json mis à jour</h3></div>
+  <div class="dlg-body">
+    <p class="status">Enregistrez ce contenu dans <code>data/sauces.json</code>, puis reconstruisez
+      la page avec <code>node tools/build.js</code>.</p>
+    <textarea id="copyArea" readonly></textarea>
+  </div>
+  <div class="dlg-foot">
+    <button class="btn" id="copyClose">Fermer</button>
+    <button class="btn primary" id="copyDo">Copier dans le presse-papier</button>
+  </div>
+</dialog>
+
+<!-- dialogue « gérer les plats & catégories » -->
+<dialog id="manageDlg">
+  <div class="dlg-head">
+    <h3>Plats &amp; catégories</h3>
+    <span class="spacer" style="flex:1"></span>
+    <button class="btn" id="manageClose">Fermer</button>
+  </div>
+  <div class="dlg-body">
+    <p class="status">Renommez, ajoutez, supprimez ou réordonnez les catégories et les plats.
+      Supprimer un plat le retire aussi de tous les accords. La grille se met à jour à la fermeture.</p>
+    <div id="manageList"></div>
+    <button class="btn" id="addCat" style="margin-top:12px">+ Ajouter une catégorie</button>
+  </div>
+</dialog>
+
+<script>
+/* ============================================================
+   État
+   ============================================================ */
+let DATA = null;         // objet complet chargé depuis sauces.json
+let SRC_NAME = 'sauces.json';
+let NODES, TAG_LABEL, TAG_GROUPS, TAG_ORDER;
+let STATE = {};          // id -> Set(tags) — la table en cours d'édition
+let BASELINE = '';       // signature de la table au chargement (pour « modifié »)
+const FAM_COLOR = {blanc:'--blanc',blond:'--blond',brun:'--brun',holl:'--holl',tom:'--tom',base:'--base'};
+/* ordre d'affichage des familles (présentation — vit dans src/template.html côté app) */
+const FAM_ORDER = {blanc:0,blond:1,brun:2,holl:3,tom:4,base:5};
+
+/* ============================================================
+   Chargement depuis data/sauces.json
+   ============================================================ */
+function loadSource(text, name){
+  try{
+    const data = JSON.parse(text);
+    if(!data.nodes || !data.tagLabel || !data.tagGroups || !data.accords)
+      throw new Error('JSON inattendu : clés nodes, tagLabel, tagGroups, accords requises.');
+    DATA       = data;
+    NODES      = data.nodes;
+    TAG_LABEL  = data.tagLabel;
+    TAG_GROUPS = data.tagGroups;
+    TAG_ORDER  = TAG_GROUPS.flatMap(g=>g.tags);
+    // valider que la grille suffit à exprimer la table actuelle
+    const orphanTags = new Set();
+    for(const tags of Object.values(data.accords)) for(const t of tags)
+      if(!TAG_ORDER.includes(t)) orphanTags.add(t);
+    if(orphanTags.size)
+      throw new Error('Des accords utilisent des plats absents de tagGroups : '+[...orphanTags].join(', '));
+
+    STATE = {};
+    for(const id of Object.keys(NODES)) STATE[id] = new Set(data.accords[id]||[]);
+    SRC_NAME = name || SRC_NAME;
+    BASELINE = signature();
+    showEditor();
+  }catch(e){
+    const el = document.getElementById('loadErr');
+    el.textContent = 'Échec du chargement : '+e.message;
+    el.hidden = false;
+  }
+}
+
+/* signature ordonnée du vocabulaire + des accords, pour détecter les modifications */
+function signature(){
+  const vocab = TAG_GROUPS.map(g=>g.cat+'#'+g.tags.map(t=>t+'='+TAG_LABEL[t]).join(',')).join('|');
+  const acc = Object.keys(STATE).sort().map(id=>id+':'+[...STATE[id]].sort().join(','))
+    .filter(s=>!s.endsWith(':')).join('|');
+  return vocab+'§'+acc;
+}
+function recomputeOrder(){ TAG_ORDER = TAG_GROUPS.flatMap(g=>g.tags); }
+function esc(s){ return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function escAttr(s){ return esc(s).replace(/"/g,'&quot;'); }
+
+/* ============================================================
+   Rendu de la grille
+   ============================================================ */
+function sortedSauceIds(){
+  return Object.keys(NODES).sort((a,b)=>
+    (FAM_ORDER[NODES[a].fam]-FAM_ORDER[NODES[b].fam]) || NODES[a].nm.localeCompare(NODES[b].nm,'fr'));
+}
+function famVar(f){ return 'var('+(FAM_COLOR[f]||'--base')+')'; }
+
+function renderGrid(){
+  const filter = document.getElementById('filter').value.trim().toLowerCase();
+  const hideEmpty = document.getElementById('hideEmpty').checked;
+  const tbl = document.getElementById('grid');
+  const cats = TAG_GROUPS.filter(g=>g.tags.length>0);   // une catégorie vide n'a pas de colonne
+
+  // en-têtes
+  let thead = '<thead><tr class="cats"><th class="corner corner-top"></th>';
+  cats.forEach((g,gi)=>{
+    thead += '<th class="cat-h'+(gi<cats.length-1?' catsep':'')+'" colspan="'+g.tags.length+'">'+esc(g.cat)+'</th>';
+  });
+  thead += '</tr><tr><th class="corner corner-bot">Sauce <span class="status" id="rowCount"></span></th>';
+  cats.forEach((g,gi)=>{
+    g.tags.forEach((t,ti)=>{
+      const sep = (gi<cats.length-1 && ti===g.tags.length-1) ? ' catsep':'';
+      const n = countTag(t);
+      thead += '<th class="tag-h'+sep+'"><div>'+esc(TAG_LABEL[t])+' <span class="tn">'+n+'</span></div></th>';
+    });
+  });
+  thead += '</tr></thead>';
+
+  // lignes
+  let prevFam=null, rows=0, body='<tbody>';
+  for(const id of sortedSauceIds()){
+    const n = NODES[id]; const set = STATE[id];
+    if(hideEmpty && set.size===0) continue;
+    if(filter && !(n.nm.toLowerCase().includes(filter) || id.includes(filter))) continue;
+    rows++;
+    const famsep = (prevFam!==null && n.fam!==prevFam) ? ' famsep':''; prevFam=n.fam;
+    body += '<tr class="'+famsep.trim()+'">';
+    body += '<th class="sauce-h'+(set.size===0?' empty':'')+'"><span class="dot" style="background:'+famVar(n.fam)+'"></span>'
+          + n.nm + '<span class="id">'+id+'</span></th>';
+    cats.forEach((g,gi)=>{
+      g.tags.forEach((t,ti)=>{
+        const sep = (gi<cats.length-1 && ti===g.tags.length-1) ? ' catsep':'';
+        const on = set.has(t);
+        body += '<td class="cell'+sep+'" data-id="'+id+'" data-tag="'+t+'">'
+              + '<input type="checkbox"'+(on?' checked':'')+'></td>';
+      });
+    });
+    body += '</tr>';
+  }
+  body += '</tbody>';
+  tbl.innerHTML = thead + body;
+  document.getElementById('rowCount').textContent = '('+rows+')';
+  updateStats();
+}
+
+function countTag(t){ let c=0; for(const id in STATE) if(STATE[id].has(t)) c++; return c; }
+
+function updateStats(){
+  const sauces = Object.keys(STATE).filter(id=>STATE[id].size>0).length;
+  let pairs=0; for(const id in STATE) pairs+=STATE[id].size;
+  const emptyTags = TAG_ORDER.filter(t=>countTag(t)===0);
+  let html = '<span class="pill"><b>'+sauces+'</b> sauces accordées</span>'
+           + '<span class="pill"><b>'+pairs+'</b> accords</span>';
+  html += emptyTags.length
+    ? '<span class="pill bad">'+emptyTags.length+' plat(s) sans sauce : '+emptyTags.map(t=>TAG_LABEL[t]).join(', ')+'</span>'
+    : '<span class="pill">tous les plats couverts</span>';
+  document.getElementById('stats').innerHTML = html;
+
+  const dirty = signature()!==BASELINE;
+  document.getElementById('dirty').innerHTML = dirty ? '<span class="dirty">● modifications non enregistrées</span>' : '';
+  document.getElementById('btnSave').disabled = !dirty;
+}
+
+/* clic sur une case (délégation) */
+document.getElementById('editor').addEventListener('click', e=>{
+  const cell = e.target.closest('td.cell'); if(!cell) return;
+  const {id, tag} = cell.dataset;
+  const box = cell.querySelector('input');
+  if(e.target !== box) box.checked = !box.checked;       // clic sur la cellule = bascule
+  box.checked ? STATE[id].add(tag) : STATE[id].delete(tag);
+  // mises à jour ciblées (évite de re-rendre toute la grille)
+  cell.closest('tr').querySelector('.sauce-h').classList.toggle('empty', STATE[id].size===0);
+  refreshHeaderCounts();
+  updateStats();
+});
+function refreshHeaderCounts(){
+  document.querySelectorAll('#grid thead .tag-h').forEach((th,i)=>{
+    const t = TAG_ORDER[i]; const span = th.querySelector('.tn'); if(span) span.textContent = countTag(t);
+  });
+}
+
+/* ============================================================
+   Gestion du vocabulaire : plats (tags) & catégories
+   TAG_LABEL (libellé), TAG_GROUPS (catégorie/ordre) et les
+   accords (STATE) sont maintenus synchronisés.
+   ============================================================ */
+function slugify(label){
+  let s = label.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/œ/g,'oe').replace(/æ/g,'ae')
+    .replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'');
+  if(!s) s = 'plat';
+  if(/^[0-9]/.test(s)) s = '_'+s;
+  return s;
+}
+function uniqueId(base){ let id=base,n=2; while(Object.prototype.hasOwnProperty.call(TAG_LABEL,id)) id=base+'_'+(n++); return id; }
+function findTag(id){
+  for(let ci=0;ci<TAG_GROUPS.length;ci++){ const ti=TAG_GROUPS[ci].tags.indexOf(id); if(ti>=0) return {ci,ti}; }
+  return null;
+}
+function deleteTag(id){
+  const loc=findTag(id); if(loc) TAG_GROUPS[loc.ci].tags.splice(loc.ti,1);
+  delete TAG_LABEL[id];
+  for(const s in STATE) STATE[s].delete(id);
+}
+function afterStructural(){ recomputeOrder(); renderManage(); updateStats(); }
+
+function renderManage(){
+  let html='';
+  TAG_GROUPS.forEach((g,ci)=>{
+    html += '<div class="mcat"><div class="mcat-head">'
+      + btn('cat-up',{ci},'▲',ci===0)
+      + btn('cat-down',{ci},'▼',ci===TAG_GROUPS.length-1)
+      + '<input class="cat" data-act="cat-rename" data-ci="'+ci+'" value="'+escAttr(g.cat)+'">'
+      + '<button class="ibtn del" data-act="cat-del" data-ci="'+ci+'" title="Supprimer la catégorie">✕</button>'
+      + '</div><div class="mtags">';
+    g.tags.forEach((t,ti)=>{
+      const sel = TAG_GROUPS.map((gg,k)=>'<option value="'+k+'"'+(k===ci?' selected':'')+'>'+esc(gg.cat)+'</option>').join('');
+      html += '<div class="mtag">'
+        + btn('tag-up',{ci,ti},'▲',ti===0)
+        + btn('tag-down',{ci,ti},'▼',ti===g.tags.length-1)
+        + '<input class="lbl" data-act="tag-rename" data-id="'+t+'" value="'+escAttr(TAG_LABEL[t])+'">'
+        + '<span class="tid">'+t+'</span>'
+        + '<select data-act="tag-move" data-id="'+t+'" title="Déplacer vers…">'+sel+'</select>'
+        + '<span class="use">'+countTag(t)+' acc.</span>'
+        + '<button class="ibtn del" data-act="tag-del" data-id="'+t+'" title="Supprimer le plat">✕</button>'
+        + '</div>';
+    });
+    html += '</div><div class="mcat-foot"><button class="addtag" data-act="tag-add" data-ci="'+ci+'">+ Ajouter un plat</button></div></div>';
+  });
+  document.getElementById('manageList').innerHTML = html || '<p class="status">Aucune catégorie pour l\'instant.</p>';
+  function btn(act,data,glyph,disabled){
+    const attrs=Object.entries(data).map(([k,v])=>'data-'+k+'="'+v+'"').join(' ');
+    return '<button class="ibtn" data-act="'+act+'" '+attrs+(disabled?' disabled':'')+'>'+glyph+'</button>';
+  }
+}
+
+const mlist = document.getElementById('manageList');
+mlist.addEventListener('click', e=>{
+  const b=e.target.closest('button[data-act]'); if(!b) return;
+  const act=b.dataset.act, ci=+b.dataset.ci, ti=+b.dataset.ti, id=b.dataset.id;
+  if(act==='cat-up'){ [TAG_GROUPS[ci-1],TAG_GROUPS[ci]]=[TAG_GROUPS[ci],TAG_GROUPS[ci-1]]; afterStructural(); }
+  else if(act==='cat-down'){ [TAG_GROUPS[ci+1],TAG_GROUPS[ci]]=[TAG_GROUPS[ci],TAG_GROUPS[ci+1]]; afterStructural(); }
+  else if(act==='cat-del'){
+    const g=TAG_GROUPS[ci], acc=g.tags.reduce((s,t)=>s+countTag(t),0);
+    if(g.tags.length && !confirm('Supprimer la catégorie « '+g.cat+' » et ses '+g.tags.length+' plat(s) ?'
+      +(acc?'\n'+acc+' accord(s) seront retirés.':''))) return;
+    g.tags.slice().forEach(deleteTag); TAG_GROUPS.splice(ci,1); afterStructural();
+  }
+  else if(act==='tag-up'){ const a=TAG_GROUPS[ci].tags; [a[ti-1],a[ti]]=[a[ti],a[ti-1]]; afterStructural(); }
+  else if(act==='tag-down'){ const a=TAG_GROUPS[ci].tags; [a[ti+1],a[ti]]=[a[ti],a[ti+1]]; afterStructural(); }
+  else if(act==='tag-del'){
+    const uses=countTag(id);
+    if(uses && !confirm('Supprimer le plat « '+TAG_LABEL[id]+' » ? Il sera retiré de '+uses+' accord(s).')) return;
+    deleteTag(id); afterStructural();
+  }
+  else if(act==='tag-add'){
+    const label=prompt('Nom du nouveau plat ?'); if(!label||!label.trim()) return;
+    const newId=uniqueId(slugify(label)); TAG_LABEL[newId]=label.trim(); TAG_GROUPS[ci].tags.push(newId); afterStructural();
+  }
+});
+mlist.addEventListener('input', e=>{
+  const el=e.target;
+  if(el.dataset.act==='cat-rename'){ TAG_GROUPS[+el.dataset.ci].cat=el.value; updateStats(); }
+  else if(el.dataset.act==='tag-rename'){ TAG_LABEL[el.dataset.id]=el.value; updateStats(); }
+});
+mlist.addEventListener('change', e=>{
+  const el=e.target; if(el.dataset.act!=='tag-move') return;
+  const id=el.dataset.id, target=+el.value, loc=findTag(id);
+  if(!loc || loc.ci===target) return;
+  TAG_GROUPS[loc.ci].tags.splice(loc.ti,1); TAG_GROUPS[target].tags.push(id); afterStructural();
+});
+document.getElementById('btnManage').addEventListener('click', ()=>{ renderManage(); document.getElementById('manageDlg').showModal(); });
+document.getElementById('manageClose').addEventListener('click', ()=>document.getElementById('manageDlg').close());
+document.getElementById('addCat').addEventListener('click', ()=>{
+  const name=prompt('Nom de la nouvelle catégorie ?'); if(!name||!name.trim()) return;
+  TAG_GROUPS.push({cat:name.trim(), tags:[]}); afterStructural();
+});
+document.getElementById('manageDlg').addEventListener('close', ()=>{ recomputeOrder(); renderGrid(); });
+
+/* ============================================================
+   Régénération de data/sauces.json
+   Trié de façon déterministe pour des diffs propres ; les nodes
+   ne sont jamais touchés (recopiés tels quels).
+   ============================================================ */
+function buildAccords(){
+  const acc = {};
+  for(const id of sortedSauceIds()){
+    if(STATE[id].size===0) continue;
+    acc[id] = TAG_ORDER.filter(t=>STATE[id].has(t));
+  }
+  return acc;
+}
+function orderedTagLabel(){
+  const tl = {};
+  for(const t of TAG_ORDER) tl[t] = TAG_LABEL[t];
+  return tl;
+}
+function genUpdatedJson(){
+  const out = { nodes: DATA.nodes, tagLabel: orderedTagLabel(), tagGroups: TAG_GROUPS, accords: buildAccords() };
+  return JSON.stringify(out, null, 2) + '\n';
+}
+
+/* ============================================================
+   Actions
+   ============================================================ */
+function download(text, name){
+  const blob = new Blob([text],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+}
+document.getElementById('btnSave').addEventListener('click', ()=>{
+  download(genUpdatedJson(), 'sauces.json');
+  // après export, la version téléchargée devient la nouvelle référence
+  BASELINE = signature(); updateStats();
+});
+document.getElementById('btnCopy').addEventListener('click', ()=>{
+  document.getElementById('copyArea').value = genUpdatedJson();
+  document.getElementById('copyDlg').showModal();
+});
+document.getElementById('copyClose').addEventListener('click', ()=>document.getElementById('copyDlg').close());
+document.getElementById('copyDo').addEventListener('click', async ()=>{
+  const ta = document.getElementById('copyArea');
+  try{ await navigator.clipboard.writeText(ta.value); document.getElementById('copyDo').textContent='Copié ✓'; }
+  catch{ ta.select(); document.execCommand('copy'); }
+});
+document.getElementById('btnReload').addEventListener('click', ()=>document.getElementById('file').click());
+document.getElementById('filter').addEventListener('input', renderGrid);
+document.getElementById('hideEmpty').addEventListener('change', renderGrid);
+
+function showEditor(){
+  document.getElementById('loader').hidden = true;
+  document.getElementById('editor').hidden = false;
+  document.getElementById('src-name').innerHTML = '<b>'+SRC_NAME+'</b> chargé';
+  ['btnReload','btnCopy'].forEach(id=>document.getElementById(id).disabled=false);
+  renderGrid();
+}
+
+/* ============================================================
+   Entrées de fichier : picker, drag-drop, fetch auto
+   ============================================================ */
+function readFile(file){
+  if(!file) return;
+  const r = new FileReader();
+  r.onload = ()=>loadSource(r.result, file.name);
+  r.readAsText(file);
+}
+document.getElementById('file').addEventListener('change', e=>readFile(e.target.files[0]));
+const drop = document.getElementById('drop');
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('hover');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('hover');}));
+drop.addEventListener('drop', e=>readFile(e.dataTransfer.files[0]));
+
+// confort : si l'on est servi en HTTP, charger les données automatiquement
+(function autoload(){
+  if(location.protocol==='file:') return;            // fetch inter-fichiers bloqué sous file://
+  for(const path of ['../data/sauces.json','./data/sauces.json','data/sauces.json']){
+    fetch(path).then(r=>{ if(r.ok) return r.text(); throw 0; })
+      .then(t=>{ if(!DATA) loadSource(t, path.split('/').pop()); }).catch(()=>{});
+  }
+})();
+
+// éviter de perdre un travail non enregistré
+window.addEventListener('beforeunload', e=>{
+  if(DATA && signature()!==BASELINE){ e.preventDefault(); e.returnValue=''; }
+});
+</script>
+</body>
+</html>
