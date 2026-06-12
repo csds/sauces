@@ -209,14 +209,16 @@
       "fam": "brun",
       "role": "Sauce de base",
       "hint": "espagnole réduite",
-      "desc": "L'espagnole réduite de moitié jusqu'à une texture sirupeuse et brillante. Concentration de saveurs intense — quelques cuillerées suffisent à sublimer un jus de viande. C'est la mère des grandes sauces brunes classiques.",
+      "desc": "L'espagnole réduite de moitié jusqu'à une texture sirupeuse et brillante, finie d'une pointe de glace de viande. Concentration de saveurs intense — quelques cuillerées suffisent à sublimer un jus de viande. Volontairement neutre, elle reçoit son vin (Madère, porto…) seulement au moment de la sauce dérivée. C'est la mère des grandes sauces brunes classiques.",
       "ings": [
-        "1 L sauce Espagnole"
+        "1 L sauce Espagnole",
+        "Un peu de glace de viande"
       ],
       "steps": [
         "Verser l'espagnole dans une grande casserole.",
         "Réduire à feu moyen-doux jusqu'à diviser le volume par deux.",
         "La sauce doit napper abondamment la cuillère.",
+        "Finir hors du feu d'une pointe de glace de viande — sans vin, qui s'ajoute au moment de la dérivée.",
         "Passer au chinois fin et rectifier l'assaisonnement."
       ],
       "children": [
@@ -260,6 +262,7 @@
         "300 ml béchamel",
         "300 g oignons",
         "40 g beurre",
+        "50 ml crème",
         "Sel, poivre blanc"
       ],
       "steps": [
@@ -357,18 +360,19 @@
       "nm": "Bercy",
       "fam": "blond",
       "role": "Dérivée de velouté",
-      "desc": "Fumet de poisson au vin blanc et aux échalotes, monté au beurre et persillé. Légère, acidulée, marine. Elle accompagne les poissons pochés ou grillés.",
+      "desc": "Velouté de poisson aux échalotes et au vin blanc, monté au beurre et persillé. Légère, acidulée, marine. Elle accompagne les poissons pochés ou grillés.",
       "ings": [
-        "300 ml fumet de poisson",
-        "150 ml vin blanc sec",
+        "250 ml velouté de poisson",
+        "100 ml fumet de poisson",
+        "100 ml vin blanc sec",
         "2 échalotes",
         "30 g beurre",
         "Persil plat haché"
       ],
       "steps": [
         "Suer les échalotes au beurre sans coloration.",
-        "Déglacer au vin blanc et réduire de moitié.",
-        "Incorporer le fumet et réduire encore.",
+        "Déglacer au vin blanc, ajouter le fumet et réduire de moitié.",
+        "Incorporer le velouté de poisson et cuire quelques minutes jusqu'à consistance nappante.",
         "Monter au beurre froid hors du feu.",
         "Ajouter le persil haché au dernier moment."
       ],
@@ -651,7 +655,7 @@
         "Sel, poivre blanc"
       ],
       "steps": [
-        "Réduire le vinaigre avec une échalote et du poivre.",
+        "Réduire le vinaigre avec du poivre concassé.",
         "Fouetter les jaunes avec la réduction au bain-marie.",
         "Monter au beurre clarifié chaud, versé en filet, en fouettant sans cesse.",
         "Quand la sauce nappe la cuillère, assaisonner de sel et de citron."
@@ -701,10 +705,10 @@
         "Estragon, cerfeuil"
       ],
       "steps": [
-        "Réduire le vinaigre avec échalotes, estragon et poivre.",
+        "Réduire le vinaigre avec échalotes, estragon, cerfeuil et poivre.",
         "Fouetter les jaunes sur la réduction refroidie, au bain-marie.",
         "Monter au beurre clarifié versé en filet.",
-        "Passer, puis incorporer l'estragon haché et assaisonner."
+        "Passer, puis incorporer l'estragon et le cerfeuil hachés et assaisonner."
       ],
       "children": [
         "choron",
@@ -932,16 +936,14 @@
       "nm": "Financière",
       "fam": "brun",
       "role": "Dérivée de Madère",
-      "desc": "Sauce Madère réduite avec une essence de truffe et un trait de Madère. C'est la base de la garniture « financière » — quenelles, crêtes de coq, champignons, olives et truffes — héritée de la grande cuisine du XIXᵉ siècle.",
+      "desc": "Sauce Madère réduite avec une essence de truffe. Le Madère vient de la sauce mère — inutile d'en rajouter. C'est la base de la garniture « financière » — quenelles, crêtes de coq, champignons, olives et truffes — héritée de la grande cuisine du XIXᵉ siècle.",
       "ings": [
         "300 ml sauce Madère",
         "1 c. à s. essence de truffe",
-        "50 ml Madère",
         "20 g beurre"
       ],
       "steps": [
         "Réduire la sauce Madère avec l'essence de truffe.",
-        "Ajouter le Madère et réduire de nouveau.",
         "Passer au chinois fin.",
         "Monter au beurre au moment de servir."
       ],
