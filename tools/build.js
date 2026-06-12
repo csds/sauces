@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 /* ============================================================
-   build.js - génère index.html à partir de
-   src/template.html en y injectant data/sauces.json.
+   build.js - generates index.html from src/template.html by
+   injecting data/sauces.json into it.
 
-   Outil de DÉVELOPPEMENT, sans aucune dépendance (Node seul).
-   La page livrée reste un fichier HTML autonome : les données
-   sont *inlinées* dans le fichier produit, rien n'est chargé à
-   l'exécution.
+   DEVELOPMENT tool, with no dependencies (Node only). The
+   shipped page stays a self-contained HTML file: the data is
+   *inlined* into the produced file, nothing is loaded at
+   runtime.
 
-   Usage :
-     node tools/build.js          construit la page
-     node tools/build.js --check  valide les données sans écrire
+   Usage:
+     node tools/build.js          build the page
+     node tools/build.js --check  validate the data without writing
    ============================================================ */
 'use strict';
 const fs = require('fs');
@@ -24,84 +24,84 @@ const FONTS_DIR = path.join(ROOT, 'assets', 'fonts');
 const FONTS_MANIFEST = path.join(FONTS_DIR, 'fonts.json');
 
 const FAMILIES = new Set(['blanc', 'blond', 'brun', 'holl', 'tom', 'base']);
-/* Arêtes où la famille change volontairement : le roux neutre (base)
-   se ramifie en trois familles. Toute autre divergence parent/enfant
-   est une incohérence. */
+/* Edges where the family deliberately changes: the neutral roux
+   (base) branches into three families. Any other parent/child
+   divergence is an inconsistency. */
 const FAM_BOUNDARIES = new Set(['roux_blanc', 'roux_blond', 'roux_brun']);
 
-/* Type d'arête de filiation, porté par chaque nœud ayant un parent.
-   composition : on part de la sauce parente et on continue.
-   variation   : on refait la base de zéro (la parente n'est pas un ingrédient).
-   assemblage  : on prépare autre chose, puis on incorpore la parente.
-   base        : couche technique du roux (spécialisation / roux réalisé inline). */
+/* Filiation edge type, carried by every node that has a parent.
+   composition: start from the parent sauce and continue.
+   variation  : remake the base from scratch (the parent is not an ingredient).
+   assemblage : prepare something else, then fold the parent in.
+   base       : the technical roux layer (specialization / roux made inline). */
 const DERIV_TYPES = new Set(['composition', 'variation', 'assemblage', 'base']);
 
 /* ------------------------------------------------------------
-   Validation : la donnée doit être cohérente avant d'être livrée.
-   Renvoie la liste des erreurs (vide = tout va bien).
+   Validation: the data must be consistent before being shipped.
+   Returns the list of errors (empty = all good).
    ------------------------------------------------------------ */
 function validate(data) {
   const errors = [];
   const { nodes, tagLabel, tagGroups, accords } = data;
 
   if (!nodes || !tagLabel || !tagGroups || !accords) {
-    errors.push('Clés manquantes : attendu nodes, tagLabel, tagGroups, accords.');
+    errors.push('Missing keys: expected nodes, tagLabel, tagGroups, accords.');
     return errors;
   }
 
-  // carte des parents dérivée de children (source unique de filiation)
+  // parent map derived from children (single source of lineage)
   const parent = {};
   for (const id of Object.keys(nodes)) {
     for (const child of nodes[id].children || []) {
-      if (!nodes[child]) errors.push(`children: ${id} référence un nœud inexistant « ${child} ».`);
-      if (parent[child]) errors.push(`children: « ${child} » a deux parents (${parent[child]} et ${id}).`);
+      if (!nodes[child]) errors.push(`children: ${id} references a non-existent node "${child}".`);
+      if (parent[child]) errors.push(`children: "${child}" has two parents (${parent[child]} and ${id}).`);
       parent[child] = id;
     }
   }
 
-  // chaque nœud : famille connue + cohérence avec le parent
+  // each node: known family + consistency with the parent
   for (const id of Object.keys(nodes)) {
     const fam = nodes[id].fam;
     if (!FAMILIES.has(fam)) {
-      errors.push(`fam: « ${id} » a une famille inconnue « ${fam} » (attendu : ${[...FAMILIES].join(', ')}).`);
+      errors.push(`fam: "${id}" has an unknown family "${fam}" (expected: ${[...FAMILIES].join(', ')}).`);
     }
     const p = parent[id];
     if (p && nodes[p].fam !== fam && !FAM_BOUNDARIES.has(id)) {
-      errors.push(`fam: « ${id} » (${fam}) diffère de son parent ${p} (${nodes[p].fam}). ` +
-        `Si c'est voulu, ajoutez-le à FAM_BOUNDARIES dans tools/build.js.`);
+      errors.push(`fam: "${id}" (${fam}) differs from its parent ${p} (${nodes[p].fam}). ` +
+        `If intended, add it to FAM_BOUNDARIES in tools/build.js.`);
     }
 
-    // deriv : type d'arête, obligatoire sur tout nœud ayant un parent, absent sur les racines
+    // deriv: edge type, required on every node that has a parent, absent on roots
     const deriv = nodes[id].deriv;
     if (p) {
       if (deriv === undefined) {
-        errors.push(`deriv: « ${id} » n'a pas de type d'arête (attendu : ${[...DERIV_TYPES].join(', ')}).`);
+        errors.push(`deriv: "${id}" has no edge type (expected: ${[...DERIV_TYPES].join(', ')}).`);
       } else if (!DERIV_TYPES.has(deriv)) {
-        errors.push(`deriv: « ${id} » a un type d'arête inconnu « ${deriv} » (attendu : ${[...DERIV_TYPES].join(', ')}).`);
+        errors.push(`deriv: "${id}" has an unknown edge type "${deriv}" (expected: ${[...DERIV_TYPES].join(', ')}).`);
       }
     } else if (deriv !== undefined) {
-      errors.push(`deriv: « ${id} » est une racine (sans parent) mais porte un deriv « ${deriv} » ; à retirer.`);
+      errors.push(`deriv: "${id}" is a root (no parent) but carries a deriv "${deriv}"; remove it.`);
     }
   }
 
-  // vocabulaire : tagGroups ne référence que des tags définis, et réciproquement
+  // vocabulary: tagGroups only references defined tags, and vice versa
   const groupedTags = new Set();
   for (const g of tagGroups) {
     for (const t of g.tags) {
-      if (!tagLabel[t]) errors.push(`tagGroups: catégorie « ${g.cat} » référence un plat inconnu « ${t} ».`);
-      if (groupedTags.has(t)) errors.push(`tagGroups: le plat « ${t} » apparaît dans deux catégories.`);
+      if (!tagLabel[t]) errors.push(`tagGroups: category "${g.cat}" references an unknown dish "${t}".`);
+      if (groupedTags.has(t)) errors.push(`tagGroups: dish "${t}" appears in two categories.`);
       groupedTags.add(t);
     }
   }
   for (const t of Object.keys(tagLabel)) {
-    if (!groupedTags.has(t)) errors.push(`tagLabel: le plat « ${t} » n'est rangé dans aucune catégorie de tagGroups.`);
+    if (!groupedTags.has(t)) errors.push(`tagLabel: dish "${t}" is not placed in any tagGroups category.`);
   }
 
-  // accords : clés = sauces réelles ; valeurs = plats du vocabulaire
+  // accords: keys = real sauces; values = vocabulary dishes
   for (const id of Object.keys(accords)) {
-    if (!nodes[id]) errors.push(`accords: « ${id} » n'est pas une sauce de nodes.`);
+    if (!nodes[id]) errors.push(`accords: "${id}" is not a sauce in nodes.`);
     for (const t of accords[id]) {
-      if (!tagLabel[t]) errors.push(`accords: « ${id} » utilise un plat inconnu « ${t} ».`);
+      if (!tagLabel[t]) errors.push(`accords: "${id}" uses an unknown dish "${t}".`);
     }
   }
 
@@ -109,30 +109,30 @@ function validate(data) {
 }
 
 /* ------------------------------------------------------------
-   Injection : place le JSON dans le <script id="sauces-data">.
-   On échappe « < » pour ne pas casser le script si une donnée
-   contenait « </script> ».
+   Injection: places the JSON into <script id="sauces-data">.
+   We escape "<" so a data value containing "</script>" can't
+   break the script.
    ------------------------------------------------------------ */
 /* ------------------------------------------------------------
-   Polices : vérifie que le manifeste et chaque fichier woff2
-   existent. Renvoie la liste des erreurs (vide = tout va bien).
+   Fonts: checks that the manifest and each woff2 file exist.
+   Returns the list of errors (empty = all good).
    ------------------------------------------------------------ */
 function validateFonts() {
   const errors = [];
   if (!fs.existsSync(FONTS_MANIFEST)) {
-    errors.push('Manifeste de polices introuvable : assets/fonts/fonts.json.');
+    errors.push('Fonts manifest not found: assets/fonts/fonts.json.');
     return errors;
   }
   const manifest = JSON.parse(fs.readFileSync(FONTS_MANIFEST, 'utf8'));
   for (const f of manifest) {
     if (!fs.existsSync(path.join(FONTS_DIR, f.file)))
-      errors.push(`Police manquante : assets/fonts/${f.file} (référencée par le manifeste).`);
+      errors.push(`Missing font: assets/fonts/${f.file} (referenced by the manifest).`);
   }
   return errors;
 }
 
-/* Construit les règles @font-face avec les woff2 inlinés en base64.
-   Aucune requête externe : la police voyage dans le HTML. */
+/* Builds the @font-face rules with the woff2 files inlined as base64.
+   No external request: the font travels inside the HTML. */
 function buildFontFaces() {
   const manifest = JSON.parse(fs.readFileSync(FONTS_MANIFEST, 'utf8'));
   return manifest.map(f => {
@@ -147,11 +147,11 @@ function render(template, data) {
   const json = JSON.stringify(data, null, 2).replace(/</g, '\\u003c');
   const dataRe = /(<script id="sauces-data" type="application\/json">)[\s\S]*?(<\/script>)/;
   if (!dataRe.test(template)) {
-    throw new Error('Point d\'injection introuvable dans src/template.html (<script id="sauces-data">).');
+    throw new Error('Injection point not found in src/template.html (<script id="sauces-data">).');
   }
   const fontsRe = /(<style id="sauces-fonts">)[\s\S]*?(<\/style>)/;
   if (!fontsRe.test(template)) {
-    throw new Error('Point d\'injection introuvable dans src/template.html (<style id="sauces-fonts">).');
+    throw new Error('Injection point not found in src/template.html (<style id="sauces-fonts">).');
   }
   return template
     .replace(dataRe, `$1\n${json}\n$2`)
@@ -164,20 +164,20 @@ function main() {
   const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
   const errors = [...validate(data), ...validateFonts()];
   if (errors.length) {
-    console.error(`✗ Données invalides (${errors.length}) :`);
+    console.error(`✗ Invalid data (${errors.length}):`);
     for (const e of errors) console.error('  - ' + e);
     process.exit(1);
   }
   const faceCount = JSON.parse(fs.readFileSync(FONTS_MANIFEST, 'utf8')).length;
-  console.log('✓ Données valides (' + Object.keys(data.nodes).length + ' sauces, ' +
-    Object.keys(data.accords).length + ' accords, ' + Object.keys(data.tagLabel).length + ' plats, ' +
-    faceCount + ' polices).');
+  console.log('✓ Valid data (' + Object.keys(data.nodes).length + ' sauces, ' +
+    Object.keys(data.accords).length + ' pairings, ' + Object.keys(data.tagLabel).length + ' dishes, ' +
+    faceCount + ' fonts).');
 
   if (checkOnly) return;
 
   const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
   fs.writeFileSync(OUTPUT_PATH, render(template, data));
-  console.log('✓ Écrit ' + path.relative(ROOT, OUTPUT_PATH) + '.');
+  console.log('✓ Wrote ' + path.relative(ROOT, OUTPUT_PATH) + '.');
 }
 
 main();

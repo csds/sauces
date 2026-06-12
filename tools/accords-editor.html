@@ -6,18 +6,18 @@
 <title>Éditeur d'accords – L'arbre des sauces (outil de développement)</title>
 <style>
 /* ------------------------------------------------------------------
-   Outil de DÉVELOPPEMENT - n'est pas livré avec l'application.
-   Édite data/sauces.json (source unique de vérité) : le vocabulaire
-   des plats (tagLabel / tagGroups) et la table des accords (accords),
-   sous forme de grille sauces × plats. Exporte un sauces.json mis à
-   jour ; les sauces (nodes) ne sont jamais modifiées ici.
+   DEVELOPMENT tool - not shipped with the application.
+   Edits data/sauces.json (single source of truth): the dish
+   vocabulary (tagLabel / tagGroups) and the pairings table (accords),
+   as a sauces x dishes grid. Exports an updated sauces.json; the
+   sauces (nodes) are never modified here.
    ------------------------------------------------------------------ */
 :root{
   --paper:#f4ecdb; --paper-2:#efe5d0; --ink:#2c271f; --ink-soft:#6f6555;
   --card:#fbf6ea; --rule:#b9a87f; --rule-soft:#d8c9ab;
   --blanc:#cdae74; --blond:#bd8a2e; --brun:#6f4421; --holl:#f0ce5b; --tom:#b0402a; --base:#5c5446;
   --ok:#3f7d4f; --warn:#a8642a;
-  --cath:32px;   /* hauteur figée de la 1re ligne d'en-tête (catégories) */
+  --cath:32px;   /* fixed height of the first header row (categories) */
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -40,10 +40,10 @@ header .spacer{flex:1}
 .status .dirty{color:var(--warn);font-weight:600}
 
 main{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:auto;padding:18px 20px}
-/* en mode éditeur : seule la grille défile, jamais la page (pas de double scrollbar) */
+/* in editor mode: only the grid scrolls, never the page (no double scrollbar) */
 #editor:not([hidden]){flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
 
-/* ---- écran de chargement ---- */
+/* ---- loading screen ---- */
 .loader{max-width:680px;margin:8vh auto;padding:30px 34px;background:var(--card);border:1px solid var(--rule);border-radius:12px}
 .loader h2{font-family:Georgia,serif;margin:0 0 10px}
 .loader p{color:var(--ink-soft)}
@@ -51,7 +51,7 @@ main{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:auto
 .loader .drop.hover{border-color:var(--brun);background:#fff}
 .err{color:#9a2f1f;font-weight:600;margin-top:12px}
 
-/* ---- barre d'outils grille ---- */
+/* ---- grid toolbar ---- */
 .toolbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px}
 .toolbar label{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:.9rem}
 .toolbar input[type=search]{font:inherit;padding:6px 10px;border:1px solid var(--rule);border-radius:7px;background:var(--card);min-width:200px}
@@ -59,19 +59,19 @@ main{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:auto
 .stats .pill{background:var(--card);border:1px solid var(--rule-soft);border-radius:14px;padding:3px 10px}
 .stats .pill.bad{border-color:var(--warn);color:var(--warn)}
 
-/* ---- grille ---- */
+/* ---- grid ---- */
 .grid-wrap{flex:1 1 auto;min-height:0;overflow:auto;border:1px solid var(--rule);border-radius:10px;background:var(--card)}
 table{border-collapse:separate;border-spacing:0;font-size:.86rem}
 th,td{border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft)}
 thead th{position:sticky;top:0;z-index:5;background:var(--paper-2)}
 thead tr.cats th{z-index:6}
 .cat-h{font-weight:600;text-align:center;padding:6px 8px;font-size:.8rem;color:var(--ink);border-bottom:2px solid var(--rule);height:var(--cath);top:0}
-/* la 2e ligne (tags) se fige juste SOUS la ligne des catégories, pas par-dessus */
+/* the 2nd row (tags) sticks just BELOW the categories row, not over it */
 .tag-h{height:140px;vertical-align:bottom;padding:0 0 8px;top:var(--cath)}
 .tag-h > div{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;margin:0 auto;font-weight:500;color:var(--ink)}
 .tag-h .tn{font-size:.7rem;color:var(--ink-soft);font-weight:400}
-/* coin figé (haut-gauche) : DEUX cellules empilées imitant une cellule fusionnée.
-   Pas de rowspan - incompatible avec position:sticky (la 2e ligne se tasse). */
+/* frozen corner (top-left): TWO stacked cells mimicking a merged cell.
+   No rowspan - incompatible with position:sticky (the 2nd row collapses). */
 .corner{position:sticky;left:0;background:var(--paper-2);min-width:230px;text-align:left;font-weight:600;padding:0 12px}
 thead th.corner-top{top:0;height:var(--cath);z-index:9;border-bottom:none}
 thead th.corner-bot{top:var(--cath);vertical-align:bottom;padding-bottom:9px;z-index:9}
@@ -84,7 +84,7 @@ tbody tr:hover td{background:rgba(111,68,33,.05)}
 td.cell{text-align:center;padding:0;cursor:pointer;width:30px;min-width:30px}
 td.cell:hover{background:rgba(111,68,33,.12)!important}
 td.cell input{cursor:pointer;width:15px;height:15px;accent-color:var(--brun);margin:6px auto;display:block}
-/* séparateur de catégorie */
+/* category separator */
 .catsep{border-right:2px solid var(--rule)}
 tbody tr.famsep td,tbody tr.famsep th{border-top:2px solid var(--rule)}
 
@@ -130,7 +130,7 @@ textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,mon
 </header>
 
 <main>
-  <!-- écran de chargement -->
+  <!-- loading screen -->
   <section class="loader" id="loader">
     <h2>Charger <code>data/sauces.json</code></h2>
     <p>Cet outil édite <code>data/sauces.json</code>, la <strong>source unique de vérité</strong> : il en
@@ -151,7 +151,7 @@ textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,mon
     <p class="err" id="loadErr" hidden></p>
   </section>
 
-  <!-- éditeur -->
+  <!-- editor -->
   <section id="editor" hidden>
     <div class="toolbar">
       <input type="search" id="filter" placeholder="Filtrer une sauce…">
@@ -168,7 +168,7 @@ textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,mon
   </section>
 </main>
 
-<!-- dialogue « copier le bloc » -->
+<!-- "copy block" dialog -->
 <dialog id="copyDlg">
   <div class="dlg-head"><h3>sauces.json mis à jour</h3></div>
   <div class="dlg-body">
@@ -182,7 +182,7 @@ textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,mon
   </div>
 </dialog>
 
-<!-- dialogue « gérer les plats & catégories » -->
+<!-- "manage dishes & categories" dialog -->
 <dialog id="manageDlg">
   <div class="dlg-head">
     <h3>Plats &amp; catégories</h3>
@@ -199,19 +199,19 @@ textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,mon
 
 <script>
 /* ============================================================
-   État
+   State
    ============================================================ */
-let DATA = null;         // objet complet chargé depuis sauces.json
+let DATA = null;         // full object loaded from sauces.json
 let SRC_NAME = 'sauces.json';
 let NODES, TAG_LABEL, TAG_GROUPS, TAG_ORDER;
-let STATE = {};          // id -> Set(tags) - la table en cours d'édition
-let BASELINE = '';       // signature de la table au chargement (pour « modifié »)
+let STATE = {};          // id -> Set(tags) - the table being edited
+let BASELINE = '';       // table signature at load time (for the "dirty" flag)
 const FAM_COLOR = {blanc:'--blanc',blond:'--blond',brun:'--brun',holl:'--holl',tom:'--tom',base:'--base'};
-/* ordre d'affichage des familles (présentation - vit dans src/template.html côté app) */
+/* family display order (presentation - lives in src/template.html on the app side) */
 const FAM_ORDER = {blanc:0,blond:1,brun:2,holl:3,tom:4,base:5};
 
 /* ============================================================
-   Chargement depuis data/sauces.json
+   Loading from data/sauces.json
    ============================================================ */
 function loadSource(text, name){
   try{
@@ -223,7 +223,7 @@ function loadSource(text, name){
     TAG_LABEL  = data.tagLabel;
     TAG_GROUPS = data.tagGroups;
     TAG_ORDER  = TAG_GROUPS.flatMap(g=>g.tags);
-    // valider que la grille suffit à exprimer la table actuelle
+    // check that the grid can express the current table
     const orphanTags = new Set();
     for(const tags of Object.values(data.accords)) for(const t of tags)
       if(!TAG_ORDER.includes(t)) orphanTags.add(t);
@@ -242,7 +242,7 @@ function loadSource(text, name){
   }
 }
 
-/* signature ordonnée du vocabulaire + des accords, pour détecter les modifications */
+/* ordered signature of the vocabulary + pairings, to detect changes */
 function signature(){
   const vocab = TAG_GROUPS.map(g=>g.cat+'#'+g.tags.map(t=>t+'='+TAG_LABEL[t]).join(',')).join('|');
   const acc = Object.keys(STATE).sort().map(id=>id+':'+[...STATE[id]].sort().join(','))
@@ -254,7 +254,7 @@ function esc(s){ return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','
 function escAttr(s){ return esc(s).replace(/"/g,'&quot;'); }
 
 /* ============================================================
-   Rendu de la grille
+   Grid rendering
    ============================================================ */
 function sortedSauceIds(){
   return Object.keys(NODES).sort((a,b)=>
@@ -266,9 +266,9 @@ function renderGrid(){
   const filter = document.getElementById('filter').value.trim().toLowerCase();
   const hideEmpty = document.getElementById('hideEmpty').checked;
   const tbl = document.getElementById('grid');
-  const cats = TAG_GROUPS.filter(g=>g.tags.length>0);   // une catégorie vide n'a pas de colonne
+  const cats = TAG_GROUPS.filter(g=>g.tags.length>0);   // an empty category has no column
 
-  // en-têtes
+  // headers
   let thead = '<thead><tr class="cats"><th class="corner corner-top"></th>';
   cats.forEach((g,gi)=>{
     thead += '<th class="cat-h'+(gi<cats.length-1?' catsep':'')+'" colspan="'+g.tags.length+'">'+esc(g.cat)+'</th>';
@@ -283,7 +283,7 @@ function renderGrid(){
   });
   thead += '</tr></thead>';
 
-  // lignes
+  // rows
   let prevFam=null, rows=0, body='<tbody>';
   for(const id of sortedSauceIds()){
     const n = NODES[id]; const set = STATE[id];
@@ -328,14 +328,14 @@ function updateStats(){
   document.getElementById('btnSave').disabled = !dirty;
 }
 
-/* clic sur une case (délégation) */
+/* click on a cell (delegation) */
 document.getElementById('editor').addEventListener('click', e=>{
   const cell = e.target.closest('td.cell'); if(!cell) return;
   const {id, tag} = cell.dataset;
   const box = cell.querySelector('input');
-  if(e.target !== box) box.checked = !box.checked;       // clic sur la cellule = bascule
+  if(e.target !== box) box.checked = !box.checked;       // click on the cell = toggle
   box.checked ? STATE[id].add(tag) : STATE[id].delete(tag);
-  // mises à jour ciblées (évite de re-rendre toute la grille)
+  // targeted updates (avoids re-rendering the whole grid)
   cell.closest('tr').querySelector('.sauce-h').classList.toggle('empty', STATE[id].size===0);
   refreshHeaderCounts();
   updateStats();
@@ -347,9 +347,9 @@ function refreshHeaderCounts(){
 }
 
 /* ============================================================
-   Gestion du vocabulaire : plats (tags) & catégories
-   TAG_LABEL (libellé), TAG_GROUPS (catégorie/ordre) et les
-   accords (STATE) sont maintenus synchronisés.
+   Vocabulary management: dishes (tags) & categories
+   TAG_LABEL (label), TAG_GROUPS (category/order) and the
+   pairings (STATE) are kept in sync.
    ============================================================ */
 function slugify(label){
   let s = label.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
@@ -445,9 +445,9 @@ document.getElementById('addCat').addEventListener('click', ()=>{
 document.getElementById('manageDlg').addEventListener('close', ()=>{ recomputeOrder(); renderGrid(); });
 
 /* ============================================================
-   Régénération de data/sauces.json
-   Trié de façon déterministe pour des diffs propres ; les nodes
-   ne sont jamais touchés (recopiés tels quels).
+   Regenerating data/sauces.json
+   Deterministically sorted for clean diffs; the nodes are
+   never touched (copied as-is).
    ============================================================ */
 function buildAccords(){
   const acc = {};
@@ -479,7 +479,7 @@ function download(text, name){
 }
 document.getElementById('btnSave').addEventListener('click', ()=>{
   download(genUpdatedJson(), 'sauces.json');
-  // après export, la version téléchargée devient la nouvelle référence
+  // after export, the downloaded version becomes the new baseline
   BASELINE = signature(); updateStats();
 });
 document.getElementById('btnCopy').addEventListener('click', ()=>{
@@ -505,7 +505,7 @@ function showEditor(){
 }
 
 /* ============================================================
-   Entrées de fichier : picker, drag-drop, fetch auto
+   File inputs: picker, drag-drop, auto fetch
    ============================================================ */
 function readFile(file){
   if(!file) return;
@@ -519,16 +519,16 @@ const drop = document.getElementById('drop');
 ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('hover');}));
 drop.addEventListener('drop', e=>readFile(e.dataTransfer.files[0]));
 
-// confort : si l'on est servi en HTTP, charger les données automatiquement
+// convenience: if served over HTTP, load the data automatically
 (function autoload(){
-  if(location.protocol==='file:') return;            // fetch inter-fichiers bloqué sous file://
+  if(location.protocol==='file:') return;            // cross-file fetch is blocked under file://
   for(const path of ['../data/sauces.json','./data/sauces.json','data/sauces.json']){
     fetch(path).then(r=>{ if(r.ok) return r.text(); throw 0; })
       .then(t=>{ if(!DATA) loadSource(t, path.split('/').pop()); }).catch(()=>{});
   }
 })();
 
-// éviter de perdre un travail non enregistré
+// avoid losing unsaved work
 window.addEventListener('beforeunload', e=>{
   if(DATA && signature()!==BASELINE){ e.preventDefault(); e.returnValue=''; }
 });
