@@ -2,8 +2,8 @@
 
 ## Our pledge
 
-This project is a small, friendly place. Everyone who takes part — asking a
-question, reporting a bug, fixing a recipe, suggesting a feature — is welcome,
+This project is a small, friendly place. Everyone who takes part - asking a
+question, reporting a bug, fixing a recipe, suggesting a feature - is welcome,
 regardless of background or experience level.
 
 ## How we work together
@@ -19,8 +19,8 @@ regardless of background or experience level.
 
 ## Scope
 
-This applies to all project spaces — issues, pull requests, discussions, commit
-messages — and to public spaces when someone is representing the project.
+This applies to all project spaces - issues, pull requests, discussions, commit
+messages - and to public spaces when someone is representing the project.
 
 ## Enforcement
 

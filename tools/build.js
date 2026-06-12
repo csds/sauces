@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   build.js — génère index.html à partir de
+   build.js - génère index.html à partir de
    src/template.html en y injectant data/sauces.json.
 
    Outil de DÉVELOPPEMENT, sans aucune dépendance (Node seul).

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>L'arbre des sauces — Généalogie des sauces françaises</title>
+<title>L'arbre des sauces – Généalogie des sauces françaises</title>
 <!-- Polices auto-hébergées (SIL OFL), injectées au build en base64 depuis
      assets/fonts/ -->
 <style id="sauces-fonts">/* @font-face injectés au build */</style>
@@ -28,7 +28,7 @@
    (.page = 100dvh) ; le défilement réel se fait dans les panneaux
    internes (.detail, .sidebar). On verrouille donc le body sur les deux
    axes : sans cela, un overflow-x:hidden seul ferait calculer overflow-y
-   à « auto », transformant le body en conteneur défilable — d'où, sur
+   à « auto », transformant le body en conteneur défilable - d'où, sur
    iOS, ce léger glissement horizontal ET vertical qui revient en place. */
 html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 body{
@@ -281,7 +281,7 @@ body{
       <div class="d-inner" id="detail-body">
         <div class="d-empty">
           <p class="big">Choisissez une sauce</p>
-          <p>La classification d'Escoffier répartit la cuisine en cinq sauces mères — béchamel, velouté, espagnole, hollandaise et tomate — dont découlent des dizaines de sauces filles. Parcourez l'arbre : chaque sauce révèle ici son histoire, ses ingrédients et sa préparation.</p>
+          <p>La classification d'Escoffier répartit la cuisine en cinq sauces mères – béchamel, velouté, espagnole, hollandaise et tomate – dont découlent des dizaines de sauces filles. Parcourez l'arbre : chaque sauce révèle ici son histoire, ses ingrédients et sa préparation.</p>
           <p class="hint">Dépliez une branche et choisissez une sauce pour commencer.</p>
         </div>
       </div>
@@ -307,7 +307,7 @@ Object.keys(NODES).forEach(id=>(NODES[id].children||[]).forEach(c=>PARENT[c]=id)
 
 /* ============================================================
    Accords : vocabulaire contrôlé + étiquettes par sauce
-   (donnée pure — un accord n'apparaît dans la fiche que via
+   (donnée pure - un accord n'apparaît dans la fiche que via
    la section "Accords", jamais dans le texte de description)
    ============================================================ */
 const TAG_LABEL = DATA.tagLabel;
