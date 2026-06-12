@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>L'arbre des sauces – Généalogie des sauces françaises</title>
-<!-- Polices auto-hébergées (SIL OFL), injectées au build en base64 depuis
+<!-- Self-hosted fonts (SIL OFL), inlined at build time as base64 from
      assets/fonts/ -->
-<style id="sauces-fonts">/* @font-face injectés au build */</style>
+<style id="sauces-fonts">/* @font-face injected at build time */</style>
 <style>
 :root{
   --paper:#f4ecdb;
@@ -24,12 +24,12 @@
   --fam-base:#5c5446;   --on-base:#fdf6e6;
 }
 *{box-sizing:border-box}
-/* L'enveloppe applicative occupe exactement la hauteur de la fenêtre
-   (.page = 100dvh) ; le défilement réel se fait dans les panneaux
-   internes (.detail, .sidebar). On verrouille donc le body sur les deux
-   axes : sans cela, un overflow-x:hidden seul ferait calculer overflow-y
-   à « auto », transformant le body en conteneur défilable - d'où, sur
-   iOS, ce léger glissement horizontal ET vertical qui revient en place. */
+/* The app wrapper takes exactly the window height (.page = 100dvh); the
+   real scrolling happens inside the inner panels (.detail, .sidebar). So
+   we lock the body on both axes: without this, an overflow-x:hidden alone
+   would make overflow-y compute to "auto", turning the body into a
+   scrollable container - hence, on iOS, that slight horizontal AND
+   vertical drift that springs back. */
 html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 body{
   margin:0;background:var(--paper);color:var(--ink);
@@ -96,7 +96,7 @@ body{
 
 .side-foot{margin:26px 8px 0;font-size:.72rem;font-style:italic;color:var(--ink-soft);line-height:1.5}
 
-/* ---------- Sélecteur de mode + accords ---------- */
+/* ---------- Mode selector + pairings ---------- */
 [hidden]{display:none !important}
 .mode-switch{display:flex;gap:4px;margin:0 8px 12px;padding:4px;background:rgba(70,45,15,.06);border-radius:11px}
 .ms-btn{flex:1;border:0;background:none;cursor:pointer;font-family:"Spectral",serif;font-size:.92rem;color:var(--ink-soft);padding:7px 10px;border-radius:8px;transition:background .15s,color .15s}
@@ -118,7 +118,7 @@ body{
 .res-item .tdot{width:9px;height:9px;border-radius:50%;background:var(--c);flex-shrink:0;box-shadow:0 0 0 1px rgba(0,0,0,.07)}
 .res-empty{color:var(--ink-soft);font-style:italic;font-size:.9rem;margin:2px}
 
-/* étiquettes d'accord dans la fiche (style distinct des chips de parenté) */
+/* pairing tags in the card (distinct style from the lineage chips) */
 .accord{font-family:"Spectral",serif;font-size:.92rem;cursor:pointer;background:none;border:1px dashed var(--rule);color:var(--ink);padding:5px 14px;border-radius:20px;transition:background .15s,color .15s,border-style .15s}
 .accord:hover{background:var(--rule);color:#fdf6e6;border-style:solid}
 
@@ -177,18 +177,18 @@ body{
 .drawer-head{display:none}
 
 /* ---------- Responsive ---------- */
-/* Tablettes / grands écrans étroits : on garde les deux panneaux côte à côte */
+/* Tablets / narrow large screens: keep both panels side by side */
 @media(max-width:900px){
   .sidebar{width:300px}
 }
 
-/* Smartphones : barre compacte + arbre en tiroir plein écran */
+/* Phones: compact bar + tree as a full-screen drawer */
 @media(max-width:640px){
   .legend{display:none}
   .topbar{padding:13px 18px}
   .topbar h1{font-size:1.6rem}
 
-  /* barre de sélection sticky */
+  /* sticky selection bar */
   .mobile-bar{
     display:flex;align-items:center;gap:10px;width:100%;
     border:0;border-bottom:1px solid var(--rule);cursor:pointer;
@@ -202,12 +202,12 @@ body{
   .mobile-bar .mb-icon{color:var(--ink-soft);transition:transform .2s;flex-shrink:0}
   .page.tree-open .mobile-bar .mb-icon{transform:rotate(180deg)}
 
-  /* le détail occupe tout l'espace */
+  /* the detail takes all the space */
   .split{flex-direction:column;min-height:0}
   .detail{flex:1;min-height:0}
   .d-inner{padding:26px 22px 56px}
 
-  /* l'arbre devient un tiroir plein écran qui glisse par-dessus */
+  /* the tree becomes a full-screen drawer sliding over the top */
   .sidebar{
     position:fixed;left:0;right:0;top:0;bottom:0;z-index:60;width:auto;
     max-height:none;border:0;overflow-y:auto;
@@ -230,7 +230,7 @@ body{
   }
   .drawer-close:hover{background:rgba(138,82,38,.1)}
 
-  /* cibles tactiles un peu plus grandes dans l'arbre */
+  /* slightly larger touch targets in the tree */
   .trow{padding:8px 8px}
 }
 </style>
@@ -288,14 +288,14 @@ body{
     </main>
   </div>
 </div>
-<!-- Données injectées au build (npm run build) depuis data/sauces.json. -->
+<!-- Data injected at build time (npm run build) from data/sauces.json. -->
 <script id="sauces-data" type="application/json">{}</script>
 <script>
-// Données injectées au build depuis data/sauces.json (source unique de vérité).
+// Data injected at build time from data/sauces.json (single source of truth).
 const DATA = JSON.parse(document.getElementById('sauces-data').textContent);
 const NODES = DATA.nodes;
 /* ============================================================
-   Couleurs de famille + carte des parents
+   Family colors + parent map
    ============================================================ */
 const FAM = {blanc:'--fam-blanc',blond:'--fam-blond',brun:'--fam-brun',holl:'--fam-holl',tom:'--fam-tom',base:'--fam-base'};
 const FAMON = {blanc:'--on-blanc',blond:'--on-blond',brun:'--on-brun',holl:'--on-holl',tom:'--on-tom',base:'--on-base'};
@@ -306,9 +306,9 @@ const PARENT = {};
 Object.keys(NODES).forEach(id=>(NODES[id].children||[]).forEach(c=>PARENT[c]=id));
 
 /* ============================================================
-   Accords : vocabulaire contrôlé + étiquettes par sauce
-   (donnée pure - un accord n'apparaît dans la fiche que via
-   la section "Accords", jamais dans le texte de description)
+   Pairings: controlled vocabulary + tags per sauce
+   (pure data - a pairing only shows in the card via the
+   "Accords" section, never woven into the description text)
    ============================================================ */
 const TAG_LABEL = DATA.tagLabel;
 const TAG_GROUPS = DATA.tagGroups;
@@ -316,7 +316,7 @@ const ACCORDS = DATA.accords;
 const FAM_ORDER = {blanc:0,blond:1,brun:2,holl:3,tom:4,base:5};
 
 /* ============================================================
-   Construction de l'explorateur (arbre repliable)
+   Building the explorer (collapsible tree)
    ============================================================ */
 function buildNode(id){
   const n = NODES[id];
@@ -369,7 +369,7 @@ function mountTree(roots, elId){
 }
 
 /* ============================================================
-   Fiche détaillée
+   Detail card
    ============================================================ */
 function chip(id, lab){
   const f = NODES[id].fam;
@@ -420,7 +420,7 @@ function selectSauce(id){
   const row = document.querySelector('.trow[data-id="'+id+'"]');
   if(row){
     row.classList.add('sel');
-    // déplier tous les ancêtres
+    // expand all ancestors
     let li = row.closest('.tnode');
     let parentLi = li && li.parentElement ? li.parentElement.closest('.tnode') : null;
     while(parentLi){ parentLi.classList.remove('collapsed'); parentLi = parentLi.parentElement.closest('.tnode'); }
@@ -430,13 +430,13 @@ function selectSauce(id){
   renderDetail(id);
   document.querySelector('.detail').scrollTop = 0;
 
-  // barre mobile : afficher la sauce choisie et refermer le tiroir
+  // mobile bar: show the chosen sauce and close the drawer
   document.getElementById('mbLabel').textContent = n.nm;
   closeDrawer();
 }
 
 /* ============================================================
-   Tiroir mobile (arborescence en plein écran)
+   Mobile drawer (full-screen tree)
    ============================================================ */
 const page = document.getElementById('page');
 const mobileBar = document.getElementById('mobileBar');
@@ -449,7 +449,7 @@ document.getElementById('drawerClose').addEventListener('click', closeDrawer);
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
 
 /* ============================================================
-   Mode « Accords » : chercher une sauce par le plat
+   "Accords" mode: find a sauce by dish
    ============================================================ */
 function setMode(m){
   const fil = (m === 'filiation');
@@ -494,7 +494,7 @@ function selectTag(tag){
   res.querySelectorAll('.res-item').forEach(b=>b.addEventListener('click', ()=>selectSauce(b.dataset.id)));
 }
 
-/* depuis la section "Accords" d'une fiche : bascule vers le mode Accords sur cette étiquette */
+/* from a card's "Accords" section: switch to Accords mode on this tag */
 function goToAccord(tag){
   setMode('accords');
   selectTag(tag);
@@ -506,7 +506,7 @@ document.getElementById('tabFiliation').addEventListener('click', ()=>setMode('f
 document.getElementById('tabAccords').addEventListener('click', ()=>setMode('accords'));
 
 /* ============================================================
-   Initialisation
+   Initialization
    ============================================================ */
 mountTree(['roux'], 'tree-roux');
 mountTree(['hollandaise','sauce_tomate'], 'tree-noroux');
