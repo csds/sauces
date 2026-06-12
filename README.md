@@ -3,17 +3,17 @@
 **L'arbre des sauces** ("the tree of sauces") is a single-page web app: a
 self-contained HTML file (CSS and JavaScript included) that presents the great
 French sauces as a family tree. You start from the **five mother sauces** and
-work down, branch by branch, to the *daughter sauces* — each with its story,
+work down, branch by branch, to the *daughter sauces* - each with its story,
 ingredients, and method.
 
-> **Note** — the application itself is in **French**: you wouldn't discuss
+> **Note** - the application itself is in **French**: you wouldn't discuss
 > *sauce béarnaise* in English. These developer docs are in English so the
 > project is approachable to contributors; the app, its data, and the editor
 > stay French.
 
 The page is **generated** by a small, dependency-free Node script that inlines
 the data *and* the fonts into a single, self-contained `index.html`. That
-generated file has no runtime dependencies and works offline — but it is a
+generated file has no runtime dependencies and works offline - but it is a
 **build output**, produced from `data/sauces.json` + `src/template.html`, and is
 **not committed** to the repo. See [Development](#development).
 
@@ -33,9 +33,9 @@ xdg-open index.html        # Linux
 start index.html           # Windows
 ```
 
-Once built, `index.html` is **fully self-contained** — data and fonts are
+Once built, `index.html` is **fully self-contained** - data and fonts are
 inlined, so it makes no network requests and works offline, even straight from
-`file://`. (It's a build output, not committed to the repo — see
+`file://`. (It's a build output, not committed to the repo - see
 [Development](#development).)
 
 ## The five mother sauces
@@ -51,28 +51,28 @@ shown in its own colour in the app:
 | Hollandaise | **Hollandaise** | egg-yolk + butter emulsion (no roux) |
 | Tomate | **Sauce tomate** | tomatoes + stock (no roux) |
 
-From these mothers descend some forty derived sauces — Mornay, Soubise, Nantua,
+From these mothers descend some forty derived sauces - Mornay, Soubise, Nantua,
 Suprême, Allemande, Béarnaise, Choron, Bordelaise, Chasseur, Robert, Madère,
 Périgueux, Diable, Bigarade, Poivrade, Grand Veneur… each tied to its lineage.
 
 ## Features
 
-- **Filiation mode** — a collapsible tree showing parent → child kinship,
+- **Filiation mode** - a collapsible tree showing parent → child kinship,
   colour-coded by family. Each card shows the description, ingredient list,
   step-by-step method, and "derived from / gives rise to" links to neighbouring
   sauces.
-- **Pairings mode** (*Accords*) — the reverse lookup: pick a dish (beef, game,
+- **Pairings mode** (*Accords*) - the reverse lookup: pick a dish (beef, game,
   asparagus, poached fish, gratins…) and the app lists the sauces that go with
   it, grouped by family.
-- **Keyboard navigation** — left/right arrows collapse/expand a branch, Enter or
+- **Keyboard navigation** - left/right arrows collapse/expand a branch, Enter or
   Space opens a card, Escape closes the mobile drawer.
-- **Responsive** — on phones the tree becomes a full-screen drawer reached from a
+- **Responsive** - on phones the tree becomes a full-screen drawer reached from a
   selection bar.
-- **The generated page is self-contained and makes no external requests** —
+- **The generated page is self-contained and makes no external requests** -
   once built, `index.html` is one file of plain HTML, CSS, and JavaScript, with
   data *and fonts* inlined; nothing fetched at runtime, no third party
   contacted, works fully offline. *(That's the built file. The copy served on
-  Cloudflare Pages adds an analytics beacon injected at the edge — see
+  Cloudflare Pages adds an analytics beacon injected at the edge - see
   [Deployment](#deployment-cloudflare-pages).)*
 
 ## Project structure
@@ -92,32 +92,32 @@ Périgueux, Diable, Bigarade, Poivrade, Grand Veneur… each tied to its lineage
 └── README.md
 
 # index.html is NOT here: it's the build output of `node tools/build.js`
-# (git-ignored, never committed — generated on demand and at deploy time).
+# (git-ignored, never committed - generated on demand and at deploy time).
 ```
 
 The data lives in `data/sauces.json`, the **single source of truth**. The build
 (`node tools/build.js`) validates it and injects it into `src/template.html` to
-produce `index.html`, the self-contained app. That file is a **build output** —
+produce `index.html`, the self-contained app. That file is a **build output** -
 generated on demand, git-ignored, and never committed, so it can't drift from
 its source.
 
-- `nodes` — the dictionary of sauces (name, family, description, ingredients,
+- `nodes` - the dictionary of sauces (name, family, description, ingredients,
   steps, children). The `PARENT` map is derived automatically from `children`,
   so there is a single source of truth for lineage.
-- `accords` — the dish/sauce pairings, kept as **pure data**: a pairing appears
+- `accords` - the dish/sauce pairings, kept as **pure data**: a pairing appears
   in a card only via the "Accords" section, never woven into the description
   text. `tagLabel` and `tagGroups` define the vocabulary of dishes.
 
 The build also inlines the fonts: the `.woff2` files in `assets/fonts/` (Cormorant
 Garamond and Spectral, both SIL Open Font License) are base64-encoded into the
 page's `@font-face` rules, so the shipped page fetches nothing from a font CDN.
-The committed `.woff2` are the source of truth — the build never downloads
+The committed `.woff2` are the source of truth - the build never downloads
 anything, keeping it offline and deterministic.
 
 ## Development
 
 Prerequisite: **Node.js** (no npm packages to install). The page is a build
-output, so there's nothing to commit but your **source** — after any change to
+output, so there's nothing to commit but your **source** - after any change to
 `data/` or `src/`, rebuild to check it:
 
 ```sh
@@ -148,16 +148,16 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    }
    ```
 
-   `fam` must be one of `blanc`, `blond`, `brun`, `holl`, `tom`, `base`, and —
-   unless it is a deliberate branch point — **identical to the parent's family**
+   `fam` must be one of `blanc`, `blond`, `brun`, `holl`, `tom`, `base`, and -
+   unless it is a deliberate branch point - **identical to the parent's family**
    (the build checks this).
 2. Attach it to its mother by adding its key to the parent's `children` array.
    Lineage and navigation links follow automatically.
-3. (Optional) Declare its pairings in `accords` using existing `tagLabel` tags —
+3. (Optional) Declare its pairings in `accords` using existing `tagLabel` tags -
    or, more easily, with the [pairings editor](#pairings-editor-toolsaccords-editorhtml)
    described below, which edits pairings and the dish vocabulary visually.
 4. Rebuild to check it: `node tools/build.js`, then commit your
-   `data/sauces.json` change. (The page is a build output — don't commit it.)
+   `data/sauces.json` change. (The page is a build output - don't commit it.)
 
 ### Deployment (Cloudflare Pages)
 
@@ -174,47 +174,47 @@ dashboard (**Workers & Pages → Create → Pages → Connect to Git**):
 
 The build command is **required** (it's what produces `index.html`). On every
 `push` to `main`, Cloudflare runs the build and serves the freshly generated
-page — so the live site is always built from the current source, never a stale
+page - so the live site is always built from the current source, never a stale
 copy. If the data is invalid the build fails and the previous deployment stays
 live, so a broken change can't take the site down.
 
 #### Analytics: the artifact stays dependency-free, the hosted page does not
 
-The hosted site has **Cloudflare Web Analytics** enabled — a privacy-first,
+The hosted site has **Cloudflare Web Analytics** enabled - a privacy-first,
 cookieless beacon. Cloudflare injects its small script
 (`static.cloudflareinsights.com`) into the HTML **at the edge, as it serves the
 page**; it is **not** part of `index.html`, the build, or this repository.
 
 The practical line to keep clear:
 
-- **The built file** — the `index.html` that `node tools/build.js` produces,
-  and any copy of *it* you self-host or open from `file://` — has **no
+- **The built file** - the `index.html` that `node tools/build.js` produces,
+  and any copy of *it* you self-host or open from `file://` - has **no
   dependencies, contacts nothing, and works fully offline**. Enabling analytics
   does not change a single byte of it. (A copy saved from the live Cloudflare
-  site is *not* this file — it carries the edge-injected beacon.)
+  site is *not* this file - it carries the edge-injected beacon.)
 - **The page at the public Cloudflare URL** makes **one external request** (the
   analytics beacon), because Cloudflare adds it when serving.
 
 To make the hosted page contact-free as well, disable Web Analytics in the
-Pages dashboard — the artifact is unaffected either way.
+Pages dashboard - the artifact is unaffected either way.
 
 ## Developer tools
 
 ### Pairings editor (`tools/accords-editor.html`)
 
-Reworking the `accords` table by hand — arrays of opaque identifiers
-(`"villeroi": ["ris_de_veau","volaille","legumes"]`) — is tedious and quietly
+Reworking the `accords` table by hand - arrays of opaque identifiers
+(`"villeroi": ["ris_de_veau","volaille","legumes"]`) - is tedious and quietly
 error-prone (a typo in a tag silently drops the pairing). The editor solves this
 by presenting pairings as a **sauces × dishes grid** of checkboxes.
 
 It is a **development tool only**: it is not shipped with the app, nor linked
-from it. It duplicates no data — it reads `data/sauces.json` as the **single
+from it. It duplicates no data - it reads `data/sauces.json` as the **single
 source of truth** (sauces, dish vocabulary, and the current `accords` table), so
 the grid always reflects the real state of the data.
 
 **Usage:**
 
-1. Serve the folder, then open the editor — the data loads automatically:
+1. Serve the folder, then open the editor - the data loads automatically:
 
    ```sh
    python3 -m http.server
@@ -234,15 +234,15 @@ the grid always reflects the real state of the data.
    so renaming a label never touches existing pairings. Deleting a dish also
    removes it from all pairings (with confirmation).
 4. Take the result:
-   - **Télécharger sauces.json** — saves the updated file, to drop over
+   - **Télécharger sauces.json** - saves the updated file, to drop over
      `data/sauces.json`;
-   - **Copier le JSON** — copies the same content to paste manually.
+   - **Copier le JSON** - copies the same content to paste manually.
 
    Then regenerate the page: `node tools/build.js`.
 
 The exported file is **deterministically sorted** (sauces by family then name,
 dishes in vocabulary order) for clean diffs. Only `tagLabel`, `tagGroups`, and
-`accords` are touched — `nodes` are copied as-is.
+`accords` are touched - `nodes` are copied as-is.
 
 ## Credits
 

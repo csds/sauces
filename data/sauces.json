@@ -24,7 +24,7 @@
     "roux_blanc": {
       "nm": "Roux blanc",
       "fam": "blanc",
-      "role": "Roux — cuit 2 min",
+      "role": "Roux – cuit 2 min",
       "hint": "2 min, neutre",
       "desc": "Cuit 2 minutes seulement, le roux blanc reste pâle et neutre en goût. Son pouvoir liant est maximal car l'amidon est peu transformé. C'est la base de la béchamel et du velouté blanc.",
       "ings": [
@@ -34,7 +34,7 @@
       "steps": [
         "Fondre le beurre à feu moyen.",
         "Ajouter la farine d'un coup, fouetter immédiatement.",
-        "Cuire 2 min en remuant — le mélange blanchit légèrement mais ne colore pas.",
+        "Cuire 2 min en remuant – le mélange blanchit légèrement mais ne colore pas.",
         "Laisser tiédir avant d'incorporer le liquide chaud."
       ],
       "children": [
@@ -45,7 +45,7 @@
     "roux_blond": {
       "nm": "Roux blond",
       "fam": "blond",
-      "role": "Roux — cuit 4 à 5 min",
+      "role": "Roux – cuit 4 à 5 min",
       "hint": "4–5 min, doré",
       "desc": "Cuit 4 à 5 minutes, il prend une teinte dorée et dégage un léger parfum de noisette. Son pouvoir liant est un peu inférieur au roux blanc, mais le goût est plus complexe. C'est la base des veloutés blonds.",
       "ings": [
@@ -55,7 +55,7 @@
       "steps": [
         "Fondre le beurre à feu moyen.",
         "Ajouter la farine, mélanger.",
-        "Cuire 4 à 5 min en remuant — chercher la couleur sable doré.",
+        "Cuire 4 à 5 min en remuant – chercher la couleur sable doré.",
         "L'odeur de noisette indique le bon moment.",
         "Tiédir avant d'incorporer le fond chaud."
       ],
@@ -66,7 +66,7 @@
     "roux_brun": {
       "nm": "Roux brun",
       "fam": "brun",
-      "role": "Roux — cuit 8 à 10 min",
+      "role": "Roux – cuit 8 à 10 min",
       "hint": "8–10 min, noisette",
       "desc": "Cuit 8 à 10 minutes jusqu'à une couleur noisette foncée. Son pouvoir liant est réduit (il faut en mettre davantage) mais il apporte une profondeur aromatique incomparable. La chaleur résiduelle continue la cuisson : retirer du feu un peu avant la couleur voulue.",
       "ings": [
@@ -209,7 +209,7 @@
       "fam": "brun",
       "role": "Sauce de base",
       "hint": "espagnole réduite",
-      "desc": "L'espagnole réduite de moitié jusqu'à une texture sirupeuse et brillante, finie d'une pointe de glace de viande. Concentration de saveurs intense — quelques cuillerées suffisent à sublimer un jus de viande. Volontairement neutre, elle reçoit son vin (Madère, porto…) seulement au moment de la sauce dérivée. C'est la mère des grandes sauces brunes classiques.",
+      "desc": "L'espagnole réduite de moitié jusqu'à une texture sirupeuse et brillante, finie d'une pointe de glace de viande. Concentration de saveurs intense – quelques cuillerées suffisent à sublimer un jus de viande. Volontairement neutre, elle reçoit son vin (Madère, porto…) seulement au moment de la sauce dérivée. C'est la mère des grandes sauces brunes classiques.",
       "ings": [
         "1 L sauce Espagnole",
         "Un peu de glace de viande"
@@ -218,7 +218,7 @@
         "Verser l'espagnole dans une grande casserole.",
         "Réduire à feu moyen-doux jusqu'à diviser le volume par deux.",
         "La sauce doit napper abondamment la cuillère.",
-        "Finir hors du feu d'une pointe de glace de viande — sans vin, qui s'ajoute au moment de la dérivée.",
+        "Finir hors du feu d'une pointe de glace de viande – sans vin, qui s'ajoute au moment de la dérivée.",
         "Passer au chinois fin et rectifier l'assaisonnement."
       ],
       "children": [
@@ -421,7 +421,7 @@
       "nm": "Ravigote",
       "fam": "blanc",
       "role": "Dérivée de velouté",
-      "desc": "Velouté réduit au vin blanc et au vinaigre, monté au beurre d'échalote et relevé d'herbes — cerfeuil, estragon, ciboulette. Acidulée et herbacée. (Il existe aussi une ravigote froide, sorte de vinaigrette aux câpres et fines herbes.) Accompagne abats, volailles pochées et poissons.",
+      "desc": "Velouté réduit au vin blanc et au vinaigre, monté au beurre d'échalote et relevé d'herbes – cerfeuil, estragon, ciboulette. Acidulée et herbacée. (Il existe aussi une ravigote froide, sorte de vinaigrette aux câpres et fines herbes.) Accompagne abats, volailles pochées et poissons.",
       "ings": [
         "300 ml velouté",
         "100 ml vin blanc",
@@ -479,7 +479,7 @@
       "nm": "Robert",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
-      "desc": "Demi-glace aux oignons, vin blanc et moutarde forte. Piquante et rustique, emblème de la cuisine bourgeoise. La moutarde s'ajoute hors du feu — elle ne doit jamais cuire. Accompagne le porc grillé ou rôti.",
+      "desc": "Demi-glace aux oignons, vin blanc et moutarde forte. Piquante et rustique, emblème de la cuisine bourgeoise. La moutarde s'ajoute hors du feu – elle ne doit jamais cuire. Accompagne le porc grillé ou rôti.",
       "ings": [
         "300 ml demi-glace",
         "2 oignons",
@@ -646,7 +646,7 @@
       "fam": "holl",
       "role": "Sauce mère (sans roux)",
       "hint": "beurre + œufs",
-      "desc": "Émulsion chaude de jaunes d'œufs et de beurre clarifié, acidulée au citron ou au vinaigre. L'une des cinq grandes sauces mères — sans roux. Onctueuse, beurrée, légèrement acide. Accompagne asperges, poissons pochés et œufs Bénédicte.",
+      "desc": "Émulsion chaude de jaunes d'œufs et de beurre clarifié, acidulée au citron ou au vinaigre. L'une des cinq grandes sauces mères – sans roux. Onctueuse, beurrée, légèrement acide. Accompagne asperges, poissons pochés et œufs Bénédicte.",
       "ings": [
         "3 jaunes d'œufs",
         "200 g beurre clarifié",
@@ -721,7 +721,7 @@
       "nm": "Mousseline",
       "fam": "holl",
       "role": "Dérivée de hollandaise",
-      "desc": "Hollandaise additionnée de crème montée en chantilly, incorporée au dernier moment. Plus légère et mousseuse que la hollandaise — on l'appelle aussi sauce Chantilly. Accompagne asperges et poissons délicats.",
+      "desc": "Hollandaise additionnée de crème montée en chantilly, incorporée au dernier moment. Plus légère et mousseuse que la hollandaise – on l'appelle aussi sauce Chantilly. Accompagne asperges et poissons délicats.",
       "ings": [
         "300 ml hollandaise",
         "80 ml crème entière montée en chantilly"
@@ -936,7 +936,7 @@
       "nm": "Financière",
       "fam": "brun",
       "role": "Dérivée de Madère",
-      "desc": "Sauce Madère réduite avec une essence de truffe. Le Madère vient de la sauce mère — inutile d'en rajouter. C'est la base de la garniture « financière » — quenelles, crêtes de coq, champignons, olives et truffes — héritée de la grande cuisine du XIXᵉ siècle.",
+      "desc": "Sauce Madère réduite avec une essence de truffe. Le Madère vient de la sauce mère – inutile d'en rajouter. C'est la base de la garniture « financière » – quenelles, crêtes de coq, champignons, olives et truffes – héritée de la grande cuisine du XIXᵉ siècle.",
       "ings": [
         "300 ml sauce Madère",
         "1 c. à s. essence de truffe",
@@ -974,7 +974,7 @@
       "nm": "Grand Veneur",
       "fam": "brun",
       "role": "Dérivée de poivrade",
-      "desc": "Sauce poivrade liée à la crème (ou au sang du gibier) et adoucie d'une cuillerée de gelée de groseille. Onctueuse et aigre-douce, c'est la grande sauce des venaisons — chevreuil, biche, sanglier. Son nom évoque la chasse à courre.",
+      "desc": "Sauce poivrade liée à la crème (ou au sang du gibier) et adoucie d'une cuillerée de gelée de groseille. Onctueuse et aigre-douce, c'est la grande sauce des venaisons – chevreuil, biche, sanglier. Son nom évoque la chasse à courre.",
       "ings": [
         "500 ml sauce poivrade",
         "100 ml crème (ou sang de gibier)",
@@ -1012,7 +1012,7 @@
       "nm": "Régence",
       "fam": "blond",
       "role": "Dérivée de velouté",
-      "desc": "Velouté (de poisson ou de volaille) enrichi d'une réduction de vin du Rhin, d'essence de truffe et d'essence de champignon. Raffinée et aromatique, c'est une sauce d'apparat de la grande cuisine — pour quenelles, ris de veau, volailles et poissons nobles.",
+      "desc": "Velouté (de poisson ou de volaille) enrichi d'une réduction de vin du Rhin, d'essence de truffe et d'essence de champignon. Raffinée et aromatique, c'est une sauce d'apparat de la grande cuisine – pour quenelles, ris de veau, volailles et poissons nobles.",
       "ings": [
         "400 ml velouté (poisson ou volaille)",
         "100 ml vin du Rhin (riesling)",

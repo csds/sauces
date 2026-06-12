@@ -4,8 +4,8 @@
 
 ## Type of change
 
-- [ ] Content — edited `data/sauces.json` (a sauce, pairing, or the dish vocabulary)
-- [ ] Page — edited `src/template.html` (layout, styles, behaviour)
+- [ ] Content - edited `data/sauces.json` (a sauce, pairing, or the dish vocabulary)
+- [ ] Page - edited `src/template.html` (layout, styles, behaviour)
 - [ ] Tooling / docs / CI
 - [ ] Other
 

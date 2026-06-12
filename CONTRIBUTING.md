@@ -7,7 +7,7 @@ the workflow is light. The one rule that matters most:
 >
 > `index.html` is a **build output**, generated from
 > `data/sauces.json` + `src/template.html` by `node tools/build.js`. It is
-> **not committed** to the repo — it's git-ignored and rebuilt from source by
+> **not committed** to the repo - it's git-ignored and rebuilt from source by
 > CI and by Cloudflare. Editing it by hand is pointless; the next build
 > overwrites it.
 >
@@ -16,7 +16,7 @@ the workflow is light. The one rule that matters most:
 > - To change the **page itself** (layout, styles, behaviour) → edit
 >   `src/template.html`.
 >
-> Then rebuild to check your change — but only commit the **source**.
+> Then rebuild to check your change - but only commit the **source**.
 
 The app, its data, and the editor tool are in **French** (it's French classic
 cuisine). These contributor docs are in English. Please keep user-facing strings
@@ -24,7 +24,7 @@ and sauce content in French.
 
 ## Prerequisites
 
-- **Node.js** — that's it. There are **no npm dependencies** to install; the
+- **Node.js** - that's it. There are **no npm dependencies** to install; the
   build uses only Node's standard library.
 
 ## Workflow
@@ -43,7 +43,7 @@ and sauce content in French.
    ```
 
 3. Commit your **source** change (`data/sauces.json` and/or `src/template.html`).
-   Don't commit `index.html` — it's a git-ignored build output.
+   Don't commit `index.html` - it's a git-ignored build output.
 4. Open a pull request. CI re-validates the data and rebuilds the page from
    source; once merged to `main`, Cloudflare builds and publishes it
    automatically.
@@ -52,15 +52,15 @@ and sauce content in French.
 
 The build refuses to produce a page if the data is inconsistent. It checks:
 
-- **Family consistency** — a sauce's `fam` must match its parent's, except at the
+- **Family consistency** - a sauce's `fam` must match its parent's, except at the
   deliberate roux branch points (`roux_blanc`, `roux_blond`, `roux_brun`). If you
   intentionally introduce a new branch point, add it to `FAM_BOUNDARIES` in
   `tools/build.js`.
-- **Lineage integrity** — every id in a `children` array must be a real sauce,
+- **Lineage integrity** - every id in a `children` array must be a real sauce,
   and no sauce may have two parents.
-- **Vocabulary integrity** — every dish tag in `tagGroups` must be defined in
+- **Vocabulary integrity** - every dish tag in `tagGroups` must be defined in
   `tagLabel` (and vice versa), and no tag may appear in two categories.
-- **Pairing integrity** — every key in `accords` must be a real sauce, and every
+- **Pairing integrity** - every key in `accords` must be a real sauce, and every
   tag it references must exist in the vocabulary.
 
 If `--check` fails, it prints exactly what's wrong and where.
@@ -82,5 +82,5 @@ example.
 ## Style
 
 Match the surrounding code. The project deliberately avoids dependencies and
-build tooling beyond a single ~120-line Node script — please keep it that way
+build tooling beyond a single ~120-line Node script - please keep it that way
 unless there's a strong reason to add complexity.

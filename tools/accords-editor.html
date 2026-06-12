@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Éditeur d'accords — L'arbre des sauces (outil de développement)</title>
+<title>Éditeur d'accords – L'arbre des sauces (outil de développement)</title>
 <style>
 /* ------------------------------------------------------------------
-   Outil de DÉVELOPPEMENT — n'est pas livré avec l'application.
+   Outil de DÉVELOPPEMENT - n'est pas livré avec l'application.
    Édite data/sauces.json (source unique de vérité) : le vocabulaire
    des plats (tagLabel / tagGroups) et la table des accords (accords),
    sous forme de grille sauces × plats. Exporte un sauces.json mis à
@@ -71,7 +71,7 @@ thead tr.cats th{z-index:6}
 .tag-h > div{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;margin:0 auto;font-weight:500;color:var(--ink)}
 .tag-h .tn{font-size:.7rem;color:var(--ink-soft);font-weight:400}
 /* coin figé (haut-gauche) : DEUX cellules empilées imitant une cellule fusionnée.
-   Pas de rowspan — incompatible avec position:sticky (la 2e ligne se tasse). */
+   Pas de rowspan - incompatible avec position:sticky (la 2e ligne se tasse). */
 .corner{position:sticky;left:0;background:var(--paper-2);min-width:230px;text-align:left;font-weight:600;padding:0 12px}
 thead th.corner-top{top:0;height:var(--cath);z-index:9;border-bottom:none}
 thead th.corner-bot{top:var(--cath);vertical-align:bottom;padding-bottom:9px;z-index:9}
@@ -204,10 +204,10 @@ textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,mon
 let DATA = null;         // objet complet chargé depuis sauces.json
 let SRC_NAME = 'sauces.json';
 let NODES, TAG_LABEL, TAG_GROUPS, TAG_ORDER;
-let STATE = {};          // id -> Set(tags) — la table en cours d'édition
+let STATE = {};          // id -> Set(tags) - la table en cours d'édition
 let BASELINE = '';       // signature de la table au chargement (pour « modifié »)
 const FAM_COLOR = {blanc:'--blanc',blond:'--blond',brun:'--brun',holl:'--holl',tom:'--tom',base:'--base'};
-/* ordre d'affichage des familles (présentation — vit dans src/template.html côté app) */
+/* ordre d'affichage des familles (présentation - vit dans src/template.html côté app) */
 const FAM_ORDER = {blanc:0,blond:1,brun:2,holl:3,tom:4,base:5};
 
 /* ============================================================
