@@ -25,6 +25,7 @@
       "nm": "Roux blanc",
       "fam": "blanc",
       "role": "Roux – cuit 2 min",
+      "deriv": "base",
       "hint": "2 min, neutre",
       "desc": "Cuit 2 minutes seulement, le roux blanc reste pâle et neutre en goût. Son pouvoir liant est maximal car l'amidon est peu transformé. C'est la base de la béchamel et du velouté blanc.",
       "ings": [
@@ -46,6 +47,7 @@
       "nm": "Roux blond",
       "fam": "blond",
       "role": "Roux – cuit 4 à 5 min",
+      "deriv": "base",
       "hint": "4–5 min, doré",
       "desc": "Cuit 4 à 5 minutes, il prend une teinte dorée et dégage un léger parfum de noisette. Son pouvoir liant est un peu inférieur au roux blanc, mais le goût est plus complexe. C'est la base des veloutés blonds.",
       "ings": [
@@ -67,6 +69,7 @@
       "nm": "Roux brun",
       "fam": "brun",
       "role": "Roux – cuit 8 à 10 min",
+      "deriv": "base",
       "hint": "8–10 min, noisette",
       "desc": "Cuit 8 à 10 minutes jusqu'à une couleur noisette foncée. Son pouvoir liant est réduit (il faut en mettre davantage) mais il apporte une profondeur aromatique incomparable. La chaleur résiduelle continue la cuisson : retirer du feu un peu avant la couleur voulue.",
       "ings": [
@@ -89,6 +92,7 @@
       "nm": "Béchamel",
       "fam": "blanc",
       "role": "Sauce mère",
+      "deriv": "base",
       "hint": "+ lait",
       "desc": "L'une des cinq grandes sauces mères d'Escoffier. Roux blanc allongé de lait chaud, assaisonné de muscade. Blanche et onctueuse, elle est la base des gratins, lasagnes et de nombreuses sauces dérivées.",
       "ings": [
@@ -115,6 +119,7 @@
       "nm": "Velouté blanc",
       "fam": "blanc",
       "role": "Sauce mère",
+      "deriv": "base",
       "hint": "+ fond blanc",
       "desc": "Roux blanc allongé de fond blanc de veau. Plus léger que la béchamel, couleur ivoire, goût délicat. C'est la base des grandes sauces pour viandes blanches et ris de veau.",
       "ings": [
@@ -139,6 +144,7 @@
       "nm": "Velouté blond",
       "fam": "blond",
       "role": "Grande sauce",
+      "deriv": "base",
       "hint": "volaille / fumet",
       "desc": "Roux blond allongé d'un fond de volaille ou d'un fumet de poisson. Couleur dorée, léger goût de noisette. Plus caractérisé que le velouté blanc, c'est la base des grands veloutés de service.",
       "ings": [
@@ -163,6 +169,7 @@
       "nm": "Espagnole",
       "fam": "brun",
       "role": "Sauce mère",
+      "deriv": "base",
       "hint": "+ fond brun",
       "desc": "Roux brun allongé de fond brun de veau, garniture aromatique et concentré de tomate. Longue à réaliser (1 h 30 à 2 h), c'est la base de la demi-glace et de toutes les grandes sauces brunes classiques.",
       "ings": [
@@ -188,6 +195,7 @@
       "nm": "Sauce brune",
       "fam": "brun",
       "role": "Grande sauce",
+      "deriv": "base",
       "hint": "+ bouillon brun",
       "desc": "Version simplifiée de l'espagnole : roux brun allongé de bouillon brun de bœuf ou de veau. Plus rapide à préparer, idéale au quotidien pour les viandes grillées, rôties ou mijotées.",
       "ings": [
@@ -208,6 +216,7 @@
       "nm": "Demi-glace",
       "fam": "brun",
       "role": "Sauce de base",
+      "deriv": "composition",
       "hint": "espagnole réduite",
       "desc": "L'espagnole réduite de moitié jusqu'à une texture sirupeuse et brillante, finie d'une pointe de glace de viande. Concentration de saveurs intense – quelques cuillerées suffisent à sublimer un jus de viande. Volontairement neutre, elle reçoit son vin (Madère, porto…) seulement au moment de la sauce dérivée. C'est la mère des grandes sauces brunes classiques.",
       "ings": [
@@ -238,6 +247,7 @@
       "nm": "Mornay",
       "fam": "blanc",
       "role": "Dérivée de béchamel",
+      "deriv": "composition",
       "desc": "Béchamel enrichie de gruyère râpé et liée aux jaunes d'œufs. Riche et fromagère, idéale pour les gratins, les endives braisées et les poissons pochés.",
       "ings": [
         "300 ml béchamel",
@@ -257,6 +267,7 @@
       "nm": "Soubise",
       "fam": "blanc",
       "role": "Dérivée de béchamel",
+      "deriv": "assemblage",
       "desc": "Béchamel aux oignons fondus passée au tamis. Les oignons cuisent à feu très doux 30 à 40 min sans coloration. Douce, soyeuse, légèrement sucrée. Accompagne viandes blanches, agneau et asperges.",
       "ings": [
         "300 ml béchamel",
@@ -277,6 +288,7 @@
       "nm": "Nantua",
       "fam": "blanc",
       "role": "Dérivée de béchamel",
+      "deriv": "composition",
       "desc": "Béchamel enrichie de beurre d'écrevisses. Rose orangée, délicatement iodée, emblème de la cuisine lyonnaise. C'est la sauce des quenelles de brochet.",
       "ings": [
         "300 ml béchamel",
@@ -296,6 +308,7 @@
       "nm": "Suprême",
       "fam": "blanc",
       "role": "Dérivée de velouté",
+      "deriv": "composition",
       "desc": "Velouté de volaille enrichi de crème fraîche et monté au beurre. Onctueuse, ivoire, d'une douceur soyeuse. C'est la sauce des suprêmes de volaille pochés et des ris de veau.",
       "ings": [
         "400 ml velouté de volaille",
@@ -315,6 +328,7 @@
       "nm": "Allemande",
       "fam": "blanc",
       "role": "Dérivée de velouté",
+      "deriv": "composition",
       "desc": "Aussi appelée sauce parisienne. Velouté blanc lié aux jaunes d'œufs et à la crème, monté au beurre. Plus riche et complexe que le velouté seul. Accompagne viandes blanches et quenelles.",
       "ings": [
         "400 ml velouté blanc",
@@ -339,6 +353,7 @@
       "nm": "Normande",
       "fam": "blanc",
       "role": "Dérivée de velouté",
+      "deriv": "composition",
       "desc": "Velouté de poisson enrichi de crème, de jus de champignons et de moules, lié aux jaunes d'œufs. Généreuse, marine, typiquement normande. C'est la sauce classique de la sole normande.",
       "ings": [
         "300 ml velouté de poisson",
@@ -360,6 +375,7 @@
       "nm": "Bercy",
       "fam": "blond",
       "role": "Dérivée de velouté",
+      "deriv": "assemblage",
       "desc": "Velouté de poisson aux échalotes et au vin blanc, monté au beurre et persillé. Légère, acidulée, marine. Elle accompagne les poissons pochés ou grillés.",
       "ings": [
         "250 ml velouté de poisson",
@@ -382,6 +398,7 @@
       "nm": "Vin blanc",
       "fam": "blond",
       "role": "Dérivée de velouté",
+      "deriv": "assemblage",
       "desc": "Velouté de poisson réduit avec du vin blanc, lié aux jaunes d'œufs et monté généreusement au beurre. Brillante, légère, élégante. C'est la sauce de référence pour les poissons nobles pochés.",
       "ings": [
         "300 ml velouté de poisson",
@@ -402,6 +419,7 @@
       "nm": "Aurore",
       "fam": "blond",
       "role": "Dérivée de velouté",
+      "deriv": "composition",
       "desc": "Velouté additionné de concentré de tomate, qui lui donne une teinte rosée caractéristique. Douce, légèrement acidulée, très décorative. Accompagne volailles, œufs pochés et quenelles.",
       "ings": [
         "400 ml velouté",
@@ -421,6 +439,7 @@
       "nm": "Ravigote",
       "fam": "blanc",
       "role": "Dérivée de velouté",
+      "deriv": "assemblage",
       "desc": "Velouté réduit au vin blanc et au vinaigre, monté au beurre d'échalote et relevé d'herbes – cerfeuil, estragon, ciboulette. Acidulée et herbacée. (Il existe aussi une ravigote froide, sorte de vinaigrette aux câpres et fines herbes.) Accompagne abats, volailles pochées et poissons.",
       "ings": [
         "300 ml velouté",
@@ -442,6 +461,7 @@
       "nm": "Poulette",
       "fam": "blanc",
       "role": "Dérivée d'allemande",
+      "deriv": "composition",
       "desc": "Allemande additionnée de jus de cuisson de champignons, relevée de jus de citron et de persil. Douce et citronnée. Classiquement servie avec les champignons, les moules ou les pieds de mouton.",
       "ings": [
         "300 ml sauce allemande",
@@ -461,6 +481,7 @@
       "nm": "Villeroi",
       "fam": "blanc",
       "role": "Dérivée d'allemande",
+      "deriv": "composition",
       "desc": "Allemande très réduite avec une essence de jambon et de champignon, jusqu'à devenir assez épaisse pour napper et figer. On y trempe ris de veau, volaille ou légumes avant de les paner et frire « à la Villeroi ».",
       "ings": [
         "400 ml sauce allemande",
@@ -479,6 +500,7 @@
       "nm": "Robert",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "assemblage",
       "desc": "Demi-glace aux oignons, vin blanc et moutarde forte. Piquante et rustique, emblème de la cuisine bourgeoise. La moutarde s'ajoute hors du feu – elle ne doit jamais cuire. Accompagne le porc grillé ou rôti.",
       "ings": [
         "300 ml demi-glace",
@@ -502,6 +524,7 @@
       "nm": "Madère",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "composition",
       "desc": "Demi-glace parfumée au vin de Madère. Brillante, légèrement sucrée-caramélisée, très élégante. Elle accompagne tournedos, jambon braisé et ris de veau.",
       "ings": [
         "300 ml demi-glace",
@@ -523,6 +546,7 @@
       "nm": "Chasseur",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "assemblage",
       "desc": "Demi-glace aux champignons, échalotes, tomates et vin blanc, parfumée à l'estragon. Rustique et généreuse, c'est la sauce des plats de chasse, du poulet sauté et des escalopes.",
       "ings": [
         "300 ml demi-glace",
@@ -545,6 +569,7 @@
       "nm": "Bordelaise",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "assemblage",
       "desc": "Demi-glace au vin rouge de Bordeaux, échalotes et moelle de bœuf pochée. Riche, profonde, légèrement vineuse. C'est la sauce des entrecôtes et côtes de bœuf.",
       "ings": [
         "300 ml demi-glace",
@@ -567,6 +592,7 @@
       "nm": "Bigarade",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "assemblage",
       "desc": "Demi-glace (ou jus de canard) liée à un caramel déglacé au vinaigre, avec jus d'orange amère et de citron, et zestes d'orange en julienne. Aigre-douce et fruitée : c'est la sauce du canard à l'orange.",
       "ings": [
         "300 ml demi-glace",
@@ -588,6 +614,7 @@
       "nm": "Lyonnaise",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "assemblage",
       "desc": "Demi-glace aux oignons fondus, déglacés au vin blanc et au vinaigre. Douce-acidulée, parfumée à l'oignon. Accompagne viandes blanches, restes de bouilli et abats.",
       "ings": [
         "300 ml demi-glace",
@@ -608,6 +635,7 @@
       "nm": "Diable",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "assemblage",
       "desc": "Réduction corsée de vin blanc et d'échalotes, additionnée de demi-glace et fortement relevée de poivre concassé. Piquante, « endiablée ». Accompagne les volailles grillées, notamment à la crapaudine.",
       "ings": [
         "300 ml demi-glace",
@@ -628,6 +656,7 @@
       "nm": "Charcutière",
       "fam": "brun",
       "role": "Dérivée de Robert",
+      "deriv": "composition",
       "desc": "Une sauce Robert finie d'une julienne de cornichons : c'est sa seule différence avec sa mère, les cornichons étant ajoutés en toute fin. Piquante et acidulée, elle accompagne le porc grillé ou rôti.",
       "ings": [
         "300 ml sauce Robert",
@@ -696,6 +725,7 @@
       "nm": "Béarnaise",
       "fam": "holl",
       "role": "Dérivée de hollandaise",
+      "deriv": "variation",
       "desc": "Hollandaise dont la base acide est une réduction d'estragon et de cerfeuil au vinaigre de vin. Plus aromatique que la hollandaise. Accompagne viandes grillées et poissons.",
       "ings": [
         "3 jaunes d'œufs",
@@ -721,6 +751,7 @@
       "nm": "Mousseline",
       "fam": "holl",
       "role": "Dérivée de hollandaise",
+      "deriv": "composition",
       "desc": "Hollandaise additionnée de crème montée en chantilly, incorporée au dernier moment. Plus légère et mousseuse que la hollandaise – on l'appelle aussi sauce Chantilly. Accompagne asperges et poissons délicats.",
       "ings": [
         "300 ml hollandaise",
@@ -738,6 +769,7 @@
       "nm": "Maltaise",
       "fam": "holl",
       "role": "Dérivée de hollandaise",
+      "deriv": "composition",
       "desc": "Hollandaise aromatisée au jus et au zeste d'orange sanguine. Légèrement sucrée, fruitée, d'une belle couleur dorée. Spécialité du printemps, elle accompagne les asperges et les poissons.",
       "ings": [
         "300 ml hollandaise",
@@ -756,6 +788,7 @@
       "nm": "Choron",
       "fam": "holl",
       "role": "Dérivée de béarnaise",
+      "deriv": "composition",
       "desc": "Béarnaise additionnée de purée de tomates. Rose orangée, aromatique, élégante. Elle accompagne viandes grillées, tournedos et poissons nobles.",
       "ings": [
         "300 ml sauce béarnaise",
@@ -772,6 +805,7 @@
       "nm": "Foyot",
       "fam": "holl",
       "role": "Dérivée de béarnaise",
+      "deriv": "composition",
       "desc": "Béarnaise additionnée de glace de viande, qui lui apporte profondeur et brillance. On l'appelle aussi sauce Valois. Elle accompagne les viandes rouges grillées, les tournedos et les ris de veau.",
       "ings": [
         "300 ml sauce béarnaise",
@@ -789,6 +823,7 @@
       "nm": "Paloise",
       "fam": "holl",
       "role": "Dérivée de béarnaise",
+      "deriv": "variation",
       "desc": "Variante de la béarnaise où la menthe fraîche remplace l'estragon. Fraîche et parfumée, elle accompagne traditionnellement l'agneau et les viandes grillées. Originaire du Béarn, comme sa mère.",
       "ings": [
         "3 jaunes d'œufs",
@@ -809,6 +844,7 @@
       "nm": "Tyrolienne",
       "fam": "holl",
       "role": "Dérivée de béarnaise",
+      "deriv": "variation",
       "desc": "Béarnaise montée à l'huile plutôt qu'au beurre, puis additionnée de purée de tomates. Plus légère et fruitée que la béarnaise classique. Se sert chaude ou tiède, avec viandes et poissons grillés.",
       "ings": [
         "3 jaunes d'œufs",
@@ -830,6 +866,7 @@
       "nm": "Portugaise",
       "fam": "tom",
       "role": "Dérivée de sauce tomate",
+      "deriv": "assemblage",
       "desc": "Sauce tomate enrichie d'oignons et de poivrons revenus, avec des tomates fraîches concassées. Généreuse, colorée, légèrement rustique. Accompagne œufs, viandes blanches et poissons.",
       "ings": [
         "300 ml sauce tomate",
@@ -851,6 +888,7 @@
       "nm": "Provençale",
       "fam": "tom",
       "role": "Dérivée de sauce tomate",
+      "deriv": "composition",
       "desc": "Sauce tomate à l'ail, aux herbes de Provence et aux olives. Parfumée, ensoleillée, très versatile. Accompagne légumes, viandes grillées et poissons.",
       "ings": [
         "300 ml sauce tomate",
@@ -871,6 +909,7 @@
       "nm": "Poivrade",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "assemblage",
       "desc": "Demi-glace montée sur une mirepoix de légumes mouillée au vin blanc et au vinaigre, longuement réduite, puis fortement poivrée et passée. Corsée et acidulée, c'est la sauce de base de toutes les préparations de gibier.",
       "ings": [
         "500 ml demi-glace",
@@ -897,6 +936,7 @@
       "nm": "Chevreuil",
       "fam": "brun",
       "role": "Dérivée de poivrade",
+      "deriv": "assemblage",
       "desc": "Sauce poivrade renforcée de parures de gibier et de vin rouge, relevée d'une pointe de cayenne (et parfois d'un soupçon de gelée de groseille). Puissante, elle nappe les pièces de chevreuil, de sanglier et autres gibiers.",
       "ings": [
         "500 ml sauce poivrade",
@@ -917,6 +957,7 @@
       "nm": "Périgueux",
       "fam": "brun",
       "role": "Dérivée de Madère",
+      "deriv": "composition",
       "desc": "Sauce Madère enrichie d'essence de truffe et de truffes hachées. Profonde, parfumée, luxueuse. Elle accompagne le tournedos Rossini, les volailles et les œufs. Sa variante aux truffes en lames se nomme Périgourdine.",
       "ings": [
         "300 ml sauce Madère",
@@ -936,6 +977,7 @@
       "nm": "Financière",
       "fam": "brun",
       "role": "Dérivée de Madère",
+      "deriv": "composition",
       "desc": "Sauce Madère réduite avec une essence de truffe. Le Madère vient de la sauce mère – inutile d'en rajouter. C'est la base de la garniture « financière » – quenelles, crêtes de coq, champignons, olives et truffes – héritée de la grande cuisine du XIXᵉ siècle.",
       "ings": [
         "300 ml sauce Madère",
@@ -953,6 +995,7 @@
       "nm": "Italienne",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "assemblage",
       "desc": "Demi-glace additionnée d'une duxelles de champignons, de jambon maigre haché et de tomate concassée, finie aux fines herbes. Parfumée et rustique, elle accompagne viandes blanches, pâtes et œufs.",
       "ings": [
         "400 ml demi-glace",
@@ -974,6 +1017,7 @@
       "nm": "Grand Veneur",
       "fam": "brun",
       "role": "Dérivée de poivrade",
+      "deriv": "composition",
       "desc": "Sauce poivrade liée à la crème (ou au sang du gibier) et adoucie d'une cuillerée de gelée de groseille. Onctueuse et aigre-douce, c'est la grande sauce des venaisons – chevreuil, biche, sanglier. Son nom évoque la chasse à courre.",
       "ings": [
         "500 ml sauce poivrade",
@@ -993,6 +1037,7 @@
       "nm": "Diane",
       "fam": "brun",
       "role": "Dérivée de poivrade",
+      "deriv": "composition",
       "desc": "Sauce poivrade allégée de crème fouettée, parfois garnie de croissants de truffe et de blanc d'œuf dur. Plus douce et mousseuse que la poivrade, elle accompagne les viandes de gibier rôties.",
       "ings": [
         "400 ml sauce poivrade",
@@ -1012,6 +1057,7 @@
       "nm": "Régence",
       "fam": "blond",
       "role": "Dérivée de velouté",
+      "deriv": "assemblage",
       "desc": "Velouté (de poisson ou de volaille) enrichi d'une réduction de vin du Rhin, d'essence de truffe et d'essence de champignon. Raffinée et aromatique, c'est une sauce d'apparat de la grande cuisine – pour quenelles, ris de veau, volailles et poissons nobles.",
       "ings": [
         "400 ml velouté (poisson ou volaille)",
@@ -1031,6 +1077,7 @@
       "nm": "Matelote",
       "fam": "brun",
       "role": "Dérivée de demi-glace",
+      "deriv": "assemblage",
       "desc": "La sauce au vin rouge des poissons « en matelote » : le court-bouillon vineux de cuisson est réduit, lié d'un peu de demi-glace, monté au beurre et relevé de cayenne. On la garnit traditionnellement de champignons et de petits oignons glacés.",
       "ings": [
         "400 ml court-bouillon au vin rouge (cuisson du poisson)",

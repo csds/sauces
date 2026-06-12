@@ -141,6 +141,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    ```json
    "ma_sauce": {
      "nm": "Ma sauce", "fam": "brun", "role": "Dérivée de demi-glace",
+     "deriv": "composition",
      "desc": "…",
      "ings": ["…", "…"],
      "steps": ["…", "…"],
@@ -151,6 +152,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    `fam` must be one of `blanc`, `blond`, `brun`, `holl`, `tom`, `base`, and -
    unless it is a deliberate branch point - **identical to the parent's family**
    (the build checks this).
+
+   `deriv` describes the *kind* of link to the parent and is **required** for
+   every sauce that has a parent (omit it only on the root mother sauces): one of
+   `composition` (start from the finished parent sauce and continue), `variation`
+   (remake the base from scratch - the parent is not an ingredient), `assemblage`
+   (prepare something else, then fold the parent in), or `base` (the technical
+   roux layer). The build checks it is present and one of these values.
 2. Attach it to its mother by adding its key to the parent's `children` array.
    Lineage and navigation links follow automatically.
 3. (Optional) Declare its pairings in `accords` using existing `tagLabel` tags -

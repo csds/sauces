@@ -58,6 +58,9 @@ The build refuses to produce a page if the data is inconsistent. It checks:
   `tools/build.js`.
 - **Lineage integrity** - every id in a `children` array must be a real sauce,
   and no sauce may have two parents.
+- **Derivation type** - every sauce that has a parent must carry a `deriv` field
+  set to `composition`, `variation`, `assemblage`, or `base`; root mother sauces
+  must not carry one.
 - **Vocabulary integrity** - every dish tag in `tagGroups` must be defined in
   `tagLabel` (and vice versa), and no tag may appear in two categories.
 - **Pairing integrity** - every key in `accords` must be a real sauce, and every
