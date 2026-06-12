@@ -29,6 +29,13 @@ const FAMILIES = new Set(['blanc', 'blond', 'brun', 'holl', 'tom', 'base']);
    est une incohérence. */
 const FAM_BOUNDARIES = new Set(['roux_blanc', 'roux_blond', 'roux_brun']);
 
+/* Type d'arête de filiation, porté par chaque nœud ayant un parent.
+   composition : on part de la sauce parente et on continue.
+   variation   : on refait la base de zéro (la parente n'est pas un ingrédient).
+   assemblage  : on prépare autre chose, puis on incorpore la parente.
+   base        : couche technique du roux (spécialisation / roux réalisé inline). */
+const DERIV_TYPES = new Set(['composition', 'variation', 'assemblage', 'base']);
+
 /* ------------------------------------------------------------
    Validation : la donnée doit être cohérente avant d'être livrée.
    Renvoie la liste des erreurs (vide = tout va bien).
@@ -62,6 +69,18 @@ function validate(data) {
     if (p && nodes[p].fam !== fam && !FAM_BOUNDARIES.has(id)) {
       errors.push(`fam: « ${id} » (${fam}) diffère de son parent ${p} (${nodes[p].fam}). ` +
         `Si c'est voulu, ajoutez-le à FAM_BOUNDARIES dans tools/build.js.`);
+    }
+
+    // deriv : type d'arête, obligatoire sur tout nœud ayant un parent, absent sur les racines
+    const deriv = nodes[id].deriv;
+    if (p) {
+      if (deriv === undefined) {
+        errors.push(`deriv: « ${id} » n'a pas de type d'arête (attendu : ${[...DERIV_TYPES].join(', ')}).`);
+      } else if (!DERIV_TYPES.has(deriv)) {
+        errors.push(`deriv: « ${id} » a un type d'arête inconnu « ${deriv} » (attendu : ${[...DERIV_TYPES].join(', ')}).`);
+      }
+    } else if (deriv !== undefined) {
+      errors.push(`deriv: « ${id} » est une racine (sans parent) mais porte un deriv « ${deriv} » ; à retirer.`);
     }
   }
 
