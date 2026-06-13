@@ -75,7 +75,7 @@
       "role": "Roux – cuit 8 à 10 min",
       "deriv": "base",
       "hint": "8–10 min, noisette",
-      "desc": "Cuit 8 à 10 minutes jusqu'à une couleur noisette foncée. Son pouvoir liant est réduit (il faut en mettre davantage) mais il apporte une profondeur aromatique incomparable. La chaleur résiduelle continue la cuisson : retirer du feu un peu avant la couleur voulue.",
+      "desc": "Cuit jusqu'à une couleur noisette foncée. Son pouvoir liant est réduit (il faut en mettre davantage) mais il apporte une profondeur aromatique incomparable. Chez Escoffier la durée n'est pas fixe : c'est la couleur qui guide. Les 8 à 10 minutes valent pour cette quantité (30 g) et sont à adapter selon le volume et la chaleur. La chaleur résiduelle continue la cuisson : retirer du feu un peu avant la couleur voulue.",
       "ings": [
         "30 g beurre",
         "30 g farine"
@@ -259,17 +259,18 @@
       "prov": "classique",
       "role": "Dérivée de béchamel",
       "deriv": "composition",
-      "desc": "Béchamel enrichie de gruyère râpé et liée aux jaunes d'œufs. Riche et fromagère, idéale pour les gratins, les endives braisées et les poissons pochés.",
+      "desc": "Béchamel enrichie de gruyère et de parmesan râpés, liée aux jaunes d'œufs. Riche et fromagère, idéale pour les gratins, les endives braisées et les poissons pochés.",
       "ings": [
         "300 ml béchamel",
-        "50 g gruyère râpé",
+        "25 g gruyère râpé",
+        "25 g parmesan râpé",
         "2 jaunes d'œufs",
         "20 g beurre"
       ],
       "steps": [
         "Préparer une béchamel lisse.",
         "Hors du feu, incorporer les jaunes d'œufs en fouettant.",
-        "Ajouter le gruyère, mélanger jusqu'à fonte complète.",
+        "Ajouter le gruyère et le parmesan, mélanger jusqu'à fonte complète.",
         "Monter au beurre. Ne pas faire rebouillir."
       ],
       "children": []
@@ -759,19 +760,21 @@
       "prov": "classique",
       "role": "Dérivée de hollandaise",
       "deriv": "variation",
-      "desc": "Hollandaise dont la base acide est une réduction d'estragon et de cerfeuil au vinaigre de vin. Plus aromatique que la hollandaise. Accompagne viandes grillées et poissons.",
+      "desc": "Hollandaise dont la base acide est une réduction d'estragon et de cerfeuil au vin blanc et au vinaigre à l'estragon. Plus aromatique que la hollandaise. Accompagne viandes grillées et poissons.",
       "ings": [
         "3 jaunes d'œufs",
         "200 g beurre clarifié",
-        "50 ml vinaigre de vin",
+        "50 ml vin blanc sec",
+        "50 ml vinaigre à l'estragon",
         "2 échalotes",
-        "Estragon, cerfeuil"
+        "Estragon, cerfeuil",
+        "1 pointe de Cayenne"
       ],
       "steps": [
-        "Réduire le vinaigre avec échalotes, estragon, cerfeuil et poivre.",
+        "Réduire le vin blanc et le vinaigre à l'estragon avec échalotes, estragon, cerfeuil et poivre.",
         "Fouetter les jaunes sur la réduction refroidie, au bain-marie.",
         "Monter au beurre clarifié versé en filet.",
-        "Passer, puis incorporer l'estragon et le cerfeuil hachés et assaisonner."
+        "Passer, puis incorporer l'estragon et le cerfeuil hachés ; assaisonner et relever d'une pointe de Cayenne."
       ],
       "children": [
         "choron",
@@ -866,15 +869,17 @@
       "ings": [
         "3 jaunes d'œufs",
         "200 g beurre clarifié",
-        "50 ml vinaigre de vin",
+        "50 ml vin blanc sec",
+        "50 ml vinaigre à l'estragon",
         "2 échalotes",
-        "Menthe fraîche"
+        "Menthe fraîche",
+        "1 pointe de Cayenne"
       ],
       "steps": [
-        "Réduire le vinaigre avec les échalotes et quelques tiges de menthe.",
+        "Réduire le vin blanc et le vinaigre à l'estragon avec les échalotes et quelques tiges de menthe.",
         "Fouetter les jaunes sur la réduction refroidie, au bain-marie.",
         "Monter au beurre clarifié versé en filet.",
-        "Passer, incorporer la menthe fraîche hachée et assaisonner."
+        "Passer, incorporer la menthe fraîche hachée ; assaisonner et relever d'une pointe de Cayenne."
       ],
       "children": []
     },
@@ -888,16 +893,18 @@
       "ings": [
         "3 jaunes d'œufs",
         "200 ml huile (tournesol ou olive douce)",
-        "50 ml vinaigre de vin",
+        "50 ml vin blanc sec",
+        "50 ml vinaigre à l'estragon",
         "2 échalotes",
         "Estragon",
-        "2 c. à s. purée de tomates"
+        "2 c. à s. purée de tomates",
+        "1 pointe de Cayenne"
       ],
       "steps": [
-        "Réduire le vinaigre avec les échalotes et l'estragon.",
+        "Réduire le vin blanc et le vinaigre à l'estragon avec les échalotes et l'estragon frais.",
         "Fouetter les jaunes sur la réduction refroidie, au bain-marie.",
         "Monter à l'huile versée en filet, comme une béarnaise.",
-        "Incorporer la purée de tomates, passer et assaisonner."
+        "Incorporer la purée de tomates, passer, assaisonner et relever d'une pointe de Cayenne."
       ],
       "children": []
     },
@@ -1234,12 +1241,14 @@
     "mornay": [
       "gratins",
       "legumes",
-      "poisson_poche"
+      "poisson_poche",
+      "oeufs"
     ],
     "soubise": [
       "agneau",
       "veau",
-      "asperges"
+      "asperges",
+      "oeufs"
     ],
     "nantua": [
       "quenelles",
