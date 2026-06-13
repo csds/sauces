@@ -19,7 +19,7 @@ generated file has no runtime dependencies and works offline - but it is a
 
 ## Getting started
 
-The easiest way to read the app is the hosted version: **<https://sauce.pages.dev>**.
+The easiest way to read the app is the hosted version: **<https://sauces.pages.dev>**.
 
 To build and run it locally you need **Node.js** (no npm packages to install).
 Generate the page from source, then open it:
@@ -182,7 +182,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
 
 ### Deployment (Cloudflare Pages)
 
-The site is hosted on **Cloudflare Pages** (<https://sauce.pages.dev>),
+The site is hosted on **Cloudflare Pages** (<https://sauces.pages.dev>),
 connected to this repository. Because the build output isn't committed, Cloudflare
 **builds it from source** on every push. One-time setup in the Cloudflare
 dashboard (**Workers & Pages → Create → Pages → Connect to Git**):
