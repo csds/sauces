@@ -36,6 +36,14 @@ const FAM_BOUNDARIES = new Set(['roux_blanc', 'roux_blond', 'roux_brun']);
    base       : the technical roux layer (specialization / roux made inline). */
 const DERIV_TYPES = new Set(['composition', 'variation', 'assemblage', 'base']);
 
+/* Provenance, carried by every node. Tells the editorial origin of the
+   recipe apart from where it sits in the tree.
+   classique     : faithful to Escoffier's Guide culinaire.
+   moderne        : modern variant kept for its usefulness (e.g. the
+                    olive-oil, flourless tomato branch), not Escoffier's own.
+   hors_escoffier : outside the Escoffier system (satellite families). */
+const PROV_TYPES = new Set(['classique', 'moderne', 'hors_escoffier']);
+
 /* ------------------------------------------------------------
    Validation: the data must be consistent before being shipped.
    Returns the list of errors (empty = all good).
@@ -81,6 +89,14 @@ function validate(data) {
       }
     } else if (deriv !== undefined) {
       errors.push(`deriv: "${id}" is a root (no parent) but carries a deriv "${deriv}"; remove it.`);
+    }
+
+    // prov: provenance, required on every node (roots included)
+    const prov = nodes[id].prov;
+    if (prov === undefined) {
+      errors.push(`prov: "${id}" has no provenance (expected: ${[...PROV_TYPES].join(', ')}).`);
+    } else if (!PROV_TYPES.has(prov)) {
+      errors.push(`prov: "${id}" has an unknown provenance "${prov}" (expected: ${[...PROV_TYPES].join(', ')}).`);
     }
   }
 
