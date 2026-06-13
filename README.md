@@ -12,7 +12,7 @@ ingredients, and method.
 > stay French.
 
 The page is **generated** by a small, dependency-free Node script that inlines
-the data *and* the fonts into a single, self-contained `index.html`. That
+the data *and* the fonts into a single, self-contained `dist/index.html`. That
 generated file has no runtime dependencies and works offline - but it is a
 **build output**, produced from `data/sauces.json` + `src/template.html`, and is
 **not committed** to the repo. See [Development](#development).
@@ -25,15 +25,15 @@ To build and run it locally you need **Node.js** (no npm packages to install).
 Generate the page from source, then open it:
 
 ```sh
-node tools/build.js        # writes index.html (the self-contained app)
+node tools/build.js        # writes dist/index.html (the self-contained app)
 
 # then open it, depending on your system:
-open index.html            # macOS
-xdg-open index.html        # Linux
-start index.html           # Windows
+open dist/index.html       # macOS
+xdg-open dist/index.html   # Linux
+start dist/index.html      # Windows
 ```
 
-Once built, `index.html` is **fully self-contained** - data and fonts are
+Once built, `dist/index.html` is **fully self-contained** - data and fonts are
 inlined, so it makes no network requests and works offline, even straight from
 `file://`. (It's a build output, not committed to the repo - see
 [Development](#development).)
@@ -74,7 +74,7 @@ Périgueux, Diable, Bigarade, Poivrade, Grand Veneur… each tied to its lineage
 - **Responsive** - on phones the tree becomes a full-screen drawer reached from a
   selection bar.
 - **The generated page is self-contained and makes no external requests** -
-  once built, `index.html` is one file of plain HTML, CSS, and JavaScript, with
+  once built, `dist/index.html` is one file of plain HTML, CSS, and JavaScript, with
   data *and fonts* inlined; nothing fetched at runtime, no third party
   contacted, works fully offline. *(That's the built file. The copy served on
   Cloudflare Pages adds an analytics beacon injected at the edge - see
@@ -91,18 +91,18 @@ Périgueux, Diable, Bigarade, Poivrade, Grand Veneur… each tied to its lineage
 ├── assets/
 │   └── fonts/                  # self-hosted woff2 (SIL OFL) + manifest, inlined at build
 ├── tools/
-│   ├── build.js                # dependency-free build: validate → inject data + fonts → write index.html
+│   ├── build.js                # dependency-free build: validate → inject data + fonts → write dist/index.html
 │   └── accords-editor.html     # dev tool: visual pairings editor (edits sauces.json)
 ├── package.json                # npm scripts (no dependencies)
 └── README.md
 
-# index.html is NOT here: it's the build output of `node tools/build.js`
+# dist/ is NOT here: it holds the build output of `node tools/build.js`
 # (git-ignored, never committed - generated on demand and at deploy time).
 ```
 
 The data lives in `data/sauces.json`, the **single source of truth**. The build
 (`node tools/build.js`) validates it and injects it into `src/template.html` to
-produce `index.html`, the self-contained app. That file is a **build output** -
+produce `dist/index.html`, the self-contained app. That file is a **build output** -
 generated on demand, git-ignored, and never committed, so it can't drift from
 its source.
 
@@ -126,7 +126,7 @@ output, so there's nothing to commit but your **source** - after any change to
 `data/` or `src/`, rebuild to check it:
 
 ```sh
-node tools/build.js          # (or: npm run build) validates the data and writes index.html
+node tools/build.js          # (or: npm run build) validates the data and writes dist/index.html
 node tools/build.js --check  # (or: npm run check) validates without writing
 ```
 
@@ -183,7 +183,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
 ### Deployment (Cloudflare Pages)
 
 The site is hosted on **Cloudflare Pages** (<https://sauce.pages.dev>),
-connected to this repository. Because `index.html` isn't committed, Cloudflare
+connected to this repository. Because the build output isn't committed, Cloudflare
 **builds it from source** on every push. One-time setup in the Cloudflare
 dashboard (**Workers & Pages → Create → Pages → Connect to Git**):
 
@@ -191,9 +191,9 @@ dashboard (**Workers & Pages → Create → Pages → Connect to Git**):
 | --- | --- |
 | Production branch | `main` |
 | Build command | `node tools/build.js` |
-| Build output directory | `/` (repo root) |
+| Build output directory | `dist` |
 
-The build command is **required** (it's what produces `index.html`). On every
+The build command is **required** (it's what produces `dist/index.html`). On every
 `push` to `main`, Cloudflare runs the build and serves the freshly generated
 page - so the live site is always built from the current source, never a stale
 copy. If the data is invalid the build fails and the previous deployment stays
@@ -204,11 +204,11 @@ live, so a broken change can't take the site down.
 The hosted site has **Cloudflare Web Analytics** enabled - a privacy-first,
 cookieless beacon. Cloudflare injects its small script
 (`static.cloudflareinsights.com`) into the HTML **at the edge, as it serves the
-page**; it is **not** part of `index.html`, the build, or this repository.
+page**; it is **not** part of `dist/index.html`, the build, or this repository.
 
 The practical line to keep clear:
 
-- **The built file** - the `index.html` that `node tools/build.js` produces,
+- **The built file** - the `dist/index.html` that `node tools/build.js` produces,
   and any copy of *it* you self-host or open from `file://` - has **no
   dependencies, contacts nothing, and works fully offline**. Enabling analytics
   does not change a single byte of it. (A copy saved from the live Cloudflare

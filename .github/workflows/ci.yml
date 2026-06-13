@@ -15,9 +15,9 @@ jobs:
         with:
           node-version: '20'
 
-      # Valide data/sauces.json (familles, filiation, accords, vocabulaire)
-      # puis construit la page depuis les sources. index.html n'est pas commité :
-      # c'est un artefact de build, régénéré ici et au déploiement (Cloudflare).
-      # Un échec de build (données invalides, point d'injection manquant) casse la CI.
+      # Validates data/sauces.json (families, lineage, pairings, vocabulary)
+      # then builds the page from source. dist/index.html is not committed:
+      # it's a build artifact, regenerated here and at deploy time (Cloudflare).
+      # A build failure (invalid data, missing injection point) breaks CI.
       - name: Validate and build the page
         run: node tools/build.js

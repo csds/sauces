@@ -11,7 +11,7 @@
 
 ## Checklist
 
-- [ ] I edited the **source** (`data/sauces.json` / `src/template.html`); I did **not** commit the generated `index.html` (it's a git-ignored build output).
+- [ ] I edited the **source** (`data/sauces.json` / `src/template.html`); I did **not** commit the generated `dist/` output (it's git-ignored).
 - [ ] `node tools/build.js` builds the page successfully from my source.
 - [ ] `node tools/build.js --check` passes (data is valid).
 - [ ] User-facing strings and sauce content are in French.

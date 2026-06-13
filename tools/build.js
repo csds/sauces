@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   build.js - generates index.html from src/template.html by
+   build.js - generates dist/index.html from src/template.html by
    injecting data/sauces.json into it.
 
    DEVELOPMENT tool, with no dependencies (Node only). The
@@ -19,7 +19,8 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const DATA_PATH = path.join(ROOT, 'data', 'sauces.json');
 const TEMPLATE_PATH = path.join(ROOT, 'src', 'template.html');
-const OUTPUT_PATH = path.join(ROOT, 'index.html');
+const OUTPUT_DIR = path.join(ROOT, 'dist');
+const OUTPUT_PATH = path.join(OUTPUT_DIR, 'index.html');
 const FONTS_DIR = path.join(ROOT, 'assets', 'fonts');
 const FONTS_MANIFEST = path.join(FONTS_DIR, 'fonts.json');
 
@@ -192,6 +193,7 @@ function main() {
   if (checkOnly) return;
 
   const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   fs.writeFileSync(OUTPUT_PATH, render(template, data));
   console.log('✓ Wrote ' + path.relative(ROOT, OUTPUT_PATH) + '.');
 }
