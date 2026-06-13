@@ -1,22 +1,13 @@
 # Contributing
 
 Thanks for your interest in **L'arbre des sauces**! This is a small project, so
-the workflow is light. The one rule that matters most:
+the workflow is light.
 
-> ## ⚠️ Edit the data, not the generated page
->
-> `index.html` is a **build output**, generated from
-> `data/sauces.json` + `src/template.html` by `node tools/build.js`. It is
-> **not committed** to the repo - it's git-ignored and rebuilt from source by
-> CI and by Cloudflare. Editing it by hand is pointless; the next build
-> overwrites it.
->
-> - To change **content** (a sauce, a pairing, the dish vocabulary) → edit
->   `data/sauces.json`.
-> - To change the **page itself** (layout, styles, behaviour) → edit
->   `src/template.html`.
->
-> Then rebuild to check your change - but only commit the **source**.
+To change **content** (a sauce, a pairing, the dish vocabulary), edit
+`data/sauces.json`; to change the **page itself** (layout, styles, behaviour),
+edit `src/template.html`. `dist/index.html` is a generated build output - it isn't
+committed to the repo (git-ignored, rebuilt from source by CI and Cloudflare),
+so edit the source, not the generated page.
 
 The app, its data, and the editor tool are in **French** (it's French classic
 cuisine). These contributor docs are in English. Please keep user-facing strings
@@ -43,7 +34,7 @@ and sauce content in French.
    ```
 
 3. Commit your **source** change (`data/sauces.json` and/or `src/template.html`).
-   Don't commit `index.html` - it's a git-ignored build output.
+   Don't commit `dist/` - it's a git-ignored build output.
 4. Open a pull request. CI re-validates the data and rebuilds the page from
    source; once merged to `main`, Cloudflare builds and publishes it
    automatically.
