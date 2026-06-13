@@ -49,7 +49,12 @@ shown in its own colour in the app:
 | Roux blond | **Velouté blond** | blond roux + poultry stock or fumet |
 | Roux brun | **Espagnole** → demi-glace | brown roux + brown stock |
 | Hollandaise | **Hollandaise** | egg-yolk + butter emulsion (no roux) |
-| Tomate | **Sauce tomate** | tomatoes + stock (no roux) |
+| Tomate | **Sauce tomate** | tomatoes reduced with stock |
+
+The app's tomato sauce is the modern, olive-oil, flourless version; Escoffier's
+own tomato sauce is in fact bound with flour (pork, mirepoix and white stock).
+Sauces that depart from Escoffier this way carry a `prov` of `moderne` (see
+[Adding a sauce](#adding-a-sauce)).
 
 From these mothers descend some forty derived sauces - Mornay, Soubise, Nantua,
 Suprême, Allemande, Béarnaise, Choron, Bordelaise, Chasseur, Robert, Madère,
@@ -140,7 +145,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
 
    ```json
    "ma_sauce": {
-     "nm": "Ma sauce", "fam": "brun", "role": "Dérivée de demi-glace",
+     "nm": "Ma sauce", "fam": "brun", "prov": "classique",
+     "role": "Dérivée de demi-glace",
      "deriv": "composition",
      "desc": "…",
      "ings": ["…", "…"],
@@ -159,6 +165,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    (remake the base from scratch - the parent is not an ingredient), `assemblage`
    (prepare something else, then fold the parent in), or `base` (the technical
    roux layer). The build checks it is present and one of these values.
+
+   `prov` records the recipe's editorial provenance and is **required on every
+   node** (roots included): one of `classique` (faithful to Escoffier's *Guide
+   culinaire*), `moderne` (a useful modern variant that is not Escoffier's own -
+   e.g. the olive-oil, flourless tomato branch), or `hors_escoffier` (outside the
+   Escoffier system, for satellite families). The build checks it is present and
+   one of these values.
 2. Attach it to its mother by adding its key to the parent's `children` array.
    Lineage and navigation links follow automatically.
 3. (Optional) Declare its pairings in `accords` using existing `tagLabel` tags -
