@@ -135,7 +135,10 @@ body{
 .d-badge{
   display:inline-block;font-family:"Spectral",serif;font-style:italic;
   font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--on,#fdf6e6);background:var(--c);padding:4px 13px;border-radius:20px;margin-bottom:14px;
+  color:var(--on,#fdf6e6);background:var(--c);border-radius:20px;margin-bottom:14px;
+  /* Uppercase caps leave no descender, so the text sits optically high in the
+     pill; bias the vertical padding down (5 top / 3 bottom) to recenter it. */
+  padding:5px 13px 3px;
 }
 .d-name{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:2.7rem;line-height:1;margin:0}
 .d-name::after{content:"";display:block;width:64px;height:3px;background:var(--c);margin-top:16px;border-radius:2px}
