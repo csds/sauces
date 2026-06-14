@@ -146,7 +146,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    ```json
    "ma_sauce": {
      "nm": "Ma sauce", "fam": "brun", "prov": "classique",
-     "role": "Dérivée de demi-glace",
      "deriv": "composition",
      "desc": "…",
      "ings": ["…", "…"],
@@ -172,6 +171,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    e.g. the olive-oil, flourless tomato branch), or `hors_escoffier` (outside the
    Escoffier system, for satellite families). The build checks it is present and
    one of these values.
+
+   `role` is **optional** and holds an editorial *rank* shown in the detail
+   badge - `Sauce mère`, `Grande sauce`, `Sauce de base`, the roux layer. Leave
+   it off an ordinary child: the badge then shows its derivation type
+   (Composition / Variation / Assemblage) from `deriv`, while the "Parenté"
+   section names the parent - so the badge never just repeats it.
 2. Attach it to its mother by adding its key to the parent's `children` array.
    Lineage and navigation links follow automatically.
 3. (Optional) Declare its pairings in `accords` using existing `tagLabel` tags -

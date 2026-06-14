@@ -83,7 +83,12 @@ body{
 .caret{font-size:.62rem;transition:transform .15s;line-height:1}
 .tnode:not(.collapsed)>.trow .caret{transform:rotate(90deg)}
 .leaf{font-size:.5rem;color:var(--rule)}
-.tdot{width:8px;height:8px;border-radius:50%;background:var(--c);flex-shrink:0;box-shadow:0 0 0 1px rgba(0,0,0,.07)}
+.tdot{width:10px;height:10px;border-radius:50%;background:var(--c);flex-shrink:0;box-shadow:0 0 0 1px rgba(0,0,0,.07)}
+/* The dot's hue = family; its FILL = derivation type. Filled (default) reads as
+   composition / structural; variation hollows it out (base remade, mother not
+   in it); assemblage half-fills it (something folded into the mother). */
+.tdot.dv-variation{background:transparent;box-shadow:inset 0 0 0 2.5px var(--c),0 0 0 1px rgba(0,0,0,.07)}
+.tdot.dv-assemblage{background:linear-gradient(90deg,var(--c) 50%,rgba(0,0,0,.12) 50%)}
 .tname{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trow.sel .tname{font-weight:600}
 
@@ -95,6 +100,16 @@ body{
 .fam-base{--c:var(--fam-base)}
 
 .side-foot{margin:26px 8px 0;font-size:.72rem;font-style:italic;color:var(--ink-soft);line-height:1.5}
+
+/* Filiation legend: shape = derivation type, drawn family-neutral (the dot's
+   hue means family everywhere else; here it carries no family, just the form). */
+/* Own top margin so the block keeps the section rhythm: its caption is the
+   first child of .deriv-key, so .sec-cap:first-child would otherwise pin it to
+   2px and cram it against the tree above. */
+.deriv-key{margin-top:18px}
+.deriv-key ul{list-style:none;margin:6px 0 0;padding:0 8px;display:flex;flex-direction:column;gap:8px}
+.deriv-key li{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--ink-soft)}
+.deriv-key .tdot{--c:var(--ink-soft)}
 
 /* ---------- Mode selector + pairings ---------- */
 [hidden]{display:none !important}
@@ -135,7 +150,10 @@ body{
 .d-badge{
   display:inline-block;font-family:"Spectral",serif;font-style:italic;
   font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--on,#fdf6e6);background:var(--c);padding:4px 13px;border-radius:20px;margin-bottom:14px;
+  color:var(--on,#fdf6e6);background:var(--c);border-radius:20px;margin-bottom:14px;
+  /* Uppercase caps leave no descender, so the text sits optically high in the
+     pill; bias the vertical padding down (5 top / 3 bottom) to recenter it. */
+  padding:5px 13px 3px;
 }
 .d-name{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:2.7rem;line-height:1;margin:0}
 .d-name::after{content:"";display:block;width:64px;height:3px;background:var(--c);margin-top:16px;border-radius:2px}
@@ -269,6 +287,14 @@ body{
         <div id="tree-roux"></div>
         <p class="sec-cap">Les sauces sans roux</p>
         <div id="tree-noroux"></div>
+        <div class="deriv-key">
+          <p class="sec-cap">Les liens de filiation</p>
+          <ul>
+            <li><span class="tdot dv-composition"></span>composition</li>
+            <li><span class="tdot dv-assemblage"></span>assemblage</li>
+            <li><span class="tdot dv-variation"></span>variation</li>
+          </ul>
+        </div>
       </div>
       <div id="mode-accords" hidden>
         <p class="sec-cap">Quel plat accompagnez-vous ?</p>
@@ -305,6 +331,14 @@ function famOn(f){return getComputedStyle(document.documentElement).getPropertyV
 const PARENT = {};
 Object.keys(NODES).forEach(id=>(NODES[id].children||[]).forEach(c=>PARENT[c]=id));
 
+/* Detail badge: the editorial rank (role) when a node carries one - mother
+   sauces, the roux layer, the demi-glace hub - otherwise the derivation type,
+   so an ordinary child shows *how* it derives (Composition / Variation /
+   Assemblage) instead of repeating its parent, which the "Parenté" section
+   already names. */
+const DERIV_LABEL = {composition:'Composition', variation:'Variation', assemblage:'Assemblage'};
+function badgeText(n){ return n.role || DERIV_LABEL[n.deriv] || ''; }
+
 /* ============================================================
    Pairings: controlled vocabulary + tags per sauce
    (pure data - a pairing only shows in the card via the
@@ -333,7 +367,7 @@ function buildNode(id){
   row.tabIndex = 0;
   row.innerHTML =
     '<span class="tw">' + (hasKids ? '<span class="caret">▸</span>' : '<span class="leaf">●</span>') + '</span>' +
-    '<span class="tdot"></span>' +
+    '<span class="tdot' + (n.deriv ? ' dv-' + n.deriv : '') + '"></span>' +
     '<span class="tname">' + n.nm + '</span>';
   li.appendChild(row);
 
@@ -398,7 +432,7 @@ function renderDetail(id){
   }
 
   document.getElementById('detail-body').innerHTML =
-    '<span class="d-badge">'+n.role+'</span>'+
+    '<span class="d-badge">'+badgeText(n)+'</span>'+
     '<h2 class="d-name">'+n.nm+'</h2>'+
     '<p class="d-desc">'+n.desc+'</p>'+
     '<section class="d-block"><h3 class="d-h">Ingrédients</h3>'+
