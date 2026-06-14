@@ -83,7 +83,12 @@ body{
 .caret{font-size:.62rem;transition:transform .15s;line-height:1}
 .tnode:not(.collapsed)>.trow .caret{transform:rotate(90deg)}
 .leaf{font-size:.5rem;color:var(--rule)}
-.tdot{width:8px;height:8px;border-radius:50%;background:var(--c);flex-shrink:0;box-shadow:0 0 0 1px rgba(0,0,0,.07)}
+.tdot{width:10px;height:10px;border-radius:50%;background:var(--c);flex-shrink:0;box-shadow:0 0 0 1px rgba(0,0,0,.07)}
+/* The dot's hue = family; its FILL = derivation type. Filled (default) reads as
+   composition / structural; variation hollows it out (base remade, mother not
+   in it); assemblage half-fills it (something folded into the mother). */
+.tdot.dv-variation{background:transparent;box-shadow:inset 0 0 0 2.5px var(--c),0 0 0 1px rgba(0,0,0,.07)}
+.tdot.dv-assemblage{background:linear-gradient(90deg,var(--c) 50%,rgba(0,0,0,.12) 50%)}
 .tname{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trow.sel .tname{font-weight:600}
 
@@ -95,6 +100,12 @@ body{
 .fam-base{--c:var(--fam-base)}
 
 .side-foot{margin:26px 8px 0;font-size:.72rem;font-style:italic;color:var(--ink-soft);line-height:1.5}
+
+/* Filiation legend: shape = derivation type, drawn family-neutral (the dot's
+   hue means family everywhere else; here it carries no family, just the form). */
+.deriv-key ul{list-style:none;margin:6px 0 0;padding:0 8px;display:flex;flex-direction:column;gap:8px}
+.deriv-key li{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--ink-soft)}
+.deriv-key .tdot{--c:var(--ink-soft)}
 
 /* ---------- Mode selector + pairings ---------- */
 [hidden]{display:none !important}
@@ -272,6 +283,14 @@ body{
         <div id="tree-roux"></div>
         <p class="sec-cap">Les sauces sans roux</p>
         <div id="tree-noroux"></div>
+        <div class="deriv-key">
+          <p class="sec-cap">Les liens de filiation</p>
+          <ul>
+            <li><span class="tdot dv-composition"></span>composition</li>
+            <li><span class="tdot dv-assemblage"></span>assemblage</li>
+            <li><span class="tdot dv-variation"></span>variation</li>
+          </ul>
+        </div>
       </div>
       <div id="mode-accords" hidden>
         <p class="sec-cap">Quel plat accompagnez-vous ?</p>
@@ -344,7 +363,7 @@ function buildNode(id){
   row.tabIndex = 0;
   row.innerHTML =
     '<span class="tw">' + (hasKids ? '<span class="caret">▸</span>' : '<span class="leaf">●</span>') + '</span>' +
-    '<span class="tdot"></span>' +
+    '<span class="tdot' + (n.deriv ? ' dv-' + n.deriv : '') + '"></span>' +
     '<span class="tname">' + n.nm + '</span>';
   li.appendChild(row);
 
