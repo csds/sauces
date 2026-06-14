@@ -103,6 +103,10 @@ body{
 
 /* Filiation legend: shape = derivation type, drawn family-neutral (the dot's
    hue means family everywhere else; here it carries no family, just the form). */
+/* Own top margin so the block keeps the section rhythm: its caption is the
+   first child of .deriv-key, so .sec-cap:first-child would otherwise pin it to
+   2px and cram it against the tree above. */
+.deriv-key{margin-top:18px}
 .deriv-key ul{list-style:none;margin:6px 0 0;padding:0 8px;display:flex;flex-direction:column;gap:8px}
 .deriv-key li{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--ink-soft)}
 .deriv-key .tdot{--c:var(--ink-soft)}
