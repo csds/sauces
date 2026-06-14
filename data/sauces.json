@@ -88,8 +88,7 @@
         "Incorporer aussitôt le fond brun chaud."
       ],
       "children": [
-        "espagnole",
-        "sauce_brune"
+        "espagnole"
       ]
     },
     "bechamel": {
@@ -198,28 +197,6 @@
       "children": [
         "demi_glace"
       ]
-    },
-    "sauce_brune": {
-      "nm": "Sauce brune",
-      "fam": "brun",
-      "prov": "classique",
-      "role": "Grande sauce",
-      "deriv": "base",
-      "hint": "+ bouillon brun",
-      "desc": "Version simplifiée de l'espagnole : roux brun allongé de bouillon brun de bœuf ou de veau. Plus rapide à préparer, idéale au quotidien pour les viandes grillées, rôties ou mijotées.",
-      "ings": [
-        "30 g beurre",
-        "30 g farine",
-        "500 ml bouillon brun (bœuf ou veau)",
-        "Sel, poivre"
-      ],
-      "steps": [
-        "Réaliser un roux brun.",
-        "Verser le bouillon brun chaud progressivement en fouettant.",
-        "Cuire 10 à 15 min à feu doux en remuant.",
-        "Assaisonner et passer au chinois si souhaité."
-      ],
-      "children": []
     },
     "demi_glace": {
       "nm": "Demi-glace",
@@ -1195,10 +1172,6 @@
       "gratins",
       "pates",
       "legumes"
-    ],
-    "sauce_brune": [
-      "boeuf",
-      "volaille"
     ],
     "mornay": [
       "gratins",
