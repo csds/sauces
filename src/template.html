@@ -305,6 +305,14 @@ function famOn(f){return getComputedStyle(document.documentElement).getPropertyV
 const PARENT = {};
 Object.keys(NODES).forEach(id=>(NODES[id].children||[]).forEach(c=>PARENT[c]=id));
 
+/* Detail badge: the editorial rank (role) when a node carries one - mother
+   sauces, the roux layer, the demi-glace hub - otherwise the derivation type,
+   so an ordinary child shows *how* it derives (Composition / Variation /
+   Assemblage) instead of repeating its parent, which the "Parenté" section
+   already names. */
+const DERIV_LABEL = {composition:'Composition', variation:'Variation', assemblage:'Assemblage'};
+function badgeText(n){ return n.role || DERIV_LABEL[n.deriv] || ''; }
+
 /* ============================================================
    Pairings: controlled vocabulary + tags per sauce
    (pure data - a pairing only shows in the card via the
@@ -398,7 +406,7 @@ function renderDetail(id){
   }
 
   document.getElementById('detail-body').innerHTML =
-    '<span class="d-badge">'+n.role+'</span>'+
+    '<span class="d-badge">'+badgeText(n)+'</span>'+
     '<h2 class="d-name">'+n.nm+'</h2>'+
     '<p class="d-desc">'+n.desc+'</p>'+
     '<section class="d-block"><h3 class="d-h">Ingrédients</h3>'+
