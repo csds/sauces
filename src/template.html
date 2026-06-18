@@ -159,11 +159,11 @@ body{
 .d-name::after{content:"";display:block;width:64px;height:3px;background:var(--c);margin-top:16px;border-radius:2px}
 .d-desc{font-size:1.1rem;color:var(--ink);margin:22px 0 6px;font-weight:300}
 
-/* Recipe toggle (canon vs practical execution): the .mode-switch pill reused
-   inside the detail, but constrained so it doesn't stretch the full column. */
-.prac-switch{margin:24px 0 0;max-width:300px}
-/* Practical-layer note: the honest bridge back to the canon, kept understated -
-   a tinted side rule, not a banner. The label borrows the section-head caps. */
+/* Recipe-version toggle (canon vs practical execution): the .mode-switch pill
+   reused inside the detail, but constrained so it doesn't stretch the column. */
+.recipe-switch{margin:24px 0 0;max-width:300px}
+/* Labelled side-note under a recipe: kept understated - a tinted side rule, not
+   a banner. The label (e.g. "À noter", "En pratique") borrows the section caps. */
 .d-note{margin-top:26px;padding-left:15px;border-left:2px solid var(--c);
   font-size:.98rem;color:var(--ink-soft);font-style:italic;line-height:1.55}
 .d-note-h{font-family:"Spectral",serif;text-transform:uppercase;letter-spacing:.12em;
@@ -430,10 +430,10 @@ function recipeBlocks(desc, ings, steps){
       '<ol class="steps">'+steps.map(s=>'<li>'+s+'</li>').join('')+'</ol></section>';
 }
 
-/* label depends on context: "En pratique" when the note carries the practical
-   angle inside the canon view (a note-only node), "À noter" when it is a remark
-   or bridge shown within the practical recipe itself. */
-function pracNote(text, label){
+/* A labelled side-note. The label is the caller's choice, not the note's:
+   "En pratique" when it carries the practical angle inside the canon view (a
+   note-only node), "À noter" when it is a remark inside the practical recipe. */
+function noteAside(text, label){
   return '<aside class="d-note"><span class="d-note-h">'+label+'</span>'+text+'</aside>';
 }
 
@@ -452,17 +452,17 @@ function renderDetail(id, view){
   if(hasPracRecipe){
     const mk = (val,lab) => '<button class="ms-btn'+(v===val?' active':'')+'" role="tab" '+
       'aria-selected="'+(v===val)+'" onclick="renderDetail(\''+id+'\',\''+val+'\')">'+lab+'</button>';
-    toggle = '<div class="mode-switch prac-switch" role="tablist" aria-label="Version de la recette">'+
+    toggle = '<div class="mode-switch recipe-switch" role="tablist" aria-label="Version de la recette">'+
       mk('hist','Historique')+mk('prac','Pratique')+'</div>';
   }
 
   let recipe, note = '';
   if(v === 'prac'){
     recipe = recipeBlocks(prac.desc || n.desc, prac.ings || n.ings, prac.steps || n.steps);
-    if(prac.note) note = pracNote(prac.note, 'À noter');
+    if(prac.note) note = noteAside(prac.note, 'À noter');
   } else {
     recipe = recipeBlocks(n.desc, n.ings, n.steps);
-    if(prac && !hasPracRecipe && prac.note) note = pracNote(prac.note, 'En pratique');
+    if(prac && !hasPracRecipe && prac.note) note = noteAside(prac.note, 'En pratique');
   }
 
   let rel = '';
