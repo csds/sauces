@@ -430,8 +430,11 @@ function recipeBlocks(desc, ings, steps){
       '<ol class="steps">'+steps.map(s=>'<li>'+s+'</li>').join('')+'</ol></section>';
 }
 
-function pracNote(text){
-  return '<aside class="d-note"><span class="d-note-h">En pratique</span>'+text+'</aside>';
+/* label depends on context: "En pratique" when the note carries the practical
+   angle inside the canon view (a note-only node), "À noter" when it is a remark
+   or bridge shown within the practical recipe itself. */
+function pracNote(text, label){
+  return '<aside class="d-note"><span class="d-note-h">'+label+'</span>'+text+'</aside>';
 }
 
 /* view: 'hist' (default, the Escoffier canon) or 'prac' (the practical layer).
@@ -456,10 +459,10 @@ function renderDetail(id, view){
   let recipe, note = '';
   if(v === 'prac'){
     recipe = recipeBlocks(prac.desc || n.desc, prac.ings || n.ings, prac.steps || n.steps);
-    if(prac.note) note = pracNote(prac.note);
+    if(prac.note) note = pracNote(prac.note, 'À noter');
   } else {
     recipe = recipeBlocks(n.desc, n.ings, n.steps);
-    if(prac && !hasPracRecipe && prac.note) note = pracNote(prac.note);
+    if(prac && !hasPracRecipe && prac.note) note = pracNote(prac.note, 'En pratique');
   }
 
   let rel = '';
