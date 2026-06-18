@@ -159,6 +159,16 @@ body{
 .d-name::after{content:"";display:block;width:64px;height:3px;background:var(--c);margin-top:16px;border-radius:2px}
 .d-desc{font-size:1.1rem;color:var(--ink);margin:22px 0 6px;font-weight:300}
 
+/* Recipe toggle (canon vs practical execution): the .mode-switch pill reused
+   inside the detail, but constrained so it doesn't stretch the full column. */
+.prac-switch{margin:24px 0 0;max-width:300px}
+/* Practical-layer note: the honest bridge back to the canon, kept understated -
+   a tinted side rule, not a banner. The label borrows the section-head caps. */
+.d-note{margin-top:26px;padding-left:15px;border-left:2px solid var(--c);
+  font-size:.98rem;color:var(--ink-soft);font-style:italic;line-height:1.55}
+.d-note-h{font-family:"Spectral",serif;text-transform:uppercase;letter-spacing:.12em;
+  font-size:.66rem;font-weight:600;color:var(--c);font-style:normal;margin-right:9px}
+
 .d-block{margin-top:30px}
 .d-h{
   font-family:"Spectral",serif;text-transform:uppercase;letter-spacing:.14em;
@@ -411,10 +421,46 @@ function chip(id, lab){
          '<span class="lab">'+lab+'</span>'+NODES[id].nm+'</button>';
 }
 
-function renderDetail(id){
+/* desc + ingredients + steps, used for both the canon and the practical recipe */
+function recipeBlocks(desc, ings, steps){
+  return '<p class="d-desc">'+desc+'</p>'+
+    '<section class="d-block"><h3 class="d-h">Ingrédients</h3>'+
+      '<ul class="ings">'+ings.map(i=>'<li>'+i+'</li>').join('')+'</ul></section>'+
+    '<section class="d-block"><h3 class="d-h">Préparation</h3>'+
+      '<ol class="steps">'+steps.map(s=>'<li>'+s+'</li>').join('')+'</ol></section>';
+}
+
+function pracNote(text){
+  return '<aside class="d-note"><span class="d-note-h">En pratique</span>'+text+'</aside>';
+}
+
+/* view: 'hist' (default, the Escoffier canon) or 'prac' (the practical layer).
+   The practical recipe is shown only on nodes that carry a full prac block;
+   a note-only prac (e.g. espagnole) surfaces as a callout under the canon. */
+function renderDetail(id, view){
   const n = NODES[id];
   const parent = PARENT[id];
   const kids = n.children || [];
+  const prac = n.prac;
+  const hasPracRecipe = !!(prac && (prac.ings || prac.steps));
+  const v = (hasPracRecipe && view === 'prac') ? 'prac' : 'hist';
+
+  let toggle = '';
+  if(hasPracRecipe){
+    const mk = (val,lab) => '<button class="ms-btn'+(v===val?' active':'')+'" role="tab" '+
+      'aria-selected="'+(v===val)+'" onclick="renderDetail(\''+id+'\',\''+val+'\')">'+lab+'</button>';
+    toggle = '<div class="mode-switch prac-switch" role="tablist" aria-label="Version de la recette">'+
+      mk('hist','Historique')+mk('prac','Pratique')+'</div>';
+  }
+
+  let recipe, note = '';
+  if(v === 'prac'){
+    recipe = recipeBlocks(prac.desc || n.desc, prac.ings || n.ings, prac.steps || n.steps);
+    if(prac.note) note = pracNote(prac.note);
+  } else {
+    recipe = recipeBlocks(n.desc, n.ings, n.steps);
+    if(prac && !hasPracRecipe && prac.note) note = pracNote(prac.note);
+  }
 
   let rel = '';
   if(parent || kids.length){
@@ -434,12 +480,7 @@ function renderDetail(id){
   document.getElementById('detail-body').innerHTML =
     '<span class="d-badge">'+badgeText(n)+'</span>'+
     '<h2 class="d-name">'+n.nm+'</h2>'+
-    '<p class="d-desc">'+n.desc+'</p>'+
-    '<section class="d-block"><h3 class="d-h">Ingrédients</h3>'+
-      '<ul class="ings">'+n.ings.map(i=>'<li>'+i+'</li>').join('')+'</ul></section>'+
-    '<section class="d-block"><h3 class="d-h">Préparation</h3>'+
-      '<ol class="steps">'+n.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol></section>'+
-    acc + rel;
+    toggle + recipe + note + acc + rel;
 
   const body = document.getElementById('detail-body');
   body.style.setProperty('--c', famColor(n.fam));

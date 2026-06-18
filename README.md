@@ -186,8 +186,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    (`deriv`/`prov`/`desc`/`ings`/`steps`) stays untouched; `prac` does not change
    where the sauce sits in the tree. For now it is bounded to the brown branch -
    the laborious bases - where the jus de veau lié stands in as the practical
-   demi-glace. The build validates its shape when present (UI rendering is not
-   wired yet).
+   demi-glace. The build validates its shape when present. In the detail panel a
+   node with a full practical recipe shows a **Historique / Pratique** toggle
+   (defaulting to the historical canon); the `note` renders as an understated
+   "En pratique" side-note, and a note-only `prac` (e.g. espagnole) surfaces as
+   that same side-note under the canonical recipe, with no toggle.
 2. Attach it to its mother by adding its key to the parent's `children` array.
    Lineage and navigation links follow automatically.
 3. (Optional) Declare its pairings in `accords` using existing `tagLabel` tags -
