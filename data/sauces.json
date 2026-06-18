@@ -194,6 +194,9 @@
         "Mijoter 1 h 30 à 2 h à feu très doux en écumant régulièrement.",
         "Passer au chinois fin."
       ],
+      "prac": {
+        "note": "En cuisine moderne, on ne monte plus une espagnole au roux : la base brune jouable est le jus de veau lié, donné comme recette pratique de la demi-glace. Voir la demi-glace."
+      },
       "children": [
         "demi_glace"
       ]
@@ -217,6 +220,22 @@
         "Finir hors du feu d'une pointe de glace de viande – sans vin, qui s'ajoute au moment de la dérivée.",
         "Passer au chinois fin et rectifier l'assaisonnement."
       ],
+      "prac": {
+        "desc": "Le jus de veau lié : un fond de veau réduit puis lié à l'amidon, qui tient lieu de demi-glace sans les heures d'espagnole. Avec un fond du commerce (salé), le sel se concentre à la réduction et ne part pas avec l'eau – on ne sale donc jamais la sauce, on sale la viande.",
+        "ings": [
+          "800 ml de fond de veau (du commerce, salé)",
+          "1 c. à café de fécule de pomme de terre (ou Maïzena), délayée dans un peu d'eau froide",
+          "Poivre. Pas de sel ajouté."
+        ],
+        "steps": [
+          "Réduire le fond de moitié, jusqu'à ~400 ml, à frémissement, en écumant régulièrement (le dépouillement donne la limpidité).",
+          "Ne pas réduire davantage : à ~400 ml le sel est déjà au plafond raisonnable.",
+          "À frémissement, verser l'amidon délayé en fouettant, puis cuire 1 à 2 min pour effacer le goût d'amidon cru.",
+          "Viser le nappage à la cuillère ; y aller doucement, mieux vaut sous-lier et rajouter.",
+          "Passer au chinois fin. Poivrer sans saler."
+        ],
+        "note": "Une vraie demi-glace est plus riche (espagnole, mirepoix, tomate, longue cuisson) ; le jus lié en est l'approximation jouable. En pratique, les dérivées brunes partent de cette base plutôt que d'une demi-glace classique."
+      },
       "children": [
         "robert",
         "madere",
@@ -525,6 +544,24 @@
         "Réduire jusqu'à consistance nappante.",
         "Monter au beurre hors du feu et passer au chinois."
       ],
+      "prac": {
+        "desc": "Version pratique partant de la demi-glace pratique (le jus de veau lié), Madère ajouté au dernier moment et finition au beurre. Structure classique 1921 conservée : base brune neutre, vin au stade de la dérivée, montage au beurre, passage au chinois ; seule la base est modernisée.",
+        "ings": [
+          "~400 ml de demi-glace pratique (jus de veau lié, voir la demi-glace)",
+          "100 ml de Madère plutôt sec (Sercial, Verdelho), dont 1 c. à s. réservée crue",
+          "1 échalote (facultatif)",
+          "30-40 g de beurre doux bien froid, en parcelles",
+          "Poivre. Pas de sel : la base est déjà salée."
+        ],
+        "steps": [
+          "Faire suer l'échalote ciselée au beurre sans coloration, verser le Madère et réduire de moitié (~50 ml) ; réserver une cuillère de Madère cru.",
+          "Ajouter le Madère réduit (passé, sans l'échalote) à la base, laisser frémir 2-3 min, passer au chinois. On peut s'arrêter là et réserver (préparation à l'avance).",
+          "Au service : réchauffer doucement sans bouillir, en détendant d'un filet d'eau si la sauce a épaissi.",
+          "Hors du feu, monter au beurre froid en parcelles, puis ajouter la cuillère de Madère cru réservée pour restaurer l'arôme frais du vin. Ne plus faire bouillir.",
+          "Goûter sans resaler, poivrer, servir aussitôt."
+        ],
+        "note": "La recette historique part d'une demi-glace ; en pratique on part du jus lié, qui en tient lieu – la filiation canon (Madère = composition de la demi-glace) est respectée, c'est seulement la base qui change. Si la sauce accompagne une viande poêlée, déglacer la poêle au Madère et incorporer les sucs avant le beurre."
+      },
       "children": [
         "perigueux",
         "financiere"

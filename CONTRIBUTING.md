@@ -54,6 +54,9 @@ The build refuses to produce a page if the data is inconsistent. It checks:
   must not carry one.
 - **Provenance** - every node must carry a `prov` field (roots included) set to
   `classique`, `moderne`, or `hors_escoffier`.
+- **Practical layer** - the optional `prac` block, when present, must be an object
+  using only the keys `desc`/`note` (non-empty strings) and `ings`/`steps`
+  (non-empty arrays of strings), with at least one set.
 - **Vocabulary integrity** - every dish tag in `tagGroups` must be defined in
   `tagLabel` (and vice versa), and no tag may appear in two categories.
 - **Pairing integrity** - every key in `accords` must be a real sauce, and every

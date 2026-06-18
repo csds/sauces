@@ -45,6 +45,18 @@ const DERIV_TYPES = new Set(['composition', 'variation', 'assemblage', 'base']);
    hors_escoffier : outside the Escoffier system (satellite families). */
 const PROV_TYPES = new Set(['classique', 'moderne', 'hors_escoffier']);
 
+/* Optional practical-execution layer, carried by a node only when a doable
+   modern recipe diverges from the historical (canon) one. The canon recipe
+   stays in desc/ings/steps; `prac` holds the modern execution alongside it.
+   Bounded to the brown branch (the laborious bases) for now.
+   prac.desc  : modern description (string).
+   prac.ings  : modern ingredients (array of strings).
+   prac.steps : modern method (array of strings).
+   prac.note  : the honest bridge to the canon (string) - e.g. why the
+                practical base shortcuts the canonical filiation.
+   Every key is optional, but the block must hold at least one of them. */
+const PRAC_KEYS = new Set(['desc', 'ings', 'steps', 'note']);
+
 /* ------------------------------------------------------------
    Validation: the data must be consistent before being shipped.
    Returns the list of errors (empty = all good).
@@ -98,6 +110,28 @@ function validate(data) {
       errors.push(`prov: "${id}" has no provenance (expected: ${[...PROV_TYPES].join(', ')}).`);
     } else if (!PROV_TYPES.has(prov)) {
       errors.push(`prov: "${id}" has an unknown provenance "${prov}" (expected: ${[...PROV_TYPES].join(', ')}).`);
+    }
+
+    // prac: optional practical-execution block; if present, validate its shape
+    const prac = nodes[id].prac;
+    if (prac !== undefined) {
+      if (typeof prac !== 'object' || prac === null || Array.isArray(prac)) {
+        errors.push(`prac: "${id}" must be an object (keys: ${[...PRAC_KEYS].join(', ')}).`);
+      } else {
+        for (const k of Object.keys(prac)) {
+          if (!PRAC_KEYS.has(k)) errors.push(`prac: "${id}" has an unknown key "${k}" (expected: ${[...PRAC_KEYS].join(', ')}).`);
+        }
+        for (const k of ['desc', 'note']) {
+          if (prac[k] !== undefined && (typeof prac[k] !== 'string' || !prac[k].trim()))
+            errors.push(`prac: "${id}".${k} must be a non-empty string.`);
+        }
+        for (const k of ['ings', 'steps']) {
+          if (prac[k] !== undefined && (!Array.isArray(prac[k]) || !prac[k].length || prac[k].some(s => typeof s !== 'string')))
+            errors.push(`prac: "${id}".${k} must be a non-empty array of strings.`);
+        }
+        if (![...PRAC_KEYS].some(k => prac[k] !== undefined))
+          errors.push(`prac: "${id}" is empty; remove it or give it desc/ings/steps/note.`);
+      }
     }
   }
 
