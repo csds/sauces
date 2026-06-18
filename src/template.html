@@ -421,20 +421,34 @@ function chip(id, lab){
          '<span class="lab">'+lab+'</span>'+NODES[id].nm+'</button>';
 }
 
+/* French typography: glue high punctuation to the word before it so it can't
+   wrap to the next line, with the width French usage expects. Data is authored
+   with ordinary spaces; the rule lives here, at render, not in the content.
+   Thin no-break space (U+202F) before ; ! ? and inside « »; full no-break
+   space (U+00A0) before the heavier ":". Apply only to plain-text content,
+   never to assembled markup (inline styles contain their own ";"). */
+function fr(text){
+  return text
+    .replace(/ ([;!?])/g, ' $1')
+    .replace(/ :/g, ' :')
+    .replace(/« /g, '« ')
+    .replace(/ »/g, ' »');
+}
+
 /* desc + ingredients + steps, used for both the canon and the practical recipe */
 function recipeBlocks(desc, ings, steps){
-  return '<p class="d-desc">'+desc+'</p>'+
+  return '<p class="d-desc">'+fr(desc)+'</p>'+
     '<section class="d-block"><h3 class="d-h">Ingrédients</h3>'+
-      '<ul class="ings">'+ings.map(i=>'<li>'+i+'</li>').join('')+'</ul></section>'+
+      '<ul class="ings">'+ings.map(i=>'<li>'+fr(i)+'</li>').join('')+'</ul></section>'+
     '<section class="d-block"><h3 class="d-h">Préparation</h3>'+
-      '<ol class="steps">'+steps.map(s=>'<li>'+s+'</li>').join('')+'</ol></section>';
+      '<ol class="steps">'+steps.map(s=>'<li>'+fr(s)+'</li>').join('')+'</ol></section>';
 }
 
 /* A labelled side-note. The label is the caller's choice, not the note's:
    "En pratique" when it carries the practical angle inside the canon view (a
    note-only node), "À noter" when it is a remark inside the practical recipe. */
 function noteAside(text, label){
-  return '<aside class="d-note"><span class="d-note-h">'+label+'</span>'+text+'</aside>';
+  return '<aside class="d-note"><span class="d-note-h">'+label+'</span>'+fr(text)+'</aside>';
 }
 
 /* view: 'hist' (default, the Escoffier canon) or 'prac' (the practical layer).
