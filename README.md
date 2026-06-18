@@ -177,6 +177,17 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    it off an ordinary child: the badge then shows its derivation type
    (Composition / Variation / Assemblage) from `deriv`, while the "Parenté"
    section names the parent - so the badge never just repeats it.
+
+   `prac` is **optional** and holds a *practical execution* layer alongside the
+   canonical one: a doable modern recipe, present only when it diverges from the
+   historical recipe in `desc`/`ings`/`steps`. It is an object with the optional
+   keys `desc` (string), `ings` (array), `steps` (array) and `note` (string, the
+   honest bridge back to the canon), at least one of which must be set. The canon
+   (`deriv`/`prov`/`desc`/`ings`/`steps`) stays untouched; `prac` does not change
+   where the sauce sits in the tree. For now it is bounded to the brown branch -
+   the laborious bases - where the jus de veau lié stands in as the practical
+   demi-glace. The build validates its shape when present (UI rendering is not
+   wired yet).
 2. Attach it to its mother by adding its key to the parent's `children` array.
    Lineage and navigation links follow automatically.
 3. (Optional) Declare its pairings in `accords` using existing `tagLabel` tags -
