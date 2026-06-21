@@ -39,16 +39,19 @@ const DERIV_TYPES = new Set(['composition', 'variation', 'assemblage', 'base']);
 
 /* Provenance, carried by every node. Tells the editorial origin of the
    recipe apart from where it sits in the tree.
-   classique     : faithful to Escoffier's Guide culinaire.
-   moderne        : modern variant kept for its usefulness (e.g. the
-                    olive-oil, flourless tomato branch), not Escoffier's own.
+   classique     : the sauce belongs to Escoffier's Guide culinaire; the
+                   canonical recipe here is faithful to him. A modern
+                   shortcut, if any, lives in `prac`, not in place of it.
+   moderne        : a sauce with no Escoffier ascendance, kept for its
+                    usefulness, not a modern rendering of a classique one.
    hors_escoffier : outside the Escoffier system (satellite families). */
 const PROV_TYPES = new Set(['classique', 'moderne', 'hors_escoffier']);
 
 /* Optional practical-execution layer, carried by a node only when a doable
    modern recipe diverges from the historical (canon) one. The canon recipe
    stays in desc/ings/steps; `prac` holds the modern execution alongside it.
-   Bounded to the brown branch (the laborious bases) for now.
+   Used wherever a faithful canon recipe has a doable modern counterpart
+   (the laborious brown bases, the flour-bound tomato branch).
    prac.desc  : modern description (string).
    prac.ings  : modern ingredients (array of strings).
    prac.steps : modern method (array of strings).
