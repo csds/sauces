@@ -1128,7 +1128,7 @@
       "children": []
     }
   },
-  "tagLabel": {
+  "dishLabel": {
     "boeuf": "Bœuf",
     "agneau": "Agneau",
     "veau": "Veau",
@@ -1151,10 +1151,10 @@
     "gratins": "Gratins",
     "pates": "Pâtes"
   },
-  "tagGroups": [
+  "dishGroups": [
     {
       "cat": "Viandes",
-      "tags": [
+      "dishes": [
         "boeuf",
         "agneau",
         "veau",
@@ -1163,7 +1163,7 @@
     },
     {
       "cat": "Volaille & gibier",
-      "tags": [
+      "dishes": [
         "volaille",
         "canard",
         "gibier"
@@ -1171,14 +1171,14 @@
     },
     {
       "cat": "Abats",
-      "tags": [
+      "dishes": [
         "ris_de_veau",
         "abats"
       ]
     },
     {
       "cat": "Poissons & fruits de mer",
-      "tags": [
+      "dishes": [
         "poisson_poche",
         "poisson_grille",
         "poisson_eau_douce",
@@ -1187,7 +1187,7 @@
     },
     {
       "cat": "Légumes & œufs",
-      "tags": [
+      "dishes": [
         "asperges",
         "champignons",
         "legumes",
@@ -1196,7 +1196,7 @@
     },
     {
       "cat": "Garnitures",
-      "tags": [
+      "dishes": [
         "quenelles",
         "vol_au_vent",
         "gratins",

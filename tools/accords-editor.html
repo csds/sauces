@@ -8,7 +8,7 @@
 /* ------------------------------------------------------------------
    DEVELOPMENT tool - not shipped with the application.
    Edits data/sauces.json (single source of truth): the dish
-   vocabulary (tagLabel / tagGroups) and the pairings table (accords),
+   vocabulary (dishLabel / dishGroups) and the pairings table (accords),
    as a sauces x dishes grid. Exports an updated sauces.json; the
    sauces (nodes) are never modified here.
    ------------------------------------------------------------------ */
@@ -66,10 +66,10 @@ th,td{border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule
 thead th{position:sticky;top:0;z-index:5;background:var(--paper-2)}
 thead tr.cats th{z-index:6}
 .cat-h{font-weight:600;text-align:center;padding:6px 8px;font-size:.8rem;color:var(--ink);border-bottom:2px solid var(--rule);height:var(--cath);top:0}
-/* the 2nd row (tags) sticks just BELOW the categories row, not over it */
-.tag-h{height:140px;vertical-align:bottom;padding:0 0 8px;top:var(--cath)}
-.tag-h > div{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;margin:0 auto;font-weight:500;color:var(--ink)}
-.tag-h .tn{font-size:.7rem;color:var(--ink-soft);font-weight:400}
+/* the 2nd row (dishes) sticks just BELOW the categories row, not over it */
+.dish-h{height:140px;vertical-align:bottom;padding:0 0 8px;top:var(--cath)}
+.dish-h > div{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;margin:0 auto;font-weight:500;color:var(--ink)}
+.dish-h .dish-n{font-size:.7rem;color:var(--ink-soft);font-weight:400}
 /* frozen corner (top-left): TWO stacked cells mimicking a merged cell.
    No rowspan - incompatible with position:sticky (the 2nd row collapses). */
 .corner{position:sticky;left:0;background:var(--paper-2);min-width:230px;text-align:left;font-weight:600;padding:0 12px}
@@ -102,20 +102,20 @@ textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,mon
 .mcat-head{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--rule-soft);background:var(--paper-2);border-radius:9px 9px 0 0}
 .mcat-head input.cat{flex:1;font:inherit;font-weight:600;border:1px solid transparent;background:transparent;padding:4px 6px;border-radius:6px}
 .mcat-head input.cat:hover,.mcat-head input.cat:focus{border-color:var(--rule);background:#fff;outline:none}
-.mtags{padding:6px 10px}
-.mtag{display:flex;align-items:center;gap:6px;padding:3px 0}
-.mtag input.lbl{flex:1;font:inherit;border:1px solid transparent;background:transparent;padding:4px 6px;border-radius:6px}
-.mtag input.lbl:hover,.mtag input.lbl:focus{border-color:var(--rule);background:#fff;outline:none}
-.mtag .tid{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.7rem;color:var(--ink-soft);min-width:96px}
-.mtag select{font:inherit;font-size:.8rem;border:1px solid var(--rule-soft);border-radius:6px;background:var(--card);padding:2px 4px}
-.mtag .use{font-size:.72rem;color:var(--ink-soft);min-width:48px;text-align:right}
+.mdishes{padding:6px 10px}
+.mdish{display:flex;align-items:center;gap:6px;padding:3px 0}
+.mdish input.lbl{flex:1;font:inherit;border:1px solid transparent;background:transparent;padding:4px 6px;border-radius:6px}
+.mdish input.lbl:hover,.mdish input.lbl:focus{border-color:var(--rule);background:#fff;outline:none}
+.mdish .tid{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.7rem;color:var(--ink-soft);min-width:96px}
+.mdish select{font:inherit;font-size:.8rem;border:1px solid var(--rule-soft);border-radius:6px;background:var(--card);padding:2px 4px}
+.mdish .use{font-size:.72rem;color:var(--ink-soft);min-width:48px;text-align:right}
 .ibtn{font:inherit;cursor:pointer;border:1px solid var(--rule-soft);background:var(--card);color:var(--ink-soft);width:24px;height:24px;line-height:1;border-radius:6px;padding:0}
 .ibtn:hover{background:#fff;color:var(--ink)}
 .ibtn:disabled{opacity:.3;cursor:not-allowed}
 .ibtn.del:hover{color:#9a2f1f;border-color:#c98}
 .mcat-foot{padding:4px 10px 10px}
-.addtag{font:inherit;cursor:pointer;border:1px dashed var(--rule);background:transparent;color:var(--ink-soft);padding:4px 10px;border-radius:6px}
-.addtag:hover{background:#fff;color:var(--ink)}
+.adddish{font:inherit;cursor:pointer;border:1px dashed var(--rule);background:transparent;color:var(--ink-soft);padding:4px 10px;border-radius:6px}
+.adddish:hover{background:#fff;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -134,8 +134,8 @@ textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,mon
   <section class="loader" id="loader">
     <h2>Charger <code>data/sauces.json</code></h2>
     <p>Cet outil édite <code>data/sauces.json</code>, la <strong>source unique de vérité</strong> : il en
-      lit les sauces (<code>nodes</code>), le vocabulaire des plats (<code>tagLabel</code>,
-      <code>tagGroups</code>) et la table <code>accords</code>. Vous retravaillez la grille,
+      lit les sauces (<code>nodes</code>), le vocabulaire des plats (<code>dishLabel</code>,
+      <code>dishGroups</code>) et la table <code>accords</code>. Vous retravaillez la grille,
       puis l'outil exporte un <code>sauces.json</code> mis à jour (les <code>nodes</code> sont
       laissés intacts). Reconstruisez ensuite la page avec <code>node tools/build.js</code>.</p>
     <p>Aucune donnée n'est dupliquée ici : la grille reflète toujours l'état réel du fichier chargé.</p>
@@ -203,8 +203,8 @@ textarea{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,mon
    ============================================================ */
 let DATA = null;         // full object loaded from sauces.json
 let SRC_NAME = 'sauces.json';
-let NODES, TAG_LABEL, TAG_GROUPS, TAG_ORDER;
-let STATE = {};          // id -> Set(tags) - the table being edited
+let NODES, DISH_LABEL, DISH_GROUPS, DISH_ORDER;
+let STATE = {};          // id -> Set(dishes) - the table being edited
 let BASELINE = '';       // table signature at load time (for the "dirty" flag)
 const FAM_COLOR = {blanc:'--blanc',blond:'--blond',brun:'--brun',holl:'--holl',tom:'--tom',base:'--base'};
 /* family display order (presentation - lives in src/template.html on the app side) */
@@ -216,19 +216,19 @@ const FAM_ORDER = {blanc:0,blond:1,brun:2,holl:3,tom:4,base:5};
 function loadSource(text, name){
   try{
     const data = JSON.parse(text);
-    if(!data.nodes || !data.tagLabel || !data.tagGroups || !data.accords)
-      throw new Error('JSON inattendu : clés nodes, tagLabel, tagGroups, accords requises.');
+    if(!data.nodes || !data.dishLabel || !data.dishGroups || !data.accords)
+      throw new Error('JSON inattendu : clés nodes, dishLabel, dishGroups, accords requises.');
     DATA       = data;
     NODES      = data.nodes;
-    TAG_LABEL  = data.tagLabel;
-    TAG_GROUPS = data.tagGroups;
-    TAG_ORDER  = TAG_GROUPS.flatMap(g=>g.tags);
+    DISH_LABEL  = data.dishLabel;
+    DISH_GROUPS = data.dishGroups;
+    DISH_ORDER  = DISH_GROUPS.flatMap(g=>g.dishes);
     // check that the grid can express the current table
-    const orphanTags = new Set();
-    for(const tags of Object.values(data.accords)) for(const t of tags)
-      if(!TAG_ORDER.includes(t)) orphanTags.add(t);
-    if(orphanTags.size)
-      throw new Error('Des accords utilisent des plats absents de tagGroups : '+[...orphanTags].join(', '));
+    const orphanDishes = new Set();
+    for(const dishes of Object.values(data.accords)) for(const t of dishes)
+      if(!DISH_ORDER.includes(t)) orphanDishes.add(t);
+    if(orphanDishes.size)
+      throw new Error('Des accords utilisent des plats absents de dishGroups : '+[...orphanDishes].join(', '));
 
     STATE = {};
     for(const id of Object.keys(NODES)) STATE[id] = new Set(data.accords[id]||[]);
@@ -244,12 +244,12 @@ function loadSource(text, name){
 
 /* ordered signature of the vocabulary + pairings, to detect changes */
 function signature(){
-  const vocab = TAG_GROUPS.map(g=>g.cat+'#'+g.tags.map(t=>t+'='+TAG_LABEL[t]).join(',')).join('|');
+  const vocab = DISH_GROUPS.map(g=>g.cat+'#'+g.dishes.map(t=>t+'='+DISH_LABEL[t]).join(',')).join('|');
   const acc = Object.keys(STATE).sort().map(id=>id+':'+[...STATE[id]].sort().join(','))
     .filter(s=>!s.endsWith(':')).join('|');
   return vocab+'§'+acc;
 }
-function recomputeOrder(){ TAG_ORDER = TAG_GROUPS.flatMap(g=>g.tags); }
+function recomputeOrder(){ DISH_ORDER = DISH_GROUPS.flatMap(g=>g.dishes); }
 function esc(s){ return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function escAttr(s){ return esc(s).replace(/"/g,'&quot;'); }
 
@@ -266,19 +266,19 @@ function renderGrid(){
   const filter = document.getElementById('filter').value.trim().toLowerCase();
   const hideEmpty = document.getElementById('hideEmpty').checked;
   const tbl = document.getElementById('grid');
-  const cats = TAG_GROUPS.filter(g=>g.tags.length>0);   // an empty category has no column
+  const cats = DISH_GROUPS.filter(g=>g.dishes.length>0);   // an empty category has no column
 
   // headers
   let thead = '<thead><tr class="cats"><th class="corner corner-top"></th>';
   cats.forEach((g,gi)=>{
-    thead += '<th class="cat-h'+(gi<cats.length-1?' catsep':'')+'" colspan="'+g.tags.length+'">'+esc(g.cat)+'</th>';
+    thead += '<th class="cat-h'+(gi<cats.length-1?' catsep':'')+'" colspan="'+g.dishes.length+'">'+esc(g.cat)+'</th>';
   });
   thead += '</tr><tr><th class="corner corner-bot">Sauce <span class="status" id="rowCount"></span></th>';
   cats.forEach((g,gi)=>{
-    g.tags.forEach((t,ti)=>{
-      const sep = (gi<cats.length-1 && ti===g.tags.length-1) ? ' catsep':'';
-      const n = countTag(t);
-      thead += '<th class="tag-h'+sep+'"><div>'+esc(TAG_LABEL[t])+' <span class="tn">'+n+'</span></div></th>';
+    g.dishes.forEach((t,ti)=>{
+      const sep = (gi<cats.length-1 && ti===g.dishes.length-1) ? ' catsep':'';
+      const n = countDish(t);
+      thead += '<th class="dish-h'+sep+'"><div>'+esc(DISH_LABEL[t])+' <span class="dish-n">'+n+'</span></div></th>';
     });
   });
   thead += '</tr></thead>';
@@ -295,10 +295,10 @@ function renderGrid(){
     body += '<th class="sauce-h'+(set.size===0?' empty':'')+'"><span class="dot" style="background:'+famVar(n.fam)+'"></span>'
           + n.nm + '<span class="id">'+id+'</span></th>';
     cats.forEach((g,gi)=>{
-      g.tags.forEach((t,ti)=>{
-        const sep = (gi<cats.length-1 && ti===g.tags.length-1) ? ' catsep':'';
+      g.dishes.forEach((t,ti)=>{
+        const sep = (gi<cats.length-1 && ti===g.dishes.length-1) ? ' catsep':'';
         const on = set.has(t);
-        body += '<td class="cell'+sep+'" data-id="'+id+'" data-tag="'+t+'">'
+        body += '<td class="cell'+sep+'" data-id="'+id+'" data-dish="'+t+'">'
               + '<input type="checkbox"'+(on?' checked':'')+'></td>';
       });
     });
@@ -310,16 +310,16 @@ function renderGrid(){
   updateStats();
 }
 
-function countTag(t){ let c=0; for(const id in STATE) if(STATE[id].has(t)) c++; return c; }
+function countDish(t){ let c=0; for(const id in STATE) if(STATE[id].has(t)) c++; return c; }
 
 function updateStats(){
   const sauces = Object.keys(STATE).filter(id=>STATE[id].size>0).length;
   let pairs=0; for(const id in STATE) pairs+=STATE[id].size;
-  const emptyTags = TAG_ORDER.filter(t=>countTag(t)===0);
+  const emptyDishes = DISH_ORDER.filter(t=>countDish(t)===0);
   let html = '<span class="pill"><b>'+sauces+'</b> sauces accordées</span>'
            + '<span class="pill"><b>'+pairs+'</b> accords</span>';
-  html += emptyTags.length
-    ? '<span class="pill bad">'+emptyTags.length+' plat(s) sans sauce : '+emptyTags.map(t=>TAG_LABEL[t]).join(', ')+'</span>'
+  html += emptyDishes.length
+    ? '<span class="pill bad">'+emptyDishes.length+' plat(s) sans sauce : '+emptyDishes.map(t=>DISH_LABEL[t]).join(', ')+'</span>'
     : '<span class="pill">tous les plats couverts</span>';
   document.getElementById('stats').innerHTML = html;
 
@@ -331,24 +331,24 @@ function updateStats(){
 /* click on a cell (delegation) */
 document.getElementById('editor').addEventListener('click', e=>{
   const cell = e.target.closest('td.cell'); if(!cell) return;
-  const {id, tag} = cell.dataset;
+  const {id, dish} = cell.dataset;
   const box = cell.querySelector('input');
   if(e.target !== box) box.checked = !box.checked;       // click on the cell = toggle
-  box.checked ? STATE[id].add(tag) : STATE[id].delete(tag);
+  box.checked ? STATE[id].add(dish) : STATE[id].delete(dish);
   // targeted updates (avoids re-rendering the whole grid)
   cell.closest('tr').querySelector('.sauce-h').classList.toggle('empty', STATE[id].size===0);
   refreshHeaderCounts();
   updateStats();
 });
 function refreshHeaderCounts(){
-  document.querySelectorAll('#grid thead .tag-h').forEach((th,i)=>{
-    const t = TAG_ORDER[i]; const span = th.querySelector('.tn'); if(span) span.textContent = countTag(t);
+  document.querySelectorAll('#grid thead .dish-h').forEach((th,i)=>{
+    const t = DISH_ORDER[i]; const span = th.querySelector('.dish-n'); if(span) span.textContent = countDish(t);
   });
 }
 
 /* ============================================================
-   Vocabulary management: dishes (tags) & categories
-   TAG_LABEL (label), TAG_GROUPS (category/order) and the
+   Vocabulary management: dishes (dishes) & categories
+   DISH_LABEL (label), DISH_GROUPS (category/order) and the
    pairings (STATE) are kept in sync.
    ============================================================ */
 function slugify(label){
@@ -359,40 +359,40 @@ function slugify(label){
   if(/^[0-9]/.test(s)) s = '_'+s;
   return s;
 }
-function uniqueId(base){ let id=base,n=2; while(Object.prototype.hasOwnProperty.call(TAG_LABEL,id)) id=base+'_'+(n++); return id; }
-function findTag(id){
-  for(let ci=0;ci<TAG_GROUPS.length;ci++){ const ti=TAG_GROUPS[ci].tags.indexOf(id); if(ti>=0) return {ci,ti}; }
+function uniqueId(base){ let id=base,n=2; while(Object.prototype.hasOwnProperty.call(DISH_LABEL,id)) id=base+'_'+(n++); return id; }
+function findDish(id){
+  for(let ci=0;ci<DISH_GROUPS.length;ci++){ const ti=DISH_GROUPS[ci].dishes.indexOf(id); if(ti>=0) return {ci,ti}; }
   return null;
 }
-function deleteTag(id){
-  const loc=findTag(id); if(loc) TAG_GROUPS[loc.ci].tags.splice(loc.ti,1);
-  delete TAG_LABEL[id];
+function deleteDish(id){
+  const loc=findDish(id); if(loc) DISH_GROUPS[loc.ci].dishes.splice(loc.ti,1);
+  delete DISH_LABEL[id];
   for(const s in STATE) STATE[s].delete(id);
 }
 function afterStructural(){ recomputeOrder(); renderManage(); updateStats(); }
 
 function renderManage(){
   let html='';
-  TAG_GROUPS.forEach((g,ci)=>{
+  DISH_GROUPS.forEach((g,ci)=>{
     html += '<div class="mcat"><div class="mcat-head">'
       + btn('cat-up',{ci},'▲',ci===0)
-      + btn('cat-down',{ci},'▼',ci===TAG_GROUPS.length-1)
+      + btn('cat-down',{ci},'▼',ci===DISH_GROUPS.length-1)
       + '<input class="cat" data-act="cat-rename" data-ci="'+ci+'" value="'+escAttr(g.cat)+'">'
       + '<button class="ibtn del" data-act="cat-del" data-ci="'+ci+'" title="Supprimer la catégorie">✕</button>'
-      + '</div><div class="mtags">';
-    g.tags.forEach((t,ti)=>{
-      const sel = TAG_GROUPS.map((gg,k)=>'<option value="'+k+'"'+(k===ci?' selected':'')+'>'+esc(gg.cat)+'</option>').join('');
-      html += '<div class="mtag">'
-        + btn('tag-up',{ci,ti},'▲',ti===0)
-        + btn('tag-down',{ci,ti},'▼',ti===g.tags.length-1)
-        + '<input class="lbl" data-act="tag-rename" data-id="'+t+'" value="'+escAttr(TAG_LABEL[t])+'">'
+      + '</div><div class="mdishes">';
+    g.dishes.forEach((t,ti)=>{
+      const sel = DISH_GROUPS.map((gg,k)=>'<option value="'+k+'"'+(k===ci?' selected':'')+'>'+esc(gg.cat)+'</option>').join('');
+      html += '<div class="mdish">'
+        + btn('dish-up',{ci,ti},'▲',ti===0)
+        + btn('dish-down',{ci,ti},'▼',ti===g.dishes.length-1)
+        + '<input class="lbl" data-act="dish-rename" data-id="'+t+'" value="'+escAttr(DISH_LABEL[t])+'">'
         + '<span class="tid">'+t+'</span>'
-        + '<select data-act="tag-move" data-id="'+t+'" title="Déplacer vers…">'+sel+'</select>'
-        + '<span class="use">'+countTag(t)+' acc.</span>'
-        + '<button class="ibtn del" data-act="tag-del" data-id="'+t+'" title="Supprimer le plat">✕</button>'
+        + '<select data-act="dish-move" data-id="'+t+'" title="Déplacer vers…">'+sel+'</select>'
+        + '<span class="use">'+countDish(t)+' acc.</span>'
+        + '<button class="ibtn del" data-act="dish-del" data-id="'+t+'" title="Supprimer le plat">✕</button>'
         + '</div>';
     });
-    html += '</div><div class="mcat-foot"><button class="addtag" data-act="tag-add" data-ci="'+ci+'">+ Ajouter un plat</button></div></div>';
+    html += '</div><div class="mcat-foot"><button class="adddish" data-act="dish-add" data-ci="'+ci+'">+ Ajouter un plat</button></div></div>';
   });
   document.getElementById('manageList').innerHTML = html || '<p class="status">Aucune catégorie pour l\'instant.</p>';
   function btn(act,data,glyph,disabled){
@@ -405,42 +405,42 @@ const mlist = document.getElementById('manageList');
 mlist.addEventListener('click', e=>{
   const b=e.target.closest('button[data-act]'); if(!b) return;
   const act=b.dataset.act, ci=+b.dataset.ci, ti=+b.dataset.ti, id=b.dataset.id;
-  if(act==='cat-up'){ [TAG_GROUPS[ci-1],TAG_GROUPS[ci]]=[TAG_GROUPS[ci],TAG_GROUPS[ci-1]]; afterStructural(); }
-  else if(act==='cat-down'){ [TAG_GROUPS[ci+1],TAG_GROUPS[ci]]=[TAG_GROUPS[ci],TAG_GROUPS[ci+1]]; afterStructural(); }
+  if(act==='cat-up'){ [DISH_GROUPS[ci-1],DISH_GROUPS[ci]]=[DISH_GROUPS[ci],DISH_GROUPS[ci-1]]; afterStructural(); }
+  else if(act==='cat-down'){ [DISH_GROUPS[ci+1],DISH_GROUPS[ci]]=[DISH_GROUPS[ci],DISH_GROUPS[ci+1]]; afterStructural(); }
   else if(act==='cat-del'){
-    const g=TAG_GROUPS[ci], acc=g.tags.reduce((s,t)=>s+countTag(t),0);
-    if(g.tags.length && !confirm('Supprimer la catégorie « '+g.cat+' » et ses '+g.tags.length+' plat(s) ?'
+    const g=DISH_GROUPS[ci], acc=g.dishes.reduce((s,t)=>s+countDish(t),0);
+    if(g.dishes.length && !confirm('Supprimer la catégorie « '+g.cat+' » et ses '+g.dishes.length+' plat(s) ?'
       +(acc?'\n'+acc+' accord(s) seront retirés.':''))) return;
-    g.tags.slice().forEach(deleteTag); TAG_GROUPS.splice(ci,1); afterStructural();
+    g.dishes.slice().forEach(deleteDish); DISH_GROUPS.splice(ci,1); afterStructural();
   }
-  else if(act==='tag-up'){ const a=TAG_GROUPS[ci].tags; [a[ti-1],a[ti]]=[a[ti],a[ti-1]]; afterStructural(); }
-  else if(act==='tag-down'){ const a=TAG_GROUPS[ci].tags; [a[ti+1],a[ti]]=[a[ti],a[ti+1]]; afterStructural(); }
-  else if(act==='tag-del'){
-    const uses=countTag(id);
-    if(uses && !confirm('Supprimer le plat « '+TAG_LABEL[id]+' » ? Il sera retiré de '+uses+' accord(s).')) return;
-    deleteTag(id); afterStructural();
+  else if(act==='dish-up'){ const a=DISH_GROUPS[ci].dishes; [a[ti-1],a[ti]]=[a[ti],a[ti-1]]; afterStructural(); }
+  else if(act==='dish-down'){ const a=DISH_GROUPS[ci].dishes; [a[ti+1],a[ti]]=[a[ti],a[ti+1]]; afterStructural(); }
+  else if(act==='dish-del'){
+    const uses=countDish(id);
+    if(uses && !confirm('Supprimer le plat « '+DISH_LABEL[id]+' » ? Il sera retiré de '+uses+' accord(s).')) return;
+    deleteDish(id); afterStructural();
   }
-  else if(act==='tag-add'){
+  else if(act==='dish-add'){
     const label=prompt('Nom du nouveau plat ?'); if(!label||!label.trim()) return;
-    const newId=uniqueId(slugify(label)); TAG_LABEL[newId]=label.trim(); TAG_GROUPS[ci].tags.push(newId); afterStructural();
+    const newId=uniqueId(slugify(label)); DISH_LABEL[newId]=label.trim(); DISH_GROUPS[ci].dishes.push(newId); afterStructural();
   }
 });
 mlist.addEventListener('input', e=>{
   const el=e.target;
-  if(el.dataset.act==='cat-rename'){ TAG_GROUPS[+el.dataset.ci].cat=el.value; updateStats(); }
-  else if(el.dataset.act==='tag-rename'){ TAG_LABEL[el.dataset.id]=el.value; updateStats(); }
+  if(el.dataset.act==='cat-rename'){ DISH_GROUPS[+el.dataset.ci].cat=el.value; updateStats(); }
+  else if(el.dataset.act==='dish-rename'){ DISH_LABEL[el.dataset.id]=el.value; updateStats(); }
 });
 mlist.addEventListener('change', e=>{
-  const el=e.target; if(el.dataset.act!=='tag-move') return;
-  const id=el.dataset.id, target=+el.value, loc=findTag(id);
+  const el=e.target; if(el.dataset.act!=='dish-move') return;
+  const id=el.dataset.id, target=+el.value, loc=findDish(id);
   if(!loc || loc.ci===target) return;
-  TAG_GROUPS[loc.ci].tags.splice(loc.ti,1); TAG_GROUPS[target].tags.push(id); afterStructural();
+  DISH_GROUPS[loc.ci].dishes.splice(loc.ti,1); DISH_GROUPS[target].dishes.push(id); afterStructural();
 });
 document.getElementById('btnManage').addEventListener('click', ()=>{ renderManage(); document.getElementById('manageDlg').showModal(); });
 document.getElementById('manageClose').addEventListener('click', ()=>document.getElementById('manageDlg').close());
 document.getElementById('addCat').addEventListener('click', ()=>{
   const name=prompt('Nom de la nouvelle catégorie ?'); if(!name||!name.trim()) return;
-  TAG_GROUPS.push({cat:name.trim(), tags:[]}); afterStructural();
+  DISH_GROUPS.push({cat:name.trim(), dishes:[]}); afterStructural();
 });
 document.getElementById('manageDlg').addEventListener('close', ()=>{ recomputeOrder(); renderGrid(); });
 
@@ -453,17 +453,17 @@ function buildAccords(){
   const acc = {};
   for(const id of sortedSauceIds()){
     if(STATE[id].size===0) continue;
-    acc[id] = TAG_ORDER.filter(t=>STATE[id].has(t));
+    acc[id] = DISH_ORDER.filter(t=>STATE[id].has(t));
   }
   return acc;
 }
-function orderedTagLabel(){
+function orderedDishLabel(){
   const tl = {};
-  for(const t of TAG_ORDER) tl[t] = TAG_LABEL[t];
+  for(const t of DISH_ORDER) tl[t] = DISH_LABEL[t];
   return tl;
 }
 function genUpdatedJson(){
-  const out = { nodes: DATA.nodes, tagLabel: orderedTagLabel(), tagGroups: TAG_GROUPS, accords: buildAccords() };
+  const out = { nodes: DATA.nodes, dishLabel: orderedDishLabel(), dishGroups: DISH_GROUPS, accords: buildAccords() };
   return JSON.stringify(out, null, 2) + '\n';
 }
 

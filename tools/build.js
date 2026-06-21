@@ -63,10 +63,10 @@ const PRAC_KEYS = new Set(['desc', 'ings', 'steps', 'note']);
    ------------------------------------------------------------ */
 function validate(data) {
   const errors = [];
-  const { nodes, tagLabel, tagGroups, accords } = data;
+  const { nodes, dishLabel, dishGroups, accords } = data;
 
-  if (!nodes || !tagLabel || !tagGroups || !accords) {
-    errors.push('Missing keys: expected nodes, tagLabel, tagGroups, accords.');
+  if (!nodes || !dishLabel || !dishGroups || !accords) {
+    errors.push('Missing keys: expected nodes, dishLabel, dishGroups, accords.');
     return errors;
   }
 
@@ -135,24 +135,24 @@ function validate(data) {
     }
   }
 
-  // vocabulary: tagGroups only references defined tags, and vice versa
-  const groupedTags = new Set();
-  for (const g of tagGroups) {
-    for (const t of g.tags) {
-      if (!tagLabel[t]) errors.push(`tagGroups: category "${g.cat}" references an unknown dish "${t}".`);
-      if (groupedTags.has(t)) errors.push(`tagGroups: dish "${t}" appears in two categories.`);
-      groupedTags.add(t);
+  // vocabulary: dishGroups only references defined dishes, and vice versa
+  const groupedDishes = new Set();
+  for (const g of dishGroups) {
+    for (const t of g.dishes) {
+      if (!dishLabel[t]) errors.push(`dishGroups: category "${g.cat}" references an unknown dish "${t}".`);
+      if (groupedDishes.has(t)) errors.push(`dishGroups: dish "${t}" appears in two categories.`);
+      groupedDishes.add(t);
     }
   }
-  for (const t of Object.keys(tagLabel)) {
-    if (!groupedTags.has(t)) errors.push(`tagLabel: dish "${t}" is not placed in any tagGroups category.`);
+  for (const t of Object.keys(dishLabel)) {
+    if (!groupedDishes.has(t)) errors.push(`dishLabel: dish "${t}" is not placed in any dishGroups category.`);
   }
 
   // accords: keys = real sauces; values = vocabulary dishes
   for (const id of Object.keys(accords)) {
     if (!nodes[id]) errors.push(`accords: "${id}" is not a sauce in nodes.`);
     for (const t of accords[id]) {
-      if (!tagLabel[t]) errors.push(`accords: "${id}" uses an unknown dish "${t}".`);
+      if (!dishLabel[t]) errors.push(`accords: "${id}" uses an unknown dish "${t}".`);
     }
   }
 
@@ -221,7 +221,7 @@ function main() {
   }
   const faceCount = JSON.parse(fs.readFileSync(FONTS_MANIFEST, 'utf8')).length;
   console.log('✓ Valid data (' + Object.keys(data.nodes).length + ' sauces, ' +
-    Object.keys(data.accords).length + ' pairings, ' + Object.keys(data.tagLabel).length + ' dishes, ' +
+    Object.keys(data.accords).length + ' pairings, ' + Object.keys(data.dishLabel).length + ' dishes, ' +
     faceCount + ' fonts).');
 
   if (checkOnly) return;

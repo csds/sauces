@@ -118,13 +118,13 @@ body{
 .ms-btn:hover{color:var(--ink)}
 .ms-btn.active{background:var(--card);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(60,40,15,.18)}
 
-.tag-cat{font-family:"Spectral",serif;text-transform:uppercase;letter-spacing:.12em;font-size:.66rem;font-weight:600;color:var(--rule);margin:16px 8px 9px}
-.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin:0 6px}
-.tagchip{font-family:"Spectral",serif;font-size:.86rem;cursor:pointer;background:none;border:1px solid var(--rule-soft);color:var(--ink);padding:5px 11px;border-radius:18px;display:inline-flex;align-items:center;gap:7px;transition:background .15s,border-color .15s,color .15s}
-.tagchip:hover{border-color:var(--rule)}
-.tagchip.active{background:var(--fam-base);border-color:var(--fam-base);color:#fdf6e6}
-.tc-n{font-size:.74em;opacity:.55}
-.tagchip.active .tc-n{opacity:.85}
+.dish-cat{font-family:"Spectral",serif;text-transform:uppercase;letter-spacing:.12em;font-size:.66rem;font-weight:600;color:var(--rule);margin:16px 8px 9px}
+.dish-list{display:flex;flex-wrap:wrap;gap:6px;margin:0 6px}
+.dishchip{font-family:"Spectral",serif;font-size:.86rem;cursor:pointer;background:none;border:1px solid var(--rule-soft);color:var(--ink);padding:5px 11px;border-radius:18px;display:inline-flex;align-items:center;gap:7px;transition:background .15s,border-color .15s,color .15s}
+.dishchip:hover{border-color:var(--rule)}
+.dishchip.active{background:var(--fam-base);border-color:var(--fam-base);color:#fdf6e6}
+.dish-n{font-size:.74em;opacity:.55}
+.dishchip.active .dish-n{opacity:.85}
 
 #accord-results{margin:18px 6px 0}
 .res-head{font-family:"Cormorant Garamond",serif;font-size:1.18rem;font-weight:600;color:var(--ink);margin:0 2px 6px;padding-bottom:7px;border-bottom:1px solid var(--rule-soft)}
@@ -133,7 +133,7 @@ body{
 .res-item .tdot{width:9px;height:9px;border-radius:50%;background:var(--c);flex-shrink:0;box-shadow:0 0 0 1px rgba(0,0,0,.07)}
 .res-empty{color:var(--ink-soft);font-style:italic;font-size:.9rem;margin:2px}
 
-/* pairing tags in the card (distinct style from the lineage chips) */
+/* pairing dishes in the card (distinct style from the lineage chips) */
 .accord{font-family:"Spectral",serif;font-size:.92rem;cursor:pointer;background:none;border:1px dashed var(--rule);color:var(--ink);padding:5px 14px;border-radius:20px;transition:background .15s,color .15s,border-style .15s}
 .accord:hover{background:var(--rule);color:#fdf6e6;border-style:solid}
 
@@ -308,7 +308,7 @@ body{
       </div>
       <div id="mode-accords" hidden>
         <p class="sec-cap">Quel plat accompagnez-vous ?</p>
-        <div id="tag-groups"></div>
+        <div id="dish-groups"></div>
         <div id="accord-results"></div>
       </div>
       <p class="side-foot">D'après la classification d'Auguste Escoffier, <em>Le Guide culinaire</em>. Cliquez sur ▸ pour déplier une branche, sur un nom pour voir la recette.</p>
@@ -350,12 +350,12 @@ const DERIV_LABEL = {composition:'Composition', variation:'Variation', assemblag
 function badgeText(n){ return n.role || DERIV_LABEL[n.deriv] || ''; }
 
 /* ============================================================
-   Pairings: controlled vocabulary + tags per sauce
+   Pairings: controlled vocabulary + dishes per sauce
    (pure data - a pairing only shows in the card via the
    "Accords" section, never woven into the description text)
    ============================================================ */
-const TAG_LABEL = DATA.tagLabel;
-const TAG_GROUPS = DATA.tagGroups;
+const DISH_LABEL = DATA.dishLabel;
+const DISH_GROUPS = DATA.dishGroups;
 const ACCORDS = DATA.accords;
 const FAM_ORDER = {blanc:0,blond:1,brun:2,holl:3,tom:4,base:5};
 
@@ -488,9 +488,9 @@ function renderDetail(id, view){
   }
 
   let acc = '';
-  const tags = ACCORDS[id] || [];
-  if(tags.length){
-    const chips = tags.map(t=>'<button class="accord" onclick="goToAccord(\''+t+'\')">'+TAG_LABEL[t]+'</button>').join('');
+  const dishes = ACCORDS[id] || [];
+  if(dishes.length){
+    const chips = dishes.map(t=>'<button class="accord" onclick="goToAccord(\''+t+'\')">'+DISH_LABEL[t]+'</button>').join('');
     acc = '<div class="rel"><h3 class="d-h">Accords</h3><div class="chips">'+chips+'</div></div>';
   }
 
@@ -552,28 +552,28 @@ function setMode(m){
   ta.classList.toggle('active', !fil); ta.setAttribute('aria-selected', !fil);
 }
 
-function buildTagGroups(){
+function buildDishGroups(){
   const count = {};
   Object.values(ACCORDS).forEach(arr => arr.forEach(t => count[t] = (count[t]||0) + 1));
   let html = '';
-  TAG_GROUPS.forEach(g=>{
-    html += '<div class="tag-cat">'+g.cat+'</div><div class="tag-list">';
-    g.tags.forEach(t=>{
-      html += '<button class="tagchip" data-tag="'+t+'">'+TAG_LABEL[t]+
-              '<span class="tc-n">'+(count[t]||0)+'</span></button>';
+  DISH_GROUPS.forEach(g=>{
+    html += '<div class="dish-cat">'+g.cat+'</div><div class="dish-list">';
+    g.dishes.forEach(t=>{
+      html += '<button class="dishchip" data-dish="'+t+'">'+DISH_LABEL[t]+
+              '<span class="dish-n">'+(count[t]||0)+'</span></button>';
     });
     html += '</div>';
   });
-  const host = document.getElementById('tag-groups');
+  const host = document.getElementById('dish-groups');
   host.innerHTML = html;
-  host.querySelectorAll('.tagchip').forEach(b=>b.addEventListener('click', ()=>selectTag(b.dataset.tag)));
+  host.querySelectorAll('.dishchip').forEach(b=>b.addEventListener('click', ()=>selectDish(b.dataset.dish)));
 }
 
-function selectTag(tag){
-  document.querySelectorAll('#tag-groups .tagchip').forEach(b=>b.classList.toggle('active', b.dataset.tag===tag));
-  const matches = Object.keys(ACCORDS).filter(id => ACCORDS[id].includes(tag))
+function selectDish(dish){
+  document.querySelectorAll('#dish-groups .dishchip').forEach(b=>b.classList.toggle('active', b.dataset.dish===dish));
+  const matches = Object.keys(ACCORDS).filter(id => ACCORDS[id].includes(dish))
     .sort((a,b)=> (FAM_ORDER[NODES[a].fam]-FAM_ORDER[NODES[b].fam]) || NODES[a].nm.localeCompare(NODES[b].nm,'fr'));
-  let html = '<div class="res-head">'+TAG_LABEL[tag]+' · '+matches.length+' sauce'+(matches.length>1?'s':'')+'</div>';
+  let html = '<div class="res-head">'+DISH_LABEL[dish]+' · '+matches.length+' sauce'+(matches.length>1?'s':'')+'</div>';
   if(!matches.length){
     html += '<p class="res-empty">Aucune sauce pour cet accord.</p>';
   } else {
@@ -586,10 +586,10 @@ function selectTag(tag){
   res.querySelectorAll('.res-item').forEach(b=>b.addEventListener('click', ()=>selectSauce(b.dataset.id)));
 }
 
-/* from a card's "Accords" section: switch to Accords mode on this tag */
-function goToAccord(tag){
+/* from a card's "Accords" section: switch to Accords mode on this dish */
+function goToAccord(dish){
   setMode('accords');
-  selectTag(tag);
+  selectDish(dish);
   if(window.matchMedia('(max-width:640px)').matches) openDrawer();
   document.getElementById('accord-results').scrollIntoView({block:'nearest'});
 }
@@ -602,7 +602,7 @@ document.getElementById('tabAccords').addEventListener('click', ()=>setMode('acc
    ============================================================ */
 mountTree(['roux'], 'tree-roux');
 mountTree(['hollandaise','sauce_tomate'], 'tree-noroux');
-buildTagGroups();
+buildDishGroups();
 setMode('filiation');
 </script>
 </body>
