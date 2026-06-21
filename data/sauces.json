@@ -714,24 +714,46 @@
     "sauce_tomate": {
       "nm": "Sauce Tomate",
       "fam": "tom",
-      "prov": "moderne",
-      "role": "Sauce mère (version moderne)",
-      "desc": "L'une des cinq grandes sauces mères de la classification d'Escoffier. Cette version moderne, liée par simple réduction à l'huile d'olive, est sans roux ; l'originale d'Escoffier, elle, est liée à la farine (lard, mirepoix et fond blanc). Base universelle de la cuisine française et internationale.",
+      "prov": "classique",
+      "role": "Sauce mère",
+      "desc": "L'une des cinq grandes sauces mères de la classification d'Escoffier, et la seule liée à la farine sans reposer sur un roux : la farine est singée sur le lard et la mirepoix, puis la sauce cuit longuement au four. Base universelle de la cuisine française et internationale. La version moderne, liée par simple réduction à l'huile d'olive et sans farine, est donnée en recette pratique.",
       "ings": [
-        "1 kg tomates fraîches",
-        "1 oignon",
-        "2 gousses d'ail",
-        "1 carotte",
-        "100 ml fond blanc",
-        "Huile d'olive",
-        "Bouquet garni"
+        "100 g lard maigre (poitrine)",
+        "50 g beurre",
+        "1 carotte, 1 oignon",
+        "50 g farine",
+        "1 kg tomates (ou 1 L purée de tomates)",
+        "1 L fond blanc",
+        "1 gousse d'ail",
+        "1 c. à c. sucre, sel, poivre",
+        "Bouquet garni (thym, laurier)"
       ],
       "steps": [
-        "Faire revenir l'oignon, l'ail et la carotte dans l'huile d'olive.",
-        "Ajouter les tomates concassées et le fond blanc.",
-        "Cuire 45 à 60 min à feu doux avec le bouquet garni.",
-        "Mixer et passer au chinois fin, puis assaisonner."
+        "Faire fondre le lard taillé en dés avec le beurre, ajouter la carotte et l'oignon en mirepoix et le bouquet garni ; cuire jusqu'à légère coloration.",
+        "Singer : saupoudrer la farine et la cuire quelques minutes en remuant.",
+        "Ajouter les tomates (ou la purée), le fond blanc, l'ail, le sucre, sel et poivre ; porter à ébullition.",
+        "Couvrir et cuire au four à chaleur modérée environ 1 h 30.",
+        "Passer au tamis fin, rectifier l'assaisonnement et réchauffer."
       ],
+      "prac": {
+        "desc": "La sauce tomate moderne : liée par simple réduction à l'huile d'olive, sans lard, sans farine et sans four. Plus légère et plus fraîche que la version d'Escoffier, et bien plus rapide. C'est la base que l'on fait réellement aujourd'hui.",
+        "ings": [
+          "1 kg tomates fraîches",
+          "1 oignon",
+          "2 gousses d'ail",
+          "1 carotte",
+          "100 ml fond blanc",
+          "Huile d'olive",
+          "Bouquet garni"
+        ],
+        "steps": [
+          "Faire revenir l'oignon, l'ail et la carotte dans l'huile d'olive.",
+          "Ajouter les tomates concassées et le fond blanc.",
+          "Cuire 45 à 60 min à feu doux avec le bouquet garni.",
+          "Mixer et passer au chinois fin, puis assaisonner."
+        ],
+        "note": "Même sauce mère, seule la liaison change : la réduction à l'huile remplace la farine singée et la longue cuisson au four. La filiation d'Escoffier (la tomate est une mère) est conservée."
+      },
       "children": [
         "portugaise",
         "provencale"
@@ -887,44 +909,79 @@
     "portugaise": {
       "nm": "Portugaise",
       "fam": "tom",
-      "prov": "moderne",
+      "prov": "classique",
       "deriv": "assemblage",
-      "desc": "Sauce tomate enrichie d'oignons et de poivrons revenus, avec des tomates fraîches concassées. Généreuse, colorée, légèrement rustique. Version moderne : la portugaise classique d'Escoffier est sans poivron (tomate, oignon, ail et persil). Accompagne œufs, viandes blanches et poissons.",
+      "desc": "Sauce tomate à laquelle on incorpore une fondue d'oignons et de tomates concassées à l'ail, finie au persil. Parfumée, sans poivron. Accompagne œufs, viandes blanches et poissons. La version moderne enrichie de poivron est donnée en recette pratique.",
       "ings": [
         "300 ml sauce tomate",
-        "1 oignon",
-        "1 poivron rouge",
-        "2 tomates fraîches",
-        "2 gousses d'ail",
+        "2 oignons",
+        "2 tomates concassées",
+        "1 gousse d'ail",
+        "Persil haché",
         "Huile d'olive"
       ],
       "steps": [
-        "Faire revenir oignon, poivron et ail dans l'huile.",
-        "Ajouter les tomates fraîches concassées et cuire 10 min.",
-        "Incorporer la sauce tomate et cuire encore 15 min.",
-        "Assaisonner ; servir telle quelle ou mixée."
+        "Faire tomber doucement les oignons hachés à l'huile, sans coloration.",
+        "Ajouter les tomates concassées et l'ail écrasé ; cuire en fondue quelques minutes.",
+        "Incorporer la sauce tomate, assaisonner et laisser mijoter.",
+        "Finir au persil haché."
       ],
+      "prac": {
+        "desc": "Version moderne courante, enrichie d'un poivron rouge revenu avec l'oignon : plus généreuse et colorée. Se sert telle quelle ou mixée.",
+        "ings": [
+          "300 ml sauce tomate",
+          "1 oignon",
+          "1 poivron rouge",
+          "2 tomates fraîches",
+          "2 gousses d'ail",
+          "Huile d'olive"
+        ],
+        "steps": [
+          "Faire revenir oignon, poivron et ail dans l'huile.",
+          "Ajouter les tomates fraîches concassées et cuire 10 min.",
+          "Incorporer la sauce tomate et cuire encore 15 min.",
+          "Assaisonner ; servir telle quelle ou mixée."
+        ],
+        "note": "La portugaise d'Escoffier est sans poivron (tomate, oignon, ail, persil) ; le poivron est un ajout moderne courant."
+      },
       "children": []
     },
     "provencale": {
       "nm": "Provençale",
       "fam": "tom",
-      "prov": "moderne",
-      "deriv": "composition",
-      "desc": "Sauce tomate à l'ail, aux herbes de Provence et aux olives. Parfumée, ensoleillée, très versatile. Version moderne : chez Escoffier, la provençale est une fondue de tomates indépendante à l'huile et à l'ail, sans olives ni herbes de Provence. Accompagne légumes, viandes grillées et poissons.",
+      "prov": "classique",
+      "deriv": "variation",
+      "desc": "Chez Escoffier, une fondue de tomates fraîches à l'huile d'olive et à l'ail, relevée de persil : une base tomatée remontée à part, sans olives ni herbes de Provence. Parfumée et ensoleillée. Accompagne légumes, viandes grillées et poissons. La version moderne aux olives et herbes de Provence est donnée en recette pratique.",
       "ings": [
-        "300 ml sauce tomate",
+        "1 kg tomates fraîches",
         "3 gousses d'ail",
-        "Herbes de Provence",
-        "50 g olives noires",
-        "Huile d'olive"
+        "Persil haché",
+        "Huile d'olive",
+        "Sel, poivre, pointe de sucre"
       ],
       "steps": [
-        "Faire revenir l'ail dans l'huile d'olive.",
-        "Ajouter la sauce tomate et les herbes.",
-        "Cuire 15 min à feu doux.",
-        "Incorporer les olives en fin de cuisson et assaisonner."
+        "Monder, épépiner et concasser les tomates.",
+        "Faire revenir l'ail dans l'huile d'olive sans coloration.",
+        "Ajouter les tomates, assaisonner et cuire en fondue à feu doux jusqu'à dessèchement.",
+        "Finir au persil haché."
       ],
+      "prac": {
+        "desc": "Version moderne partant de la sauce tomate, parfumée à l'ail, aux herbes de Provence et aux olives noires. Plus rapide, très versatile.",
+        "ings": [
+          "300 ml sauce tomate",
+          "3 gousses d'ail",
+          "Herbes de Provence",
+          "50 g olives noires",
+          "Huile d'olive"
+        ],
+        "steps": [
+          "Faire revenir l'ail dans l'huile d'olive.",
+          "Ajouter la sauce tomate et les herbes.",
+          "Cuire 15 min à feu doux.",
+          "Incorporer les olives en fin de cuisson et assaisonner."
+        ],
+        "note": "Chez Escoffier la provençale est une fondue de tomates indépendante, sans olives ni herbes de Provence ; ces ajouts et le départ depuis la sauce tomate sont modernes."
+      },
       "children": []
     },
     "poivrade": {
