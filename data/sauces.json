@@ -1172,6 +1172,285 @@
         "Garnir de champignons et de petits oignons glacés."
       ],
       "children": []
+    },
+    "mayonnaise": {
+      "nm": "Mayonnaise",
+      "fam": "mayo",
+      "prov": "classique",
+      "role": "Sauce mère (froide)",
+      "desc": "La grande sauce mère froide d'Escoffier : une émulsion de jaunes d'œufs crus et d'huile, montée goutte à goutte et acidulée au vinaigre ou au citron. Chez Escoffier, pas de moutarde dans la mayonnaise mère. C'est la base de toute la famille des sauces froides émulsionnées.",
+      "ings": [
+        "2 jaunes d'œufs (germe retiré)",
+        "300 ml huile",
+        "1/2 c. à s. vinaigre ou jus de citron",
+        "1 c. à s. eau bouillante",
+        "Sel fin, poivre blanc"
+      ],
+      "steps": [
+        "Travailler les jaunes au fouet avec le sel, le poivre et un filet de vinaigre ou de citron.",
+        "Verser l'huile goutte à goutte, puis en mince filet dès que la sauce prend.",
+        "Détendre de temps en temps d'un peu de vinaigre ou de citron.",
+        "Finir d'une cuillerée d'eau bouillante pour assurer la cohésion."
+      ],
+      "children": [
+        "aioli",
+        "remoulade",
+        "tartare",
+        "gribiche",
+        "andalouse",
+        "verte",
+        "mousquetaire",
+        "suedoise",
+        "mayo_chantilly",
+        "cocktail"
+      ]
+    },
+    "aioli": {
+      "nm": "Aïoli",
+      "fam": "mayo",
+      "prov": "classique",
+      "deriv": "variation",
+      "desc": "Le « beurre de Provence » : une émulsion d'ail pilé et d'huile d'olive, montée au mortier sur un jaune d'œuf et détendue au citron. On ne part pas d'une mayonnaise faite, on remonte l'émulsion autour de l'ail. Accompagne morue, légumes bouillis et œufs durs.",
+      "ings": [
+        "4 petites gousses d'ail",
+        "1 jaune d'œuf cru",
+        "250 ml huile d'olive",
+        "Jus de citron",
+        "1/2 c. à s. eau froide",
+        "Sel"
+      ],
+      "steps": [
+        "Piler l'ail en pâte fine au mortier avec le sel.",
+        "Ajouter le jaune, puis l'huile goutte à goutte puis en filet en tournant vivement.",
+        "Détendre peu à peu de jus de citron et d'eau froide.",
+        "Si la sauce tourne, la remonter sur un jaune cru."
+      ],
+      "prac": {
+        "desc": "L'aïoli « pur » à la provençale : ail et huile d'olive seulement, sans jaune d'œuf. Plus franc en goût, mais plus délicat à monter – le jaune d'Escoffier sert justement à stabiliser l'émulsion. On le détend au citron et à l'eau froide.",
+        "ings": [
+          "4 petites gousses d'ail",
+          "250 ml huile d'olive",
+          "Quelques gouttes de jus de citron",
+          "1/2 c. à s. eau froide",
+          "Sel"
+        ],
+        "steps": [
+          "Piler l'ail en pâte très fine au mortier avec le sel.",
+          "Monter à l'huile d'olive versée en filet mince, sans cesser de tourner.",
+          "Détendre de jus de citron et d'eau froide jusqu'à la texture voulue.",
+          "Si l'émulsion peine à prendre, repartir d'un peu d'ail pilé."
+        ],
+        "note": "Escoffier monte l'aïoli sur un jaune d'œuf, comme une mayonnaise ; la version sans œuf, tenue pour la plus authentique en Provence, est aussi la plus capricieuse à émulsionner."
+      },
+      "children": []
+    },
+    "remoulade": {
+      "nm": "Rémoulade",
+      "fam": "mayo",
+      "prov": "classique",
+      "deriv": "composition",
+      "desc": "Mayonnaise relevée de moutarde, de câpres et de cornichons hachés, de fines herbes et d'une pointe d'essence d'anchois. Plus corsée que la tartare. Accompagne fritures, fruits de mer et céleri cru.",
+      "ings": [
+        "250 ml mayonnaise",
+        "1/2 c. à s. moutarde",
+        "25 g cornichons hachés et pressés",
+        "1 c. à c. câpres hachées",
+        "Persil, cerfeuil, estragon hachés",
+        "Quelques gouttes d'essence d'anchois"
+      ],
+      "steps": [
+        "Hacher et presser les cornichons et les câpres.",
+        "Ajouter la moutarde à la mayonnaise.",
+        "Incorporer cornichons, câpres et fines herbes.",
+        "Parfumer d'essence d'anchois et rectifier."
+      ],
+      "children": []
+    },
+    "tartare": {
+      "nm": "Tartare",
+      "fam": "mayo",
+      "prov": "classique",
+      "deriv": "variation",
+      "desc": "Chez Escoffier, la tartare n'est pas une mayonnaise crue : on monte une émulsion sur des jaunes d'œufs durs tamisés, sans moutarde, finie d'une purée de ciboulette et passée au tamis. La version moderne aux cornichons et câpres en diffère nettement. Accompagne fritures et poissons grillés.",
+      "ings": [
+        "2 jaunes d'œufs durs",
+        "250 ml huile",
+        "1/2 c. à s. vinaigre",
+        "1 c. à s. ciboulette pilée",
+        "1/2 c. à s. mayonnaise",
+        "Sel, poivre"
+      ],
+      "steps": [
+        "Broyer les jaunes durs en pâte lisse et assaisonner.",
+        "Monter comme une mayonnaise avec l'huile et le vinaigre.",
+        "Piler la ciboulette et la lier d'un peu de mayonnaise.",
+        "Incorporer cette purée à la sauce et passer au tamis fin."
+      ],
+      "prac": {
+        "desc": "La tartare d'aujourd'hui : montée sur une mayonnaise toute faite plutôt que sur des jaunes durs, et garnie de cornichons, câpres, échalote et fines herbes. Plus rapide et plus relevée. C'est la version que l'on sert couramment avec les fritures.",
+        "ings": [
+          "250 ml mayonnaise",
+          "25 g cornichons hachés",
+          "1 c. à c. câpres hachées",
+          "1 échalote ciselée",
+          "Persil et ciboulette hachés",
+          "Sel, poivre"
+        ],
+        "steps": [
+          "Hacher les cornichons, les câpres et l'échalote.",
+          "Les incorporer à la mayonnaise avec les herbes.",
+          "Rectifier l'assaisonnement."
+        ],
+        "note": "La tartare d'Escoffier est une émulsion montée sur jaunes d'œufs durs et finie à la ciboulette, sans cornichons ni câpres : ces derniers, et le départ depuis une mayonnaise, sont modernes."
+      },
+      "children": []
+    },
+    "gribiche": {
+      "nm": "Gribiche",
+      "fam": "mayo",
+      "prov": "classique",
+      "deriv": "variation",
+      "desc": "Émulsion montée sur des jaunes d'œufs durs et de la moutarde, garnie de câpres et de cornichons en dés, de fines herbes et des blancs d'œufs taillés en julienne. Rustique et fraîche. Accompagne la tête de veau, les abats et les poissons froids.",
+      "ings": [
+        "2 jaunes d'œufs durs",
+        "1 c. à c. moutarde",
+        "150 ml huile",
+        "1/2 c. à s. vinaigre",
+        "30 g cornichons et câpres en dés",
+        "Persil, cerfeuil, estragon, ciboulette",
+        "Blancs d'œufs durs en julienne",
+        "Sel, poivre"
+      ],
+      "steps": [
+        "Broyer les jaunes durs avec la moutarde, le sel et le poivre.",
+        "Monter comme une mayonnaise avec l'huile et le vinaigre.",
+        "Ajouter les cornichons et câpres en dés et les fines herbes.",
+        "Compléter des blancs d'œufs en julienne."
+      ],
+      "children": []
+    },
+    "andalouse": {
+      "nm": "Andalouse",
+      "fam": "mayo",
+      "prov": "classique",
+      "deriv": "composition",
+      "desc": "Mayonnaise ferme additionnée de purée de tomate bien rouge et de poivron doux rouge en petits dés. Chez Escoffier, ni ail ni oignon. Rose orangée, douce. Accompagne crudités, œufs durs et viandes froides.",
+      "ings": [
+        "250 ml mayonnaise ferme",
+        "80 ml purée de tomate",
+        "25 g poivron doux rouge en petits dés",
+        "Sel, poivre"
+      ],
+      "steps": [
+        "Préparer une mayonnaise assez épaisse.",
+        "Incorporer la purée de tomate bien rouge.",
+        "Ajouter le poivron doux rouge en dés très fins.",
+        "Rectifier l'assaisonnement."
+      ],
+      "children": []
+    },
+    "verte": {
+      "nm": "Verte",
+      "fam": "mayo",
+      "prov": "classique",
+      "deriv": "composition",
+      "desc": "Mayonnaise teintée et parfumée d'un jus d'herbes vertes blanchies et pressées – épinard, cresson, persil, cerfeuil, estragon. Vert vif, herbacée. Un classique des poissons froids et des crustacés.",
+      "ings": [
+        "250 ml mayonnaise",
+        "15 g feuilles d'épinard",
+        "Cresson",
+        "Persil, cerfeuil, estragon",
+        "Sel, poivre"
+      ],
+      "steps": [
+        "Blanchir l'épinard, le cresson et les herbes 5 min, puis rafraîchir.",
+        "Presser fortement, piler et extraire le jus vert au tamis.",
+        "Incorporer ce jus d'herbes à la mayonnaise.",
+        "Rectifier l'assaisonnement."
+      ],
+      "children": []
+    },
+    "mousquetaire": {
+      "nm": "Mousquetaire",
+      "fam": "mayo",
+      "prov": "classique",
+      "deriv": "composition",
+      "desc": "Mayonnaise additionnée d'échalotes tombées au vin blanc, de glace de viande et de ciboulette. Corsée et parfumée. Accompagne viandes froides et grillades.",
+      "ings": [
+        "250 ml mayonnaise",
+        "20 g échalotes hachées",
+        "40 ml vin blanc",
+        "1 c. à c. glace de viande",
+        "Ciboulette hachée",
+        "Sel, poivre"
+      ],
+      "steps": [
+        "Faire tomber complètement les échalotes dans le vin blanc, puis laisser refroidir.",
+        "Incorporer cette réduction à la mayonnaise.",
+        "Ajouter la glace de viande et la ciboulette.",
+        "Rectifier l'assaisonnement."
+      ],
+      "children": []
+    },
+    "suedoise": {
+      "nm": "Suédoise",
+      "fam": "mayo",
+      "prov": "classique",
+      "deriv": "composition",
+      "desc": "Mayonnaise additionnée d'une purée froide de pommes acides cuites au vin blanc et de raifort râpé. Douce et piquante à la fois. Escoffier la destine au porc froid et à l'oie rôtie froide.",
+      "ings": [
+        "180 ml mayonnaise",
+        "120 g pommes acides",
+        "Un peu de vin blanc",
+        "1 c. à s. raifort râpé",
+        "Sel"
+      ],
+      "steps": [
+        "Cuire les pommes à couvert avec très peu de vin blanc.",
+        "Passer au tamis fin, réduire la purée et laisser bien refroidir.",
+        "Ajouter la purée froide à la mayonnaise.",
+        "Compléter du raifort râpé."
+      ],
+      "children": []
+    },
+    "mayo_chantilly": {
+      "nm": "Mayonnaise Chantilly",
+      "fam": "mayo",
+      "prov": "classique",
+      "deriv": "composition",
+      "desc": "Mayonnaise ferme, acidulée au citron, allégée de crème fouettée incorporée à la minute. Mousseuse et délicate – la crème se décompose si on l'ajoute trop tôt. Accompagne asperges froides et poissons délicats.",
+      "ings": [
+        "200 ml mayonnaise au citron, bien ferme",
+        "4 c. à s. crème fouettée ferme",
+        "Sel"
+      ],
+      "steps": [
+        "Monter une mayonnaise bien épaisse, acidulée au citron.",
+        "Au moment de servir, incorporer délicatement la crème fouettée.",
+        "Rectifier l'assaisonnement après l'ajout de la crème."
+      ],
+      "children": []
+    },
+    "cocktail": {
+      "nm": "Cocktail",
+      "fam": "mayo",
+      "prov": "moderne",
+      "deriv": "composition",
+      "desc": "La sauce des crevettes en cocktail (dite Marie-Rose) : mayonnaise additionnée de tomate, de Worcestershire et de citron. Absente du Guide d'Escoffier – c'est une création moderne (années 1960), gardée pour son usage. Accompagne crevettes et fruits de mer.",
+      "ings": [
+        "250 ml mayonnaise",
+        "2 c. à s. ketchup ou purée de tomate",
+        "1 c. à c. sauce Worcestershire",
+        "Filet de jus de citron",
+        "Quelques gouttes de Tabasco (facultatif)",
+        "Sel, poivre"
+      ],
+      "steps": [
+        "Mélanger la mayonnaise et le ketchup.",
+        "Assaisonner de Worcestershire, de citron et de Tabasco.",
+        "Rectifier le sel et le poivre."
+      ],
+      "children": []
     }
   },
   "dishLabel": {
@@ -1188,9 +1467,11 @@
     "poisson_grille": "Poisson grillé",
     "poisson_eau_douce": "Poisson d'eau douce",
     "fruits_de_mer": "Fruits de mer",
+    "fritures": "Fritures",
     "asperges": "Asperges",
     "champignons": "Champignons",
     "legumes": "Légumes",
+    "crudites": "Crudités",
     "oeufs": "Œufs",
     "quenelles": "Quenelles",
     "vol_au_vent": "Vol-au-vent & bouchées",
@@ -1228,7 +1509,8 @@
         "poisson_poche",
         "poisson_grille",
         "poisson_eau_douce",
-        "fruits_de_mer"
+        "fruits_de_mer",
+        "fritures"
       ]
     },
     {
@@ -1237,6 +1519,7 @@
         "asperges",
         "champignons",
         "legumes",
+        "crudites",
         "oeufs"
       ]
     },
@@ -1427,6 +1710,60 @@
       "ris_de_veau",
       "volaille",
       "legumes"
+    ],
+    "mayonnaise": [
+      "oeufs",
+      "fruits_de_mer",
+      "crudites",
+      "poisson_poche"
+    ],
+    "aioli": [
+      "legumes",
+      "poisson_poche",
+      "fruits_de_mer"
+    ],
+    "remoulade": [
+      "crudites",
+      "fritures",
+      "fruits_de_mer"
+    ],
+    "tartare": [
+      "fritures",
+      "poisson_grille",
+      "fruits_de_mer"
+    ],
+    "gribiche": [
+      "abats",
+      "poisson_poche",
+      "fritures"
+    ],
+    "andalouse": [
+      "crudites",
+      "oeufs",
+      "fritures"
+    ],
+    "verte": [
+      "poisson_poche",
+      "fruits_de_mer",
+      "asperges"
+    ],
+    "mousquetaire": [
+      "boeuf",
+      "volaille",
+      "poisson_grille"
+    ],
+    "suedoise": [
+      "porc",
+      "canard"
+    ],
+    "mayo_chantilly": [
+      "asperges",
+      "poisson_poche",
+      "fruits_de_mer"
+    ],
+    "cocktail": [
+      "fruits_de_mer",
+      "crudites"
     ]
   }
 }
