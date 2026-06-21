@@ -2,7 +2,7 @@
 
 **L'arbre des sauces** ("the tree of sauces") is a single-page web app: a
 self-contained HTML file (CSS and JavaScript included) that presents the great
-French sauces as a family tree. You start from the **five mother sauces** and
+French sauces as a family tree. You start from the **mother sauces** and
 work down, branch by branch, to the *daughter sauces* - each with its story,
 ingredients, and method.
 
@@ -40,7 +40,7 @@ inlined, so it makes no network requests and works offline, even straight from
 
 ## The five mother sauces
 
-Escoffier's classification sorts classic sauce-making into five families, each
+Escoffier's classification sorts classic sauce-making into families, each
 shown in its own colour in the app:
 
 | Family | Mother sauce | Technical base |
@@ -48,17 +48,21 @@ shown in its own colour in the app:
 | Roux blanc | **Béchamel**, **Velouté blanc** | white roux + milk / white stock |
 | Roux blond | **Velouté blond** | blond roux + poultry stock or fumet |
 | Roux brun | **Espagnole** → demi-glace | brown roux + brown stock |
-| Hollandaise | **Hollandaise** | egg-yolk + butter emulsion (no roux) |
-| Tomate | **Sauce tomate** | tomatoes reduced with stock |
+| Hollandaise | **Hollandaise** | warm egg-yolk + butter emulsion (no roux) |
+| Tomate | **Sauce tomate** | flour singed over pork & mirepoix, then stock |
+| Mayonnaise | **Mayonnaise** | cold egg-yolk + oil emulsion |
 
-The app's tomato sauce is the modern, olive-oil, flourless version; Escoffier's
-own tomato sauce is in fact bound with flour (pork, mirepoix and white stock).
-Sauces that depart from Escoffier this way carry a `prov` of `moderne` (see
+The app's canonical tomato sauce is Escoffier's own, bound with flour singed
+over salt pork and mirepoix and cooked long in the oven; the modern, olive-oil,
+flourless version is kept beside it as its *practical* layer. A sauce with no
+Escoffier ancestry carries a `prov` of `moderne` - e.g. the modern cocktail
+(Marie-Rose) sauce in the mayonnaise family (see
 [Adding a sauce](#adding-a-sauce)).
 
-From these mothers descend some forty derived sauces - Mornay, Soubise, Nantua,
+From these mothers descend dozens of derived sauces - Mornay, Soubise, Nantua,
 Suprême, Allemande, Béarnaise, Choron, Bordelaise, Chasseur, Robert, Madère,
-Périgueux, Diable, Bigarade, Poivrade, Grand Veneur… each tied to its lineage.
+Périgueux, Diable, Bigarade, Poivrade, Grand Veneur, Rémoulade, Tartare,
+Gribiche, Andalouse… each tied to its lineage.
 
 ## Features
 
@@ -154,7 +158,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    }
    ```
 
-   `fam` must be one of `blanc`, `blond`, `brun`, `holl`, `tom`, `base`, and -
+   `fam` must be one of `blanc`, `blond`, `brun`, `holl`, `tom`, `mayo`, `base`, and -
    unless it is a deliberate branch point - **identical to the parent's family**
    (the build checks this).
 
@@ -166,11 +170,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    roux layer). The build checks it is present and one of these values.
 
    `prov` records the recipe's editorial provenance and is **required on every
-   node** (roots included): one of `classique` (faithful to Escoffier's *Guide
-   culinaire*), `moderne` (a useful modern variant that is not Escoffier's own -
-   e.g. the olive-oil, flourless tomato branch), or `hors_escoffier` (outside the
-   Escoffier system, for satellite families). The build checks it is present and
-   one of these values.
+   node** (roots included): one of `classique` (the sauce belongs to Escoffier's
+   *Guide culinaire*; a modern shortcut, if any, lives in the practical layer),
+   `moderne` (a useful sauce with no Escoffier ancestry - e.g. the cocktail /
+   Marie-Rose sauce), or `hors_escoffier` (outside the Escoffier system, for
+   satellite families). The build checks it is present and one of these values.
 
    `role` is **optional** and holds an editorial *rank* shown in the detail
    badge - `Sauce mère`, `Grande sauce`, `Sauce de base`, the roux layer. Leave

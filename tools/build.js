@@ -24,7 +24,7 @@ const OUTPUT_PATH = path.join(OUTPUT_DIR, 'index.html');
 const FONTS_DIR = path.join(ROOT, 'assets', 'fonts');
 const FONTS_MANIFEST = path.join(FONTS_DIR, 'fonts.json');
 
-const FAMILIES = new Set(['blanc', 'blond', 'brun', 'holl', 'tom', 'base']);
+const FAMILIES = new Set(['blanc', 'blond', 'brun', 'holl', 'tom', 'mayo', 'base']);
 /* Edges where the family deliberately changes: the neutral roux
    (base) branches into three families. Any other parent/child
    divergence is an inconsistency. */

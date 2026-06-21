@@ -21,6 +21,7 @@
   --fam-brun:#6f4421;   --on-brun:#fdf6e6;
   --fam-holl:#f0ce5b;   --on-holl:#4a3a08;
   --fam-tom:#b0402a;    --on-tom:#fdf6e6;
+  --fam-mayo:#7e8a4f;   --on-mayo:#fdf6e6;
   --fam-base:#5c5446;   --on-base:#fdf6e6;
 }
 *{box-sizing:border-box}
@@ -97,6 +98,7 @@ body{
 .fam-brun{--c:var(--fam-brun)}
 .fam-holl{--c:var(--fam-holl)}
 .fam-tom{--c:var(--fam-tom)}
+.fam-mayo{--c:var(--fam-mayo)}
 .fam-base{--c:var(--fam-base)}
 
 .side-foot{margin:26px 8px 0;font-size:.72rem;font-style:italic;color:var(--ink-soft);line-height:1.5}
@@ -276,6 +278,7 @@ body{
       <li><span class="dot" style="background:var(--fam-brun)"></span>Roux brun</li>
       <li><span class="dot" style="background:var(--fam-holl)"></span>Hollandaise</li>
       <li><span class="dot" style="background:var(--fam-tom)"></span>Tomate</li>
+      <li><span class="dot" style="background:var(--fam-mayo)"></span>Mayonnaise</li>
     </ul>
   </header>
   <button class="mobile-bar" id="mobileBar" aria-expanded="false" aria-controls="sidebar">
@@ -317,7 +320,7 @@ body{
       <div class="d-inner" id="detail-body">
         <div class="d-empty">
           <p class="big">Choisissez une sauce</p>
-          <p>La classification d'Escoffier répartit la cuisine en cinq sauces mères – béchamel, velouté, espagnole, hollandaise et tomate – dont découlent des dizaines de sauces filles. Parcourez l'arbre : chaque sauce révèle ici son histoire, ses ingrédients et sa préparation.</p>
+          <p>La classification d'Escoffier répartit la cuisine en cinq grandes sauces mères – béchamel, velouté, espagnole, hollandaise et tomate –, auxquelles s'ajoute la mayonnaise, mère des sauces froides émulsionnées. Des dizaines de sauces filles en découlent. Parcourez l'arbre : chaque sauce révèle ici son histoire, ses ingrédients et sa préparation.</p>
           <p class="hint">Dépliez une branche et choisissez une sauce pour commencer.</p>
         </div>
       </div>
@@ -333,8 +336,8 @@ const NODES = DATA.nodes;
 /* ============================================================
    Family colors + parent map
    ============================================================ */
-const FAM = {blanc:'--fam-blanc',blond:'--fam-blond',brun:'--fam-brun',holl:'--fam-holl',tom:'--fam-tom',base:'--fam-base'};
-const FAMON = {blanc:'--on-blanc',blond:'--on-blond',brun:'--on-brun',holl:'--on-holl',tom:'--on-tom',base:'--on-base'};
+const FAM = {blanc:'--fam-blanc',blond:'--fam-blond',brun:'--fam-brun',holl:'--fam-holl',tom:'--fam-tom',mayo:'--fam-mayo',base:'--fam-base'};
+const FAMON = {blanc:'--on-blanc',blond:'--on-blond',brun:'--on-brun',holl:'--on-holl',tom:'--on-tom',mayo:'--on-mayo',base:'--on-base'};
 function famColor(f){return getComputedStyle(document.documentElement).getPropertyValue(FAM[f]||'--fam-base').trim();}
 function famOn(f){return getComputedStyle(document.documentElement).getPropertyValue(FAMON[f]||'--on-base').trim();}
 
@@ -601,7 +604,7 @@ document.getElementById('tabAccords').addEventListener('click', ()=>setMode('acc
    Initialization
    ============================================================ */
 mountTree(['roux'], 'tree-roux');
-mountTree(['hollandaise','sauce_tomate'], 'tree-noroux');
+mountTree(['hollandaise','sauce_tomate','mayonnaise'], 'tree-noroux');
 buildDishGroups();
 setMode('filiation');
 </script>
