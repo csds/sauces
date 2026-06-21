@@ -111,7 +111,7 @@ its source.
   so there is a single source of truth for lineage.
 - `accords` - the dish/sauce pairings, kept as **pure data**: a pairing appears
   in a card only via the "Accords" section, never woven into the description
-  text. `tagLabel` and `tagGroups` define the vocabulary of dishes.
+  text. `dishLabel` and `dishGroups` define the vocabulary of dishes.
 
 The build also inlines the fonts: the `.woff2` files in `assets/fonts/` (Cormorant
 Garamond and Spectral, both SIL Open Font License) are base64-encoded into the
@@ -193,7 +193,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
    that same side-note under the canonical recipe, with no toggle.
 2. Attach it to its mother by adding its key to the parent's `children` array.
    Lineage and navigation links follow automatically.
-3. (Optional) Declare its pairings in `accords` using existing `tagLabel` tags -
+3. (Optional) Declare its pairings in `accords` using existing dishes from the `dishLabel` vocabulary -
    or, more easily, with the [pairings editor](#pairings-editor-toolsaccords-editorhtml)
    described below, which edits pairings and the dish vocabulary visually.
 4. Rebuild to check it: `node tools/build.js`, then commit your
@@ -244,7 +244,7 @@ Pages dashboard - the artifact is unaffected either way.
 
 Reworking the `accords` table by hand - arrays of opaque identifiers
 (`"villeroi": ["ris_de_veau","volaille","legumes"]`) - is tedious and quietly
-error-prone (a typo in a tag silently drops the pairing). The editor solves this
+error-prone (a typo in a dish id silently drops the pairing). The editor solves this
 by presenting pairings as a **sauces × dishes grid** of checkboxes.
 
 It is a **development tool only**: it is not shipped with the app, nor linked
@@ -281,7 +281,7 @@ the grid always reflects the real state of the data.
    Then regenerate the page: `node tools/build.js`.
 
 The exported file is **deterministically sorted** (sauces by family then name,
-dishes in vocabulary order) for clean diffs. Only `tagLabel`, `tagGroups`, and
+dishes in vocabulary order) for clean diffs. Only `dishLabel`, `dishGroups`, and
 `accords` are touched - `nodes` are copied as-is.
 
 ## Credits
