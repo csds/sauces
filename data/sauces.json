@@ -5,7 +5,6 @@
       "fam": "base",
       "prov": "classique",
       "role": "Base technique",
-      "hint": "beurre + farine",
       "desc": "Mélange de beurre et de farine à parts égales, cuit à différents degrés. La durée de cuisson détermine la couleur, le goût et le pouvoir liant. C'est le fondement de toute la cuisine de sauce classique française.",
       "ings": [
         "Beurre",
@@ -28,7 +27,6 @@
       "prov": "classique",
       "role": "Roux – cuit 2 min",
       "deriv": "base",
-      "hint": "2 min, neutre",
       "desc": "Cuit 2 minutes seulement, le roux blanc reste pâle et neutre en goût. Son pouvoir liant est maximal car l'amidon est peu transformé. C'est la base de la béchamel et du velouté blanc.",
       "ings": [
         "30 g beurre",
@@ -51,7 +49,6 @@
       "prov": "classique",
       "role": "Roux – cuit 4 à 5 min",
       "deriv": "base",
-      "hint": "4–5 min, doré",
       "desc": "Cuit 4 à 5 minutes, il prend une teinte dorée et dégage un léger parfum de noisette. Son pouvoir liant est un peu inférieur au roux blanc, mais le goût est plus complexe. C'est la base des veloutés blonds.",
       "ings": [
         "30 g beurre",
@@ -74,7 +71,6 @@
       "prov": "classique",
       "role": "Roux – cuit 8 à 10 min",
       "deriv": "base",
-      "hint": "8–10 min, noisette",
       "desc": "Cuit jusqu'à une couleur noisette foncée. Son pouvoir liant est réduit (il faut en mettre davantage) mais il apporte une profondeur aromatique incomparable. Chez Escoffier la durée n'est pas fixe : c'est la couleur qui guide. Les 8 à 10 minutes valent pour cette quantité (30 g) et sont à adapter selon le volume et la chaleur. La chaleur résiduelle continue la cuisson : retirer du feu un peu avant la couleur voulue.",
       "ings": [
         "30 g beurre",
@@ -97,7 +93,6 @@
       "prov": "classique",
       "role": "Sauce mère",
       "deriv": "base",
-      "hint": "+ lait",
       "desc": "L'une des cinq grandes sauces mères d'Escoffier. Roux blanc allongé de lait chaud, assaisonné de muscade. Blanche et onctueuse, elle est la base des gratins, lasagnes et de nombreuses sauces dérivées.",
       "ings": [
         "30 g beurre",
@@ -125,7 +120,6 @@
       "prov": "classique",
       "role": "Sauce mère",
       "deriv": "base",
-      "hint": "+ fond blanc",
       "desc": "Roux blanc allongé de fond blanc de veau. Plus léger que la béchamel, couleur ivoire, goût délicat. C'est la base des grandes sauces pour viandes blanches et ris de veau.",
       "ings": [
         "30 g beurre",
@@ -151,7 +145,6 @@
       "prov": "classique",
       "role": "Grande sauce",
       "deriv": "base",
-      "hint": "volaille / fumet",
       "desc": "Roux blond allongé d'un fond de volaille ou d'un fumet de poisson. Couleur dorée, léger goût de noisette. Plus caractérisé que le velouté blanc, c'est la base des grands veloutés de service.",
       "ings": [
         "30 g beurre",
@@ -177,7 +170,6 @@
       "prov": "classique",
       "role": "Sauce mère",
       "deriv": "base",
-      "hint": "+ fond brun",
       "desc": "Roux brun allongé de fond brun de veau, garniture aromatique et concentré de tomate. Longue à réaliser (1 h 30 à 2 h), c'est la base de la demi-glace et de toutes les grandes sauces brunes classiques.",
       "ings": [
         "50 g beurre",
@@ -207,7 +199,6 @@
       "prov": "classique",
       "role": "Sauce de base",
       "deriv": "composition",
-      "hint": "espagnole réduite",
       "desc": "L'espagnole réduite de moitié jusqu'à une texture sirupeuse et brillante, finie d'une pointe de glace de viande. Concentration de saveurs intense – quelques cuillerées suffisent à sublimer un jus de viande. Volontairement neutre, elle reçoit son vin (Madère, porto…) seulement au moment de la sauce dérivée. C'est la mère des grandes sauces brunes classiques.",
       "ings": [
         "1 L sauce Espagnole",
@@ -700,7 +691,6 @@
       "fam": "holl",
       "prov": "classique",
       "role": "Sauce mère (sans roux)",
-      "hint": "beurre + œufs",
       "desc": "Émulsion chaude de jaunes d'œufs et de beurre clarifié, acidulée au citron ou au vinaigre. L'une des cinq grandes sauces mères – sans roux. Onctueuse, beurrée, légèrement acide. Accompagne asperges, poissons pochés et œufs Bénédicte.",
       "ings": [
         "3 jaunes d'œufs",
@@ -726,7 +716,6 @@
       "fam": "tom",
       "prov": "moderne",
       "role": "Sauce mère (version moderne)",
-      "hint": "tomates + fond",
       "desc": "L'une des cinq grandes sauces mères de la classification d'Escoffier. Cette version moderne, liée par simple réduction à l'huile d'olive, est sans roux ; l'originale d'Escoffier, elle, est liée à la farine (lard, mirepoix et fond blanc). Base universelle de la cuisine française et internationale.",
       "ings": [
         "1 kg tomates fraîches",
