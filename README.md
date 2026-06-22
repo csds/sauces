@@ -45,8 +45,8 @@ shown in its own colour in the app:
 
 | Family | Mother sauce | Technical base |
 | --- | --- | --- |
-| Roux blanc | **Béchamel**, **Velouté blanc** | white roux + milk / white stock |
-| Roux blond | **Velouté blond** | blond roux + poultry stock or fumet |
+| Roux blanc | **Béchamel** | white roux + milk |
+| Roux blond | **Velouté** (de veau, de volaille, de poisson) | blond roux + white stock (veal / poultry / fish) |
 | Roux brun | **Espagnole** → demi-glace | brown roux + brown stock |
 | Hollandaise | **Hollandaise** | warm egg-yolk + butter emulsion (no roux) |
 | Tomate | **Sauce tomate** | flour singed over pork & mirepoix, then stock |
