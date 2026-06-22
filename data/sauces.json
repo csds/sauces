@@ -27,7 +27,7 @@
       "prov": "classique",
       "role": "Roux – cuit 2 min",
       "deriv": "base",
-      "desc": "Cuit 2 minutes seulement, le roux blanc reste pâle et neutre en goût. Son pouvoir liant est maximal car l'amidon est peu transformé. C'est la base de la béchamel et du velouté blanc.",
+      "desc": "Cuit 2 minutes seulement, le roux blanc reste pâle et neutre en goût. Son pouvoir liant est maximal car l'amidon est peu transformé. C'est la base de la béchamel.",
       "ings": [
         "30 g beurre",
         "30 g farine"
@@ -39,8 +39,7 @@
         "Laisser tiédir avant d'incorporer le liquide chaud."
       ],
       "children": [
-        "bechamel",
-        "veloute_blanc"
+        "bechamel"
       ]
     },
     "roux_blond": {
@@ -49,7 +48,7 @@
       "prov": "classique",
       "role": "Roux – cuit 4 à 5 min",
       "deriv": "base",
-      "desc": "Cuit 4 à 5 minutes, il prend une teinte dorée et dégage un léger parfum de noisette. Son pouvoir liant est un peu inférieur au roux blanc, mais le goût est plus complexe. C'est la base des veloutés blonds.",
+      "desc": "Cuit 4 à 5 minutes, il prend une teinte dorée et dégage un léger parfum de noisette. Son pouvoir liant est un peu inférieur au roux blanc, mais le goût est plus complexe. C'est la base du velouté, décliné selon le fond – veau, volaille ou poisson.",
       "ings": [
         "30 g beurre",
         "30 g farine"
@@ -62,7 +61,9 @@
         "Tiédir avant d'incorporer le fond chaud."
       ],
       "children": [
-        "veloute_blond"
+        "veloute_veau",
+        "veloute_volaille",
+        "veloute_poisson"
       ]
     },
     "roux_brun": {
@@ -114,54 +115,75 @@
         "nantua"
       ]
     },
-    "veloute_blanc": {
-      "nm": "Velouté blanc",
-      "fam": "blanc",
+    "veloute_veau": {
+      "nm": "Velouté de veau",
+      "fam": "blond",
       "prov": "classique",
       "role": "Sauce mère",
       "deriv": "base",
-      "desc": "Roux blanc allongé de fond blanc de veau. Plus léger que la béchamel, couleur ivoire, goût délicat. C'est la base des grandes sauces pour viandes blanches et ris de veau.",
+      "desc": "Le velouté « ordinaire » d'Escoffier : roux blond allongé de fond blanc de veau. Couleur ivoire, goût délicat, c'est l'un des trois veloutés de base – le velouté est toujours un roux blond, décliné selon le fond. Base de l'allemande et de la ravigote chaude.",
       "ings": [
         "30 g beurre",
         "30 g farine",
         "500 ml fond blanc de veau"
       ],
       "steps": [
-        "Réaliser un roux blanc.",
+        "Réaliser un roux blond.",
         "Incorporer le fond blanc chaud progressivement en fouettant.",
         "Cuire 15 à 20 min à feu doux en remuant.",
         "Passer au chinois fin et rectifier l'assaisonnement."
       ],
       "children": [
-        "supreme",
         "allemande",
-        "normande",
         "ravigote"
       ]
     },
-    "veloute_blond": {
-      "nm": "Velouté blond",
+    "veloute_volaille": {
+      "nm": "Velouté de volaille",
       "fam": "blond",
       "prov": "classique",
-      "role": "Grande sauce",
+      "role": "Sauce mère",
       "deriv": "base",
-      "desc": "Roux blond allongé d'un fond de volaille ou d'un fumet de poisson. Couleur dorée, léger goût de noisette. Plus caractérisé que le velouté blanc, c'est la base des grands veloutés de service.",
+      "desc": "Roux blond allongé d'un fond de volaille. Le velouté décliné au fond de volaille : couleur dorée, parfum délicat de poule. C'est la base de la suprême et des grandes sauces de volaille.",
       "ings": [
         "30 g beurre",
         "30 g farine",
-        "500 ml fond de volaille ou fumet de poisson"
+        "500 ml fond de volaille"
       ],
       "steps": [
         "Réaliser un roux blond.",
-        "Incorporer le fond chaud progressivement en fouettant.",
+        "Incorporer le fond de volaille chaud progressivement en fouettant.",
         "Cuire 15 à 20 min à feu doux.",
         "Passer au chinois fin et assaisonner."
       ],
       "children": [
-        "bercy",
-        "vin_blanc",
+        "supreme",
         "aurore",
         "regence"
+      ]
+    },
+    "veloute_poisson": {
+      "nm": "Velouté de poisson",
+      "fam": "blond",
+      "prov": "classique",
+      "role": "Sauce mère",
+      "deriv": "base",
+      "desc": "Roux blond allongé d'un fumet de poisson. Le velouté décliné au maigre : couleur dorée, goût marin. C'est la base des grandes sauces de poisson – normande, vin blanc, Bercy.",
+      "ings": [
+        "30 g beurre",
+        "30 g farine",
+        "500 ml fumet de poisson"
+      ],
+      "steps": [
+        "Réaliser un roux blond.",
+        "Incorporer le fumet chaud progressivement en fouettant.",
+        "Cuire 15 à 20 min à feu doux.",
+        "Passer au chinois fin et assaisonner."
+      ],
+      "children": [
+        "normande",
+        "vin_blanc",
+        "bercy"
       ]
     },
     "espagnole": {
@@ -304,7 +326,7 @@
     },
     "supreme": {
       "nm": "Suprême",
-      "fam": "blanc",
+      "fam": "blond",
       "prov": "classique",
       "deriv": "composition",
       "desc": "Velouté de volaille enrichi de crème fraîche et monté au beurre. Onctueuse, ivoire, d'une douceur soyeuse. C'est la sauce des suprêmes de volaille pochés et des ris de veau.",
@@ -324,12 +346,12 @@
     },
     "allemande": {
       "nm": "Allemande",
-      "fam": "blanc",
+      "fam": "blond",
       "prov": "classique",
       "deriv": "composition",
-      "desc": "Aussi appelée sauce parisienne. Velouté blanc lié aux jaunes d'œufs et à la crème, monté au beurre. Plus riche et complexe que le velouté seul. Accompagne viandes blanches et quenelles.",
+      "desc": "Aussi appelée sauce parisienne. Velouté de veau lié aux jaunes d'œufs et à la crème, monté au beurre. Plus riche et complexe que le velouté seul. Accompagne viandes blanches et quenelles.",
       "ings": [
-        "400 ml velouté blanc",
+        "400 ml velouté de veau",
         "2 jaunes d'œufs",
         "100 ml crème",
         "30 g beurre",
@@ -349,7 +371,7 @@
     },
     "normande": {
       "nm": "Normande",
-      "fam": "blanc",
+      "fam": "blond",
       "prov": "classique",
       "deriv": "composition",
       "desc": "Velouté de poisson enrichi de crème, de jus de champignons et de moules, lié aux jaunes d'œufs. Généreuse, marine, typiquement normande. C'est la sauce classique de la sole normande.",
@@ -418,9 +440,9 @@
       "fam": "blond",
       "prov": "classique",
       "deriv": "composition",
-      "desc": "Velouté additionné de concentré de tomate, qui lui donne une teinte rosée caractéristique. Douce, légèrement acidulée, très décorative. Accompagne volailles, œufs pochés et quenelles.",
+      "desc": "Velouté de volaille additionné de concentré de tomate, qui lui donne une teinte rosée caractéristique. Douce, légèrement acidulée, très décorative. Accompagne volailles, œufs pochés et quenelles.",
       "ings": [
-        "400 ml velouté",
+        "400 ml velouté de volaille",
         "2 c. à s. concentré de tomate",
         "30 g beurre"
       ],
@@ -435,12 +457,12 @@
     },
     "ravigote": {
       "nm": "Ravigote",
-      "fam": "blanc",
+      "fam": "blond",
       "prov": "classique",
       "deriv": "assemblage",
-      "desc": "Velouté réduit au vin blanc et au vinaigre, monté au beurre d'échalote et relevé d'herbes – cerfeuil, estragon, ciboulette. Acidulée et herbacée. (Il existe aussi une ravigote froide, sorte de vinaigrette aux câpres et fines herbes.) Accompagne abats, volailles pochées et poissons.",
+      "desc": "Velouté de veau réduit au vin blanc et au vinaigre, monté au beurre d'échalote et relevé d'herbes – cerfeuil, estragon, ciboulette. Acidulée et herbacée. (Il existe aussi une ravigote froide, sorte de vinaigrette aux câpres et fines herbes.) Accompagne abats, volailles pochées et poissons.",
       "ings": [
-        "300 ml velouté",
+        "300 ml velouté de veau",
         "100 ml vin blanc",
         "2 c. à s. vinaigre",
         "2 échalotes",
@@ -457,7 +479,7 @@
     },
     "poulette": {
       "nm": "Poulette",
-      "fam": "blanc",
+      "fam": "blond",
       "prov": "classique",
       "deriv": "composition",
       "desc": "Allemande additionnée de jus de cuisson de champignons, relevée de jus de citron et de persil. Douce et citronnée. Classiquement servie avec les champignons, les moules ou les pieds de mouton.",
@@ -477,7 +499,7 @@
     },
     "villeroi": {
       "nm": "Villeroi",
-      "fam": "blanc",
+      "fam": "blond",
       "prov": "classique",
       "deriv": "composition",
       "desc": "Allemande très réduite avec une essence de jambon et de champignon, jusqu'à devenir assez épaisse pour napper et figer. On y trempe ris de veau, volaille ou légumes avant de les paner et frire « à la Villeroi ».",
@@ -1137,9 +1159,9 @@
       "fam": "blond",
       "prov": "classique",
       "deriv": "assemblage",
-      "desc": "Velouté (de poisson ou de volaille) enrichi d'une réduction de vin du Rhin, d'essence de truffe et d'essence de champignon. Raffinée et aromatique, c'est une sauce d'apparat de la grande cuisine – pour quenelles, ris de veau, volailles et poissons nobles.",
+      "desc": "Velouté de volaille enrichi d'une réduction de vin du Rhin, d'essence de truffe et d'essence de champignon. Raffinée et aromatique, c'est une sauce d'apparat de la grande cuisine – pour quenelles, ris de veau et volailles. (Escoffier en donne aussi une version au velouté de poisson pour les poissons nobles.)",
       "ings": [
-        "400 ml velouté (poisson ou volaille)",
+        "400 ml velouté de volaille",
         "100 ml vin du Rhin (riesling)",
         "1 c. à s. essence de truffe",
         "1 c. à s. essence de champignon"
